@@ -7,15 +7,15 @@ import { Headers, Http, RequestOptions } from '@angular/http';
 import { HttpClientModule, HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 
 // import 'rxjs/add/operator/toPromise';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 
-import { environment } from '../../environments/environment';
-import { User } from '../models/models';
-import { Subscription } from 'rxjs/Subscription';
+import { environment } from '../../shared-ng/environments/environment';
+import { User } from './user.model';
+import { Subscription } from 'rxjs';
 
 // for getObservable
-import {of} from 'rxjs/observable/of';
+import {of} from 'rxjs';
 
 @Injectable()
 export class RequestService {

@@ -1,8 +1,3 @@
-// originally coppied from pages
-
-/**
- * Created by ethan on 1/17/17.
- */
 export class User {
     wwuid: string;
     username: string;
