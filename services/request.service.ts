@@ -8,7 +8,7 @@ import { HttpClientModule, HttpClient, HttpParams, HttpHeaders } from '@angular/
 
 // import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs';
-import 'rxjs/add/operator/map';
+import { map } from 'rxjs/operators';
 
 import { environment } from '../../shared-ng/environments/environment';
 import { User } from './user.model';
