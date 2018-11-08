@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { UserBubbleComponent } from '../user-bubble/user-bubble.component';
+import { UserBubbleComponent } from '../components';
 
 @Component({
 	selector: 'nav-bar',
