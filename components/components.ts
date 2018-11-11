@@ -1,3 +1,4 @@
+export * from './app/app.component';
 export * from './footer/footer.component';
 export * from './mobile-nav/mobile-nav.component';
 export * from './nav-bar/nav-bar.component';
