@@ -10,4 +10,21 @@ import { UserBubbleComponent } from '../components';
 
 export class NavBarComponent {
 
+	links: any = [
+		{ text: "ASWWU",       link: "/" }, 
+		{ text: "Mask",        link: "" }, 
+		{ text: "Jobs",        link: "" },
+		{ text: "Upcomming",   link: "" },
+		{ text: "Departments", link: null, dropdownLinks: [
+			{ text: "Administration", link: "" },
+			{ text: "Atlas",          link: "" }
+		]},
+		{ text: "More", link: null, dropdownLinks: [
+			{ text: "D2L",   link: "" },
+			{ text: "Atlas", link: "" }
+		]},
+	];
+
+	public isCollapsed = false;
+
 }
