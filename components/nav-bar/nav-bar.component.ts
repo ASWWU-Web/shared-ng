@@ -1,11 +1,15 @@
 import { Component, Input } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserBubbleComponent } from '../components';
+import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
 	selector: 'nav-bar',
 	templateUrl: 'nav-bar.component.html',
-	styleUrls: [ 'nav-bar.styles.css']
+	styleUrls: [ 
+		'nav-bar.styles.css',
+		'mobile-nav.component.css'
+	]
 })
 
 export class NavBarComponent {
@@ -26,5 +30,11 @@ export class NavBarComponent {
 	];
 
 	public isCollapsed = false;
+
+	public beforeChange($event: NgbPanelChangeEvent) {
+		if ($event.panelId.startsWith("linkOnly")) {
+		  $event.preventDefault();
+		}
+	  }
 
 }

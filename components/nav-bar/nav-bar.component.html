@@ -2,8 +2,8 @@
 
   <button class="navbar navbar-toggler" 
           type="button" 
-          data-target="#mobileMenu" 
-          aria-controls="mobileMenu" 
+          data-target="#mobile-nav-collapsible" 
+          aria-controls="mobile-nav-collapsible" 
           (click)="isCollapsed = !isCollapsed"
           [attr.aria-expanded]="!isCollapsed"
   >
@@ -31,3 +31,14 @@
   <user-bubble></user-bubble>
 </nav>
 <div id="nav-spacer"></div>
+
+<!-- Mobile Navigation Menu -->
+<div class="desktop-hide mobile-scrollable-menu bg-dark" id="mobile-nav-collapsible" [ngbCollapse]="isCollapsed">
+    <ngb-accordion (panelChange)="beforeChange($event)" #acc="ngbAccordion" class="mobile-accordion">
+      <ngb-panel *ngFor="let item of links" id="{{ ((item.link!=null) ? 'linkOnly' : '') + item.text}}" title="{{item.text}}" class="mobile-accordion">
+        <ng-template *ngIf="item.link == null" ngbPanelContent class="mobile-accordion">
+          <a *ngFor="let dropdownItem of item.dropdownLinks" href="{{dropdownItem.link}}" class="mobile-accordion">{{dropdownItem.text}}</a>
+        </ng-template>
+      </ngb-panel>
+    </ngb-accordion>
+</div>

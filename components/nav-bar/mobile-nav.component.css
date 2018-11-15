@@ -1,0 +1,42 @@
+/* mobile nav menu items */
+
+/deep/ .mobile-accordion * {
+  color:white;
+  background-color: rgb(70, 70, 70);
+  border:0px none;
+  font-family: var(--font-1);
+  font-size: 2rem;
+}
+
+/deep/ .card-header {
+  padding:0px;
+}
+
+/* mobile-nav-menu */
+  .mobile-scrollable-menu {
+    z-index: 3;
+    height:100vh;
+    overflow-y: auto;
+    position: fixed;
+  }
+/* mobile nav menu animation */
+.collapse.mobile-scrollable-menu, .collapse.show {
+    display: block !important;
+    transition: all .4s cubic-bezier(0, 1.03, 0.28, 0.99);
+  }
+
+  .collapse.mobile-scrollable-menu{
+   width: 0;
+  }
+
+  .collapse.show {
+    width: 100%;
+    /* if we add swiping to open and close the menu this doesn't need to be 100% */
+  }
+
+  @media only screen and (min-width:768px) {
+    /* for desktop */
+    .desktop-hide {
+      width:0 !important;
+    }
+  }
