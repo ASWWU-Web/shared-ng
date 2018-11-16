@@ -16,12 +16,13 @@ export class NavBarComponent {
 
 	links: any = [
 		{ text: "ASWWU",       link: "/" }, 
-		{ text: "Mask",        link: "" }, 
+		{ text: "Mask",        link: "aswwu.com/mask" }, 
 		{ text: "Jobs",        link: "" },
 		{ text: "Upcomming",   link: "" },
 		{ text: "Departments", link: null, dropdownLinks: [
-			{ text: "Administration", link: "" },
-			{ text: "Atlas",          link: "" }
+			{ text: "Administration", 		link: "" },
+			{ text: "Atlas",          		link: "" },
+			{ text: "Diversity & Wellness",	link: ""}
 		]},
 		{ text: "More", link: null, dropdownLinks: [
 			{ text: "D2L",   link: "" },

@@ -33,12 +33,25 @@
 <div id="nav-spacer"></div>
 
 <!-- Mobile Navigation Menu -->
-<div class="desktop-hide mobile-scrollable-menu bg-dark" id="mobile-nav-collapsible" [ngbCollapse]="isCollapsed">
-    <ngb-accordion (panelChange)="beforeChange($event)" #acc="ngbAccordion" class="mobile-accordion">
-      <ngb-panel *ngFor="let item of links" id="{{ ((item.link!=null) ? 'linkOnly' : '') + item.text}}" title="{{item.text}}" class="mobile-accordion">
-        <ng-template *ngIf="item.link == null" ngbPanelContent class="mobile-accordion">
-          <a *ngFor="let dropdownItem of item.dropdownLinks" href="{{dropdownItem.link}}" class="mobile-accordion">{{dropdownItem.text}}</a>
+<div class="desktop-hide mobile-scrollable-menu bg-dark mnc" id="mobile-nav-collapsible" [ngbCollapse]="isCollapsed">
+    <ngb-accordion (panelChange)="beforeChange($event)" #acc="ngbAccordion" class="">
+      <ngb-panel *ngFor="let item of links" id="{{ ((item.link!=null) ? 'linkOnly' : '') + item.text}}" title="{{item.text}}" class="" href="aswwu.com/mask">
+        <ng-template *ngIf="item.link == null" ngbPanelContent class="">
+          <button *ngFor="let dropdownItem of item.dropdownLinks" class="btn btn-link w-100 text-left" type="button">{{dropdownItem.text}}</button>
         </ng-template>
       </ngb-panel>
     </ngb-accordion>
 </div>
+
+<!-- <div class="desktop-hide mobile-scrollable-menu bg-dark mnc" id="mobile-nav-collapsible" [ngbCollapse]="isCollapsed">
+  <div>
+    <ul>
+      <li *ngFor="let item of links" [ngClass]="{'nav-item': item.link != null, 'dropdown': item.link == null}">
+          <a *ngIf="item.link != null" type="button" class="smooth text-uppercase" href="{{item.link}}"> {{item.text}} </a>
+          <ul *ngIf="item.link == null" ngbDropdown class="d-inline-block">
+
+            </ul>
+      </li>
+    </ul>
+  </div>
+</div> -->

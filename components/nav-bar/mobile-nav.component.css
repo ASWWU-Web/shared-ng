@@ -1,15 +1,41 @@
 /* mobile nav menu items */
 
-/deep/ .mobile-accordion * {
-  color:white;
-  background-color: rgb(70, 70, 70);
-  border:0px none;
-  font-family: var(--font-1);
-  font-size: 2rem;
+.mnc /deep/ .card-header, 
+.mnc /deep/ .card-body, 
+.mnc /deep/ .card, 
+.mnc /deep/ .btn {
+  background-color: var(--gray);
+  color: white;
+  border: 0px none;
+  font-size: 1.5rem;
 }
 
-/deep/ .card-header {
-  padding:0px;
+.mnc /deep/ .card {
+  background-color: var(--gray);
+  color: white;
+  border: 0px none;
+  padding: 0;
+}
+
+.mnc /deep/ .card-body {
+  border-left: 1rem solid var(--dark);
+  padding-left: .5rem;
+  font-size: 1rem;
+}
+
+.mnc /deep/ .card-body .btn {
+  font-size: 1rem;
+}
+
+.mnc /deep/ .btn {
+  width: 100%;
+  text-align: left;
+  text-decoration: none;
+}
+
+.mnc /deep/ .btn :active {
+  background-color: var(--light);
+
 }
 
 /* mobile-nav-menu */
