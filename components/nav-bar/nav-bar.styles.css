@@ -52,11 +52,13 @@
 nav {
   position: relative;
   width:100%;
+  height: 66px; /* the max height with the user bubble visible*/
   top: 0 !important;
   z-index: 3 !important;
 }
 #nav-spacer {
   display: none;
+  height: 66px;
 }
 
 /* Breakpoint for sticky mobile-nav */
@@ -67,7 +69,6 @@ nav {
   #nav-spacer {
     position: relative;
     display: block;
-    height: 50px;
     width: 100%;
   }
 }
