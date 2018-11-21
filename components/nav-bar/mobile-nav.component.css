@@ -1,47 +1,33 @@
 /* mobile nav menu items */
-
-.mnc /deep/ .card-header, 
-.mnc /deep/ .card-body, 
-.mnc /deep/ .card, 
-.mnc /deep/ .btn {
-  background-color: var(--gray);
-  color: white;
-  border: 0px none;
+#mobile-nav-links li a, #mobile-nav-links li div button  {
+  font-family: var(--font-1);
   font-size: 1.5rem;
-}
-
-.mnc /deep/ .card {
-  background-color: var(--gray);
   color: white;
-  border: 0px none;
-  padding: 0;
-}
-
-.mnc /deep/ .card-body {
-  border-left: 1rem solid var(--dark);
-  padding-left: .5rem;
-  font-size: 1rem;
-}
-
-.mnc /deep/ .card-body .btn {
-  font-size: 1rem;
-}
-
-.mnc /deep/ .btn {
-  width: 100%;
-  text-align: left;
+  transition: color .2s, background-color .2s;
   text-decoration: none;
+  background-color: var(--gray);
+  border-bottom: 1px solid black;
+}
+#mobile-nav-links li a:active, #mobile-nav-links li button:active {
+  filter: brightness(125%);
+  transition: .2s;
 }
 
-.mnc /deep/ .btn :active {
-  background-color: var(--light);
+#mobile-nav-links .dropdown-menu {
+  border: 0px none;
+  padding: 0px;
+  margin: 0px;
+  border-left: 1rem solid black;
+}
 
+#mobile-nav-links .dropdown-menu a {
+  font-size: 1rem;
 }
 
 /* mobile-nav-menu */
   .mobile-scrollable-menu {
     z-index: 3;
-    height:100vh;
+    height: 100vh;
     overflow-y: auto;
     position: fixed;
   }
