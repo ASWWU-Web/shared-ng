@@ -1,3 +1,15 @@
+@media (min-width: 768px){
+  #navbarLogo {
+    display: none;
+  }
+}
+#navbarLogo {
+  max-height: 30px;
+  height: auto;
+  width: auto;
+  max-width: 30vw;
+}
+
 /*Nav*/
 #nav-links {
   width: 100%;

@@ -10,6 +10,8 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
+  <img id="navbarLogo" class="img-fluid logo" src="https://aswwu.com/media/images/ASWWU_logo.png" />
+
   <!-- Desktop Navbar -->
   <div class="collapse navbar-collapse" >
     
@@ -33,9 +35,7 @@
 <div id="nav-spacer"></div>
 
 <!-- Mobile Navigation Menu -->
-
-<!-- REMEMBER TO CHANGE DEFAULT COLLAPSE BEHAVIOR BEFORE DEPLOYMENT -->
-<div class="desktop-hide mobile-scrollable-menu bg-dark" id="mobile-nav-collapsible" [ngbCollapse]="isCollapsed">
+<div class="desktop-hide mobile-scrollable-menu bg-dark" id="mobile-nav-collapsible" [ngbCollapse]="!isCollapsed">
     <ul id="mobile-nav-links" class="navbar-nav text-xs-center">
         <li *ngFor="let item of links" class="" [ngClass]="{'nav-item': item.link != null, 'dropdown': item.link == null}">
           <!-- For Direct Links -->
