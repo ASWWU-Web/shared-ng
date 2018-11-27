@@ -8,6 +8,8 @@
   background-color: var(--gray);
   border-bottom: 1px solid black;
   width: fill-available;
+  width: -webkit-fill-available;
+  width: -moz-available;
 }
 #mobile-nav-links li a:active, #mobile-nav-links li button:active {
   filter: brightness(125%);
