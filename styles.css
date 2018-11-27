@@ -1,9 +1,13 @@
 @import 'https://fonts.googleapis.com/css?family=Dosis:300,400|Pacifico|Raleway:400,700';
 
 :root {
+    /* ASWWU Fonts */
     --font-1: 'Dosis', sans-serif; /* Headers and big text */
     --font-2: 'Raleway', sans-serif; /* Generic Text */
     --font-test: "Brush Script MT", cursive; /* an eye-sore font to make sure it's working */
+    /* ASWWU Colors */
+    --dark: #343a40;
+    
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -16,4 +20,9 @@ h1, h2, h3, h4, h5, h6 {
 
 h1, h2, h3, h4, h5, h6 {
   font-weight: 300;
+}
+
+/* Bootstrap Override */
+.bg-dark {
+    background-color: var(--dark) !important;
 }

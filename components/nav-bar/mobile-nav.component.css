@@ -1,0 +1,57 @@
+/* mobile nav menu items */
+#mobile-nav-links li a, #mobile-nav-links li div button  {
+  font-family: var(--font-1);
+  font-size: 1.5rem;
+  color: white;
+  transition: color .2s, background-color .2s;
+  text-decoration: none;
+  background-color: var(--gray);
+  border-bottom: 1px solid black;
+  width: fill-available;
+  width: -webkit-fill-available;
+  width: -moz-available;
+}
+#mobile-nav-links li a:active, #mobile-nav-links li button:active {
+  filter: brightness(125%);
+  transition: .2s;
+}
+
+#mobile-nav-links .dropdown-menu {
+  border: 0px none;
+  padding: 0px;
+  margin: 0px;
+  border-left: 1rem solid black;
+}
+
+#mobile-nav-links .dropdown-menu a {
+  font-size: 1rem;
+}
+
+/* mobile-nav-menu */
+  .mobile-scrollable-menu {
+    z-index: 3;
+    height: calc(100vh - 66px);
+    overflow-y: auto;
+    position: fixed;
+  }
+/* mobile nav menu animation */
+.collapse.mobile-scrollable-menu, .collapse.show {
+    display: block !important;
+    transition: all .4s cubic-bezier(0, 1.03, 0.28, 0.99);
+  }
+
+  .collapse.mobile-scrollable-menu{
+   width: 0;
+  }
+
+  .collapse.show {
+    width: 100%;
+    /* if we add swiping to open and close the menu this doesn't need to be 100% */
+  }
+
+  @media only screen and (min-width:768px) {
+    /* for desktop */
+    .desktop-hide {
+      width:0 !important;
+    }
+  }
