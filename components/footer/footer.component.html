@@ -1,6 +1,11 @@
 <div id="foot">
-  <nav id="footer" class="navbar navbar-dark">
-    <div class="container">
+
+  <div id="colors-bar">
+    <div *ngFor="let department of departments" [ngStyle]="{'background-color': 'var(--color-' + department + ')'}" style="background-color: var(--color-outdoors)"></div>
+  </div>
+
+  <nav id="footer" class="navbar navbar-light">
+    <div class="container filter-invert">
       <div class="col-12 col-md-4 offset-md-1">
           <img id="footerLogo" class="img-fluid logo" src="https://aswwu.com/media/images/ASWWU_logo.png" />
           <br />

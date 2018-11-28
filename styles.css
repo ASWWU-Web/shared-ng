@@ -44,3 +44,9 @@ h1, h2, h3, h4, h5, h6 {
 .bg-light {
     background-color: var(--light) !important;
 }
+.navbar-light {
+    background-color: var(--light);
+}
+.filter-invert {
+    filter: invert(1);
+}
