@@ -6,7 +6,8 @@
     --font-2: 'Raleway', sans-serif; /* Generic Text */
     --font-test: "Brush Script MT", cursive; /* an eye-sore font to make sure it's working */
     /* Colors */
-    --black: #000000;
+    --light: rgb(241, 242, 242); /* overrides bootstrap */
+    --dark: black; /* overrides bootstrap */
     /* Departmental Colors */
     --color-outdoors: rgb(174, 209, 54);
     --color-tread-shed: rgb(219, 225, 37);
@@ -36,7 +37,10 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 300;
 }
 
-/* Bootstrap Override */
+/* Bootstrap Overrides and bootstrap-like additions */
 .bg-dark {
-    background-color: var(--black) !important;
+    background-color: var(--dark) !important;
+}
+.bg-light {
+    background-color: var(--light) !important;
 }
