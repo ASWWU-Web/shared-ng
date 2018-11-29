@@ -11,7 +11,6 @@ export class FooterComponent implements OnInit {
 
   departments = [
     'outdoors',
-    'outdoors',
     'tread-shed',
     'atlas',
     'mountain-ash',

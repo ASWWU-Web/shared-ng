@@ -1,7 +1,7 @@
 <div id="foot">
 
-  <div id="colors-bar">
-    <div *ngFor="let department of departments" [ngStyle]="{'background-color': 'var(--color-' + department + ')'}" style="background-color: var(--color-outdoors)"></div>
+  <div id="color-bar">
+    <div *ngFor="let department of departments" [ngStyle]="{'background-color': 'var(--color-' + department + ')'}" class="department-color"></div>
   </div>
 
   <nav id="footer" class="navbar navbar-light">
