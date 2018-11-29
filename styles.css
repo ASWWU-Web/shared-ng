@@ -37,16 +37,6 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 300;
 }
 
-/* Bootstrap Overrides and bootstrap-like additions */
-.bg-dark {
-    background-color: var(--dark) !important;
-}
-.bg-light {
-    background-color: var(--light) !important;
-}
-.navbar-light {
-    background-color: var(--light);
-}
 .filter-invert {
     filter: invert(1);
 }
