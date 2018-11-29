@@ -5,9 +5,6 @@
     --font-1: 'Dosis', sans-serif; /* Headers and big text */
     --font-2: 'Raleway', sans-serif; /* Generic Text */
     --font-test: "Brush Script MT", cursive; /* an eye-sore font to make sure it's working */
-    /* Colors */
-    --light: rgb(241, 242, 242); /* overrides bootstrap */
-    --dark: black; /* overrides bootstrap */
     /* Departmental Colors */
     --color-outdoors: rgb(174, 209, 54);
     --color-tread-shed: rgb(219, 225, 37);
