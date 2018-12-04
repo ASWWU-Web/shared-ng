@@ -145,6 +145,14 @@ export class RequestService {
       );
   }
 
+  /**
+   * generic post function, for both json and urlencoded data.
+   * @param uri endpoint uri
+   * @param data javascript object
+   * @param afterRequest function to run on success
+   * @param catchError function to run on error
+   * @param encoding optional parameter. use 'urlencoded' to select application/x-www-form-urlencoded as the encoding type.
+   */
   newpost(uri: string, data: any, afterRequest, catchError, encoding?: string) {
     this.verify();
     let req;
