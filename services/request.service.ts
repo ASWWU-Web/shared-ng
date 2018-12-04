@@ -145,6 +145,24 @@ export class RequestService {
       );
   }
 
+  newpost(uri: string, data: any, afterRequest, catchError, encoding?: string) {
+    this.verify();
+    let req;
+    let body;
+    if (encoding == 'urlencoded') {
+      req = this.createRequest(uri, "application/x-www-form-urlencoded; charset=UTF-8");
+      body = this.objToHttpParams(data).toString();
+    } else {
+      req = this.createRequest(uri);
+      body = JSON.stringify(data);
+    }
+    this.http.post(req.url, body, req.options)
+      .subscribe(
+        data => afterRequest(data),
+        err => (catchError ? catchError(err) : console.error(err))
+      );
+  }
+
   uploadImage(file:File, callback:Function, catchError:Function) {
     let data = new FormData;
     data.append('file', file, file.name);
