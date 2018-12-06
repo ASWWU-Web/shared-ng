@@ -88,40 +88,16 @@ export class RequestService {
         err => (catchError ? catchError(err) : console.error(err))
       );
   }
-
-  /*
-  * Functions to make get and post requests
-  * If a full url isn't specified, the default is aswwu.com/ and then the path given
-  * */
-  get(uri: string, afterRequest, catchError): void {
-    let req = this.createRequest(uri);
-    this.verify();
-    this.http.get(req.url, req.options)
-      // .map(res => res.json())
-      .subscribe(
-      data => afterRequest(data),
-      err => (catchError ? catchError(err) : console.error(err))
-      );
-  }
-
-  // for use with typeaheads
-  getObservable(uri: string): Observable<any> {
+  /**
+   * 
+   * @param uri 
+   */
+  get(uri: string) {
     const req = this.createRequest(uri);
     this.verify();
     return this.http.get(req.url, req.options);
   }
 
-
-  post(uri: string, data: any, afterRequest, catchError): void {
-    let body = JSON.stringify(data);
-    this.verify();
-    let req = this.createRequest(uri);
-    this.http.post(req.url, body, req.options)
-      .subscribe(
-        data => afterRequest(data),
-        err => (catchError ? catchError(err) : console.error(err))
-      );
-  }
 
   private objToHttpParams(obj): HttpParams {
     let params: HttpParams = new HttpParams();
@@ -135,25 +111,14 @@ export class RequestService {
     return params;
   }
 
-  postxwww(uri: string, data: any, afterRequest, catchError): void {
-    let body = this.objToHttpParams(data);
-    this.verify();
-    let req = this.createRequest(uri, "application/x-www-form-urlencoded; charset=UTF-8");
-    this.http.post(req.url, body.toString(), req.options).subscribe(
-        data => afterRequest(data),
-        err => (catchError ? catchError(err) : console.error(err))
-      );
-  }
 
   /**
-   * generic post function, for both json and urlencoded data.
+   * generic post function, for both json and urlencoded data. Always returns an observable
    * @param uri endpoint uri
    * @param data javascript object
-   * @param afterRequest function to run on success
-   * @param catchError function to run on error
    * @param encoding optional parameter. use 'urlencoded' to select application/x-www-form-urlencoded as the encoding type.
    */
-  newpost(uri: string, data: any, afterRequest, catchError, encoding?: string) {
+  post(uri: string, data: any, encoding?: string) {
     this.verify();
     let req;
     let body;
@@ -164,12 +129,9 @@ export class RequestService {
       req = this.createRequest(uri);
       body = JSON.stringify(data);
     }
-    this.http.post(req.url, body, req.options)
-      .subscribe(
-        data => afterRequest(data),
-        err => (catchError ? catchError(err) : console.error(err))
-      );
+    return this.http.post(req.url, body, req.options);
   }
+
 
   uploadImage(file:File, callback:Function, catchError:Function) {
     let data = new FormData;
