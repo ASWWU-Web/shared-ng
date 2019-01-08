@@ -113,8 +113,10 @@ export class RequestService {
       encoding = "application/json";
     }
 
+    let headers = new HttpHeaders().set('Content-Type', encoding);
+
     let options = {
-      headers: new HttpHeaders().set('Content-Type', encoding),
+      headers: headers,
       params: urlParams
     };
 
@@ -184,18 +186,18 @@ export class RequestService {
 
 
   get(uri:string, urlParams?:any):Observable<any> {
-    return this.request("GET", uri, urlParams);
+    return this.request("GET", uri, urlParams, null, null);
   }
 
-  delete(uri:string, urlParams:any):Observable<any> {
-    return this.request("DELETE", uri, urlParams);
+  delete(uri:string, urlParams?:any):Observable<any> {
+    return this.request("DELETE", uri, urlParams, null, null);
   }
 
-  post(uri:string, urlParams:any, data:any, encoding?:any):Observable<any> {
+  post(uri:string, data:any, urlParams?:any, encoding?:any):Observable<any> {
     return this.request("POST", uri, urlParams, data, encoding);
   }
 
-  put(uri:string, urlParams:any, data:any, encoding?:any):Observable<any> {
+  put(uri:string, data:any, urlParams?:any, encoding?:any):Observable<any> {
     return this.request("PUT", uri, urlParams, data, encoding);
   }
 
