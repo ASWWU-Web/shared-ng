@@ -177,9 +177,6 @@ export class RequestService {
     else if (requestType == "DELETE") { observable = this.http.delete(url, options); } 
     else if (requestType == "POST") { observable = this.http.post(url, body, options); } 
     else if (requestType == "PUT") { observable = this.http.put(url, body, options); } 
-    else {
-      //ERROR
-    }
 
     return observable;
   }
