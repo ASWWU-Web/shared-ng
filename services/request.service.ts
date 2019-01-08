@@ -2,21 +2,15 @@
 
 //This is here just for testing. It should eventually be put in a separate git repo
 //or be bundled with a base ASWWU project.
-import { NgModule, Injectable } from '@angular/core';
-import { Headers, Http, RequestOptions } from '@angular/http';
-import { HttpClientModule, HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 
 // import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 import { environment } from '../../shared-ng/environments/environment';
 import { User } from './user.model';
-import { Subscription } from 'rxjs';
 
-// for getObservable
-import {of} from 'rxjs';
-import { analyzeAndValidateNgModules } from '@angular/compiler';
 //import { request } from 'https';
 
 @Injectable()
@@ -53,7 +47,7 @@ export class RequestService {
         let user = data.user || null;
         this.setCurrentUser(user);
         if (typeof cb == "function") cb(user);
-      }, err => {
+      }, () => {
         //user in not logged in remove authUser.
         this.setCurrentUser({});
         if (typeof cb == "function") cb(null);
@@ -107,7 +101,7 @@ export class RequestService {
     }
 
     if(encoding == 'urlencoded') {
-      encoding = "application/x-www-form-urlencoded; charset=UTF-8";
+      encoding = this.URLENCODED;
     } 
     else {
       encoding = "application/json";
