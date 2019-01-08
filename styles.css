@@ -5,9 +5,21 @@
     --font-1: 'Dosis', sans-serif; /* Headers and big text */
     --font-2: 'Raleway', sans-serif; /* Generic Text */
     --font-test: "Brush Script MT", cursive; /* an eye-sore font to make sure it's working */
-    /* ASWWU Colors */
-    --dark: #343a40;
-    
+    /* Departmental Colors */
+    --color-outdoors: rgb(174, 209, 54);
+    --color-tread-shed: rgb(219, 225, 37);
+    --color-atlas: rgb(241, 225, 10);
+    --color-mountain-ash: rgb(252, 197, 23);
+    --color-photo: rgb(242, 164, 52);
+    --color-video: rgb(233, 50, 37);
+    --color-collegian: rgb(189, 86, 160);
+    --color-web: rgb(133, 82, 161);
+    --color-marketing: rgb(95, 68, 155);
+    --color-global-service: rgb(74, 91, 168);
+    --color-spiritual: rgb(94, 150, 208);
+    --color-social: rgb(99, 198, 187);
+    --color-senate: rgb(132, 201, 139);
+    --color-executive: rgb(121, 193, 76);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -22,7 +34,6 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 300;
 }
 
-/* Bootstrap Override */
-.bg-dark {
-    background-color: var(--dark) !important;
+.filter-invert {
+    filter: invert(1);
 }
