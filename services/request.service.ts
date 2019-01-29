@@ -89,7 +89,7 @@ export class RequestService {
     return body;
   }
 
-  
+
   /**
    * create the options part of an angular http request. sets header (content type) and url parameters.
    * @param urlParams optional, parameters to be added to the request url
@@ -102,7 +102,7 @@ export class RequestService {
 
     if(encoding == 'urlencoded') {
       encoding = this.URLENCODED;
-    } 
+    }
     else {
       encoding = "application/json";
     }
@@ -167,10 +167,12 @@ export class RequestService {
 
     let observable:Observable<any>;
 
-    if      (requestType == "GET") { observable = this.http.get(url, options); } 
-    else if (requestType == "DELETE") { observable = this.http.delete(url, options); } 
-    else if (requestType == "POST") { observable = this.http.post(url, body, options); } 
-    else if (requestType == "PUT") { observable = this.http.put(url, body, options); } 
+    if      (requestType == "GET") { observable = this.http.get(url, options); }
+    else if (requestType == "DELETE") { observable = this.http.delete(url, options); }
+    else if (requestType == "POST") { observable = this.http.post(url, body, options); }
+    else if (requestType == "PUT") { observable = this.http.put(url, body, options); }
+    // patch not tested
+    else if (requestType == "PATCH") { observable = this.http.patch(url, body, options); }
 
     return observable;
   }
@@ -190,6 +192,11 @@ export class RequestService {
 
   put(uri:string, data:any, urlParams?:any, encoding?:any):Observable<any> {
     return this.request("PUT", uri, urlParams, data, encoding);
+  }
+
+  // patch not tested
+  patch(uri:string, data:any, urlParams?:any, encoding?:any):Observable<any> {
+    return this.request("PATCH", uri, urlParams, data, encoding);
   }
 
 
