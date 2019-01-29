@@ -9,6 +9,23 @@ export class FooterComponent implements OnInit {
 
   constructor() { }
 
+  departments = [
+    'outdoors',
+    'tread-shed',
+    'atlas',
+    'mountain-ash',
+    'photo',
+    'video',
+    'collegian',
+    'web',
+    'marketing',
+    'global-service',
+    'spiritual',
+    'social',
+    'senate',
+    'executive',
+  ];
+
   ngOnInit() {
   }
 

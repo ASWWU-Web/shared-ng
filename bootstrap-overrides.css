@@ -1,0 +1,22 @@
+:root {
+    /* Colors */
+    --light: rgb(241, 242, 242); /* overrides bootstrap */
+    --dark: black; /* overrides bootstrap */
+}
+
+.bg-dark {
+    background-color: var(--dark) !important;
+}
+.bg-light {
+    background-color: var(--light) !important;
+}
+.navbar-dark {
+    background-color: var(--dark);
+}
+.navbar-light {
+    background-color: var(--light);
+}
+.btn {
+    border-radius: 0px;
+}
+

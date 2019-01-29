@@ -13,10 +13,19 @@ h1, h2, h3, h4, h5, h6 {
     color: white;
 }
 
+#color-bar {
+    display: flex;
+    flex-direction: row;
+}
+
+.department-color {
+    height: 10px;
+    flex: 1 0 auto;
+}
+
 /*Footer*/
 #footer {
     padding-top: 50px;
-    background-color: #4e5255;
     padding-bottom: 34px;
 }
 #footerLogo {
