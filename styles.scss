@@ -1,0 +1,73 @@
+// ASWWU colors
+$color-aswwu-light: rgb(241, 242, 242);
+$color-aswwu-dark: black;
+// Department colors
+$color-outdoors: rgb(174, 209, 54);
+$color-tread-shed: rgb(219, 225, 37);
+$color-atlas: rgb(241, 225, 10);
+$color-mountain-ash: rgb(252, 197, 23);
+$color-photo: rgb(242, 164, 52);
+$color-video: rgb(233, 50, 37);
+$color-collegian: rgb(189, 86, 160);
+$color-web: rgb(133, 82, 161);
+$color-marketing: rgb(95, 68, 155);
+$color-global-service: rgb(74, 91, 168);
+$color-spiritual: rgb(94, 150, 208);
+$color-social: rgb(99, 198, 187);
+$color-senate: rgb(132, 201, 139);
+$color-executive: rgb(121, 193, 76);
+// fonts
+@font-face {
+    font-family: BrandonGrotesqueBold;
+    font-weight: bold;
+    src: url("src/shared-ng/fonts/brandon-grotesque-bold.otf") format("opentype");
+}
+@font-face {
+    font-family: HelveticaNeueRoman;
+    src: url("src/shared-ng/fonts/helvetica-neue-roman.otf") format("opentype");
+}
+$font1: 'BrandonGrotesqueBold', sans-serif;
+$font2: 'HelveticaNeueRoman', sans-serif;
+
+// CSS transformation
+:root {
+    /* ASWWU Fonts */
+    --font-1: #{$font1}; /* Headers and big text */
+    --font-2: #{$font2}; /* Generic Text */
+    --font-test: "Brush Script MT", cursive; /* an eye-sore font to make sure it's working */
+    // ASWWU colors
+    --color-aswwu-light: #{$color-aswwu-light};
+    --color-aswwu-dark: #{$color-aswwu-dark};
+    /* Departmental Colors */
+    --color-outdoors: #{$color-outdoors};
+    --color-tread-shed: #{$color-tread-shed};
+    --color-atlas: #{$color-atlas};
+    --color-mountain-ash: #{$color-mountain-ash};
+    --color-photo: #{$color-photo};
+    --color-video: #{$color-video};
+    --color-collegian: #{$color-collegian};
+    --color-web: #{$color-web};
+    --color-marketing: #{$color-marketing};
+    --color-global-service: #{$color-global-service};
+    --color-spiritual: #{$color-spiritual};
+    --color-social: #{$color-social};
+    --color-senate: #{$color-senate};
+    --color-executive: #{$color-executive};
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: #{$font1};
+}
+
+* {
+    font-family: #{$font2};
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 300;
+}
+
+.filter-invert {
+    filter: invert(1);
+}
+
