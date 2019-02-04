@@ -1,0 +1,82 @@
+///////////////////////
+// General Overrides //
+///////////////////////
+
+@import "src/shared-ng/styles";
+
+// color overrides
+// $blue: blue !default;
+// $indigo: indigo !default;
+// $purple: purple !default;
+// $pink: pink !default;
+// $red: red !default;
+// $orange: orange !default;
+// $yellow: yellow !default;
+// $green: green !default;
+// $teal: teal !default;
+// $cyan: cyan !default;
+// $white: white !default;
+// $gray-100: gray !default;
+// $gray-200: gray !default;
+// $gray-300: gray !default;
+// $gray-400: gray !default;
+// $gray-500: gray !default;
+// $gray-600: gray !default;
+// $gray-700: gray !default;
+// $gray-800: gray !default;
+// $gray-900: gray !default;
+
+// override general colors
+$colors: (
+//   blue: $blue,
+//   indigo: $indigo,
+//   purple: $purple,
+//   pink: $pink,
+//   red: $red,
+//   orange: $orange,
+//   yellow: $yellow,
+//   green: $green,
+//   teal: $teal,
+//   cyan: $cyan,
+//   white: $white,
+) !default;
+
+// override theme colors
+$theme-colors: (
+//   primary: $blue,
+//   secondary: $gray-600,
+//   success: $green,
+//   info: $cyan,
+//   warning: $yellow,
+//   danger: $red,
+  light: $color-aswwu-light,
+  dark: $color-aswwu-dark,
+) !default;
+
+// import bootstrap SCSS and apply overrides
+@import "node_modules/bootstrap-scss/bootstrap";
+
+
+///////////////////////
+// Special Overrides //
+///////////////////////
+
+// override background colors
+.bg-dark {
+    background-color: #{$color-aswwu-dark} !important;
+}
+.bg-light {
+    background-color: #{$color-aswwu-light} !important;
+}
+// override navbar colors
+.navbar-dark {
+    background-color: #{$color-aswwu-dark};
+}
+.navbar-light {
+    background-color: #{$color-aswwu-light};
+}
+// square button corners
+.btn {
+    border-radius: 0px;
+}
+
