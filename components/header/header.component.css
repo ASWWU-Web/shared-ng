@@ -10,6 +10,9 @@
 #header-dark h1 {
     color: white;
 }
+#title {
+    font-size: 50pt;
+}
 
 .header {
     width: 100%;
@@ -21,3 +24,11 @@
     justify-content: center;
     align-items: center;
 }
+.parallax-window {
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }

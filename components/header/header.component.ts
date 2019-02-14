@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { NgStyle } from '@angular/common';
 
 @Component({
   selector: 'header',
@@ -11,6 +12,7 @@ export class HeaderComponent implements OnInit {
   @Input() tileImage: string = null;
   @Input() admin: boolean = false;
   @Input() adminLink: string = null;
+  @Input() ngStyle: { [key: string]: string; }
 
   constructor() { }
 
