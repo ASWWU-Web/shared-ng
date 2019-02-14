@@ -1,0 +1,34 @@
+#header-light {
+    background-color: var(--color-aswwu-light);
+}
+#header-dark {
+    background-color: var(--color-aswwu-dark);
+}
+#header-light h1 {
+    color: black;
+}
+#header-dark h1 {
+    color: white;
+}
+#title {
+    font-size: 50pt;
+}
+
+.header {
+    width: 100%;
+    height: 250px;
+    margin-bottom: 20px;
+}
+.center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.parallax-window {
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
