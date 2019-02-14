@@ -9,6 +9,7 @@ export class HeaderComponent implements OnInit {
   @Input() title: string = 'ASWWU';
   @Input() invertColor: boolean = false;
   @Input() tileImage: string = null;
+  @Input() admin: boolean = false;
   @Input() adminLink: string = null;
 
   constructor() { }
