@@ -10,8 +10,16 @@
 #header-dark h1 {
     color: white;
 }
-#title {
+/* font size */
+@media (min-width: 0px) {
+  #title {
+    font-size: 35pt;
+  }
+}
+@media (min-width: 400px) {
+  #title {
     font-size: 50pt;
+  }
 }
 
 .header {
