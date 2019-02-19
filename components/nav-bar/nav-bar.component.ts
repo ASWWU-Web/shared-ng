@@ -6,7 +6,7 @@ import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 @Component({
 	selector: 'nav-bar',
 	templateUrl: 'nav-bar.component.html',
-	styleUrls: [ 
+	styleUrls: [
 		'nav-bar.styles.css',
 		'mobile-nav.component.css'
 	]
@@ -15,10 +15,10 @@ import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 export class NavBarComponent {
 
 	links: any = [
-		{ text: "ASWWU",       link: "https://aswwu.com" }, 
-		{ text: "Mask",        link: "https://aswwu.com/mask" }, 
+		{ text: "ASWWU",       link: "https://aswwu.com" },
+		{ text: "Mask",        link: "https://aswwu.com/mask" },
 		{ text: "Jobs",        link: "https://aswwu.com/jobs" },
-		{ text: "Upcomming",   link: "https://aswwu.com/#upcoming" },
+		{ text: "Upcoming",   link: "https://aswwu.com/#upcoming" },
 		{ text: "Departments", link: null, dropdownLinks: [
 			{ text: "Administration", 		link: "https://aswwu.com/pages/administration" },
 			{ text: "Atlas",          		link: "https://aswwu.com/atlas" },
