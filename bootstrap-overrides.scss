@@ -76,6 +76,6 @@ $theme-colors: (
   background-color: #{$color-aswwu-light};
 }
 // square button corners
-.btn, .form-control, .list-group-item {
+.btn, .form-control, .list-group-item, .card-img-top, .card-footer {
   border-radius: 0px !important;
 }
