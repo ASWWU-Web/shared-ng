@@ -1,7 +1,3 @@
-// originally coppied from pages
-
-//This is here just for testing. It should eventually be put in a separate git repo
-//or be bundled with a base ASWWU project.
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { RequestService } from './request.service';
@@ -16,7 +12,7 @@ interface Election {
   show_results: string;
 }
 @Injectable()
-export class ElectionsRequestService extends RequestService{
+export class ElectionsRequestService extends RequestService {
 
   constructor(http: HttpClient) {
     super(http);
@@ -24,15 +20,28 @@ export class ElectionsRequestService extends RequestService{
 
   /**
    * Lists elections
-   * 
+   *
    * https://docs.aswwu.com/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/elections.yml#/election/get_election
    * @param queryParams
-   * @returns all elections or election specified by urlParams
+   * @returns an observable of all elections or elections specified by urlParams
    */
-  listElection(queryParams?:any):Observable<Election[]>{
-    let elections = super.get('elections/election', queryParams).pipe(
-      map((data: {elections:Election[]}) => data.elections)
+  listElection(queryParams?: any): Observable<Election[]> {
+    const electionsObservable = super.get('elections/election', queryParams).pipe(
+      map((data: {elections: Election[]}) => data.elections)
     );
-    return elections
+    return electionsObservable;
+  }
+
+  /**
+   * Read current election
+   *
+   * https://docs.aswwu.com/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/elections.yml#/election/get_current
+   * @returns a single election JSON object
+   */
+  ReadElectionCurrent(): Observable<Election> {
+    const electionObservable = super.get('elections/current').pipe(
+      map((data: {election: Election}) => data.election)
+    );
+    return electionObservable;
   }
 }

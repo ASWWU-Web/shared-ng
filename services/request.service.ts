@@ -212,7 +212,7 @@ export class RequestService {
 
 
   isLoggedOn(): boolean {
-    //Returns true if authUser is defined, false otherwise.
+    // Returns true if authUser is defined, false otherwise.
     return this.isLoggedIn;
   }
 
