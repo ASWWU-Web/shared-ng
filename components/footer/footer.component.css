@@ -2,6 +2,7 @@
     font-family: var(--font-1);
     padding-left: 0px;
     padding-right: 0px;
+    margin-top: 20px;
 }
 p, a, button {
     font-family: var(--font-2);
