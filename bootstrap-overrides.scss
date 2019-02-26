@@ -53,9 +53,11 @@ $theme-colors: (
   dark: $color-aswwu-dark,
 ) !default;
 
+// remove rounded corners
+$enable-rounded: false;
+
 // import bootstrap SCSS and apply overrides
 @import "node_modules/bootstrap-scss/bootstrap";
-
 
 ///////////////////////
 // Special Overrides //
@@ -75,8 +77,9 @@ $theme-colors: (
 .navbar-light {
   background-color: #{$color-aswwu-light};
 }
-// square button corners
-.btn, .form-control, .list-group-item, .card-img-top, .card-footer {
-  border-radius: 0px !important;
+.btn-primary, .btn-success, .btn-danger, .btn-warning, .btn-info {
+  color: white;
+}
+.btn-primary:hover, .btn-success:hover, .btn-danger:hover, .btn-warning:hover, .btn-info:hover {
   color: white;
 }
