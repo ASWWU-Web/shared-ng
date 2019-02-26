@@ -5,15 +5,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 
-// import 'rxjs/add/operator/toPromise';
-import { Observable } from 'rxjs';
-
-import { environment } from '../../shared-ng/environments/environment';
-import { User } from './user.model';
 import { RequestService } from './request.service';
+import { Observable } from 'rxjs/internal/Observable';
+import { map } from 'rxjs/internal/operators/map';
 
 //import { request } from 'https';
 
+interface Election {
+  id: string;
+  election_type: string;
+  start: string;
+  end: string;
+  show_results: string;
+}
 @Injectable()
 export class ElectionsRequestService extends RequestService{
 
@@ -21,4 +25,11 @@ export class ElectionsRequestService extends RequestService{
     super(http);
   }
 
+  // returns all elections or election specified by urlParams
+  getElections(urlParams?:any):Observable<Election[]>{
+    let elections = super.get('elections/election', urlParams).pipe(
+      map((data: {elections:Election[]}) => data.elections)
+    );
+    return elections
+  }
 }
