@@ -4,12 +4,9 @@
 //or be bundled with a base ASWWU project.
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
-
 import { RequestService } from './request.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { map } from 'rxjs/internal/operators/map';
-
-//import { request } from 'https';
 
 interface Election {
   id: string;
@@ -25,9 +22,15 @@ export class ElectionsRequestService extends RequestService{
     super(http);
   }
 
-  // returns all elections or election specified by urlParams
-  getElections(urlParams?:any):Observable<Election[]>{
-    let elections = super.get('elections/election', urlParams).pipe(
+  /**
+   * Lists elections
+   * 
+   * https://docs.aswwu.com/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/elections.yml#/election/get_election
+   * @param queryParams
+   * @returns all elections or election specified by urlParams
+   */
+  listElection(queryParams?:any):Observable<Election[]>{
+    let elections = super.get('elections/election', queryParams).pipe(
       map((data: {elections:Election[]}) => data.elections)
     );
     return elections
