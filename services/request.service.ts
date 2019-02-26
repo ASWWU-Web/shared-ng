@@ -92,12 +92,12 @@ export class RequestService {
 
   /**
    * create the options part of an angular http request. sets header (content type) and url parameters.
-   * @param urlParams optional, parameters to be added to the request url
+   * @param queryParams optional, parameters to be added to the request url
    * @param encoding optional, request encoding, defaults to json
    */
-  private createOptions(urlParams?:any, encoding?:string) {
-    if(!urlParams){
-      urlParams = {};
+  private createOptions(queryParams?:any, encoding?:string) {
+    if(!queryParams){
+      queryParams = {};
     }
 
     if(encoding == 'urlencoded') {
@@ -111,7 +111,7 @@ export class RequestService {
 
     let options = {
       headers: headers,
-      params: urlParams
+      params: queryParams
     };
 
     return options;
@@ -154,16 +154,16 @@ export class RequestService {
    * generates an http request
    * @param requestType string, request type, options: "GET", "DELETE", "POST", "PUT"
    * @param uri string, the part of the URL following aswwu.com and before parameters, or a full URL
-   * @param urlParams javascript object, containing parameters to be placed in the request URL
+   * @param queryParams javascript object, containing parameters to be placed in the request URL
    * @param data javascript object, data to be used in POST and PUT requests
    * @param encoding string, use "urlencoded" if the server needs that format, defaults to json
    */
-  private request(requestType:string, uriSuffix:string, urlParams?:any, data?:any, encoding?:string): Observable<any>{
+  private request(requestType:string, uriSuffix:string, queryParams?:any, data?:any, encoding?:string): Observable<any>{
     this.verify;
 
     let url = this.createUri(uriSuffix);
     let body = this.createBody(data, encoding);
-    let options = this.createOptions(urlParams, encoding);
+    let options = this.createOptions(queryParams, encoding);
 
     let observable:Observable<any>;
 
@@ -178,25 +178,25 @@ export class RequestService {
   }
 
 
-  get(uri:string, urlParams?:any):Observable<any> {
-    return this.request("GET", uri, urlParams, null, null);
+  get(uri:string, queryParams?:any):Observable<any> {
+    return this.request("GET", uri, queryParams, null, null);
   }
 
-  delete(uri:string, urlParams?:any):Observable<any> {
-    return this.request("DELETE", uri, urlParams, null, null);
+  delete(uri:string, queryParams?:any):Observable<any> {
+    return this.request("DELETE", uri, queryParams, null, null);
   }
 
-  post(uri:string, data:any, urlParams?:any, encoding?:any):Observable<any> {
-    return this.request("POST", uri, urlParams, data, encoding);
+  post(uri:string, data:any, queryParams?:any, encoding?:any):Observable<any> {
+    return this.request("POST", uri, queryParams, data, encoding);
   }
 
-  put(uri:string, data:any, urlParams?:any, encoding?:any):Observable<any> {
-    return this.request("PUT", uri, urlParams, data, encoding);
+  put(uri:string, data:any, queryParams?:any, encoding?:any):Observable<any> {
+    return this.request("PUT", uri, queryParams, data, encoding);
   }
 
   // patch not tested
-  patch(uri:string, data:any, urlParams?:any, encoding?:any):Observable<any> {
-    return this.request("PATCH", uri, urlParams, data, encoding);
+  patch(uri:string, data:any, queryParams?:any, encoding?:any):Observable<any> {
+    return this.request("PATCH", uri, queryParams, data, encoding);
   }
 
 
