@@ -11,11 +11,11 @@ export class HeaderComponent implements OnInit {
   @Input() tileImage: string = null;
   @Input() admin: boolean = false;
   @Input() adminLink: string = null;
-  @Input() imageUrl: string = 'https://static.wixstatic.com/media/de317edf9480039c6c4d425f78b91e1c.png/v1/crop/x_0,y_0,w_330,h_331/de317edf9480039c6c4d425f78b91e1c.png';
+  @Input() imageUrl: string = null;
 
   // style used by ngStyle
   style: Object = {
-    'background-image': 'url(' + this.imageUrl + ')',
+    'background-image': `url(${this.imageUrl})`,
   };
 
   constructor() { }

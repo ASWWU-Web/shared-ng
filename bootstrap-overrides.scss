@@ -27,7 +27,7 @@
 // $gray-900: gray !default;
 
 // override general colors
-$colors: (
+// $colors: (
 //   blue: $blue,
 //   indigo: $indigo,
 //   purple: $purple,
@@ -39,23 +39,25 @@ $colors: (
 //   teal: $teal,
 //   cyan: $cyan,
 //   white: $white,
-) !default;
+// ) !default;
 
 // override theme colors
 $theme-colors: (
-//   primary: $blue,
-//   secondary: $gray-600,
-//   success: $green,
-//   info: $cyan,
-//   warning: $yellow,
-//   danger: $red,
+  primary: $color-aswwu-primary,
+  secondary: $color-aswwu-secondary,
+  success: $color-aswwu-success,
+  danger: $color-aswwu-danger,
+  warning: $color-aswwu-warning,
+  info: $color-aswwu-info,
   light: $color-aswwu-light,
   dark: $color-aswwu-dark,
 ) !default;
 
+// remove rounded corners
+$enable-rounded: false;
+
 // import bootstrap SCSS and apply overrides
 @import "node_modules/bootstrap-scss/bootstrap";
-
 
 ///////////////////////
 // Special Overrides //
@@ -75,7 +77,9 @@ $theme-colors: (
 .navbar-light {
   background-color: #{$color-aswwu-light};
 }
-// square button corners
-.btn, .form-control, .list-group-item, .card-img-top, .card-footer {
-  border-radius: 0px !important;
+.btn-primary, .btn-success, .btn-danger, .btn-warning, .btn-info {
+  color: white;
+}
+.btn-primary:hover, .btn-success:hover, .btn-danger:hover, .btn-warning:hover, .btn-info:hover {
+  color: white;
 }

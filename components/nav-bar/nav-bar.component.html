@@ -1,20 +1,22 @@
 <nav class="navbar navbar-dark bg-dark navbar-expand-md">
 
-  <button class="navbar navbar-toggler" 
-          type="button" 
-          data-target="#mobile-nav-collapsible" 
-          aria-controls="mobile-nav-collapsible" 
+  <button class="navbar navbar-toggler"
+          type="button"
+          data-target="#mobile-nav-collapsible"
+          aria-controls="mobile-nav-collapsible"
           (click)="isCollapsed = !isCollapsed"
           [attr.aria-expanded]="!isCollapsed"
   >
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <img id="navbarLogo" class="img-fluid logo" src="https://aswwu.com/media/images/ASWWU_logo.png" />
+  <a href="https://aswwu.com" class="mr-2">
+    <img id="navbarLogo" class="img-fluid logo" src="https://aswwu.com/media/images/ASWWU_logo.png" />
+  </a>
 
   <!-- Desktop Navbar -->
   <div class="collapse navbar-collapse" >
-    
+
     <ul id="nav-links" class="navbar-nav text-xs-center mr-auto d-none d-md-block">
       <li *ngFor="let item of links" [ngClass]="{'nav-item': item.link != null, 'dropdown': item.link == null}">
         <!-- For Direct Links -->
