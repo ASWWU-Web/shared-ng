@@ -7,6 +7,8 @@ import { map } from 'rxjs/internal/operators/map';
 interface Election {
   id: string;
   election_type: string;
+  name: string;
+  max_votes: number;
   start: string;
   end: string;
   show_results: string;
@@ -39,9 +41,7 @@ export class ElectionsRequestService extends RequestService {
    * @returns a single election JSON object
    */
   readElectionCurrent(): Observable<Election> {
-    const electionObservable = super.get('elections/current').pipe(
-      map((data: {election: Election}) => data.election)
-    );
+    const electionObservable = super.get('elections/current');
     return electionObservable;
   }
 }
