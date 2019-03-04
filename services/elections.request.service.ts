@@ -38,10 +38,19 @@ export class ElectionsRequestService extends RequestService {
    * https://docs.aswwu.com/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/elections.yml#/election/get_current
    * @returns a single election JSON object
    */
-  ReadElectionCurrent(): Observable<Election> {
+  readElectionCurrent(): Observable<Election> {
     const electionObservable = super.get('elections/current').pipe(
       map((data: {election: Election}) => data.election)
     );
     return electionObservable;
   }
 }
+
+/**
+ * Create elections
+ *
+ *https://docs.aswwu.com/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/elections.yml#/election/post_election
+ *@param queryParams
+ *@returns JSON object containing the election info created
+ */
+
