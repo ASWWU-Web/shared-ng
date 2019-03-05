@@ -3,16 +3,8 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { RequestService } from './request.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { map } from 'rxjs/internal/operators/map';
+import {Election} from 'src/shared-ng/interfaces/elections';
 
-interface Election {
-  id: string;
-  election_type: string;
-  name: string;
-  max_votes: number;
-  start: string;
-  end: string;
-  show_results: string;
-}
 @Injectable()
 export class ElectionsRequestService extends RequestService {
   baseURL = 'elections';
@@ -33,6 +25,18 @@ export class ElectionsRequestService extends RequestService {
       map((data: {elections: Election[]}) => data.elections)
     );
     return electionsObservable;
+  }
+
+  /**
+   * Read election
+   *
+   * https://docs.aswwu.com/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/elections.yml#/election/get_election__election_id_
+   * @param queryParams
+   * @return a single election JSON object
+   */
+  readElection(queryParams: any): Observable<Election[]> {
+    const electionObservable = super.get(`${this.baseURL}/election`);
+    return electionObservable;
   }
 
   /**
@@ -58,7 +62,7 @@ export class ElectionsRequestService extends RequestService {
   }
 
   /**
-   * Update elections
+   * Update election
    *
    * https://docs.aswwu.com/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/elections.yml#/election/put_election__election_id_
    * @param queryParams
@@ -67,5 +71,17 @@ export class ElectionsRequestService extends RequestService {
   updateElection(data: any, queryParams: any): Observable<Election[]> {
     const electionObservable = super.put(`${this.baseURL}/election/` + queryParams, data);
     return electionObservable;
+  }
+
+  /**
+   * Count election votes
+   *
+   * https://docs.aswwu.com/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/elections.yml#/election/get_election__election_id__count
+   * @param queryParams
+   * @return JSON object of votes for candidates
+   */
+  readElectionCount(queryParams: any){
+    const electionCount = super.get(`${this.baseURL}/election/${queryParams}/count`);
+    return electionCount;
   }
 }
