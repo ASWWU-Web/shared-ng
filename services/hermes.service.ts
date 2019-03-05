@@ -9,12 +9,25 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 export class HermesService {
   // http://jasonwatmore.com/post/2018/06/25/angular-6-communicating-between-components-with-observable-subject
 
-  private headerImageUriSubject = new Subject<string>();
+  private headerTitleSubject: BehaviorSubject<string>;
+  private headerImageUriSubject: BehaviorSubject<string>;
 
-  constructor() { }
+  constructor() {
+    this.headerTitleSubject = new BehaviorSubject<string>(null);
+    this.headerImageUriSubject = new BehaviorSubject<string>(null);
+  }
+
+  sendHeaderTitle(title: string) {
+    this.headerTitleSubject.next(title);
+  }
+  getHeaderTitle(): Observable<string> {
+    return this.headerTitleSubject.asObservable();
+  }
 
   sendHeaderImageUri(uri: string) {
     this.headerImageUriSubject.next(uri);
   }
-
+  getHeaderImageUri(): Observable<string> {
+    return this.headerImageUriSubject.asObservable();
+  }
 }
