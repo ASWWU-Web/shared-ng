@@ -49,9 +49,8 @@ export class ElectionsRequestService extends RequestService {
    * Create elections
    *
    *https://docs.aswwu.com/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/elections.yml#/election/post_election
-  *@param queryParams
-  *@returns JSON object containing the election info created
-  */
+   *@returns JSON object containing the election info created
+   */
   createElections(data: any): Observable<Election[]> {
     const electionsObservable = super.post('elections/election', data);
     return electionsObservable;
