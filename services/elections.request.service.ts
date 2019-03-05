@@ -15,6 +15,7 @@ interface Election {
 }
 @Injectable()
 export class ElectionsRequestService extends RequestService {
+  baseURL = 'elections';
 
   constructor(http: HttpClient) {
     super(http);
@@ -28,7 +29,7 @@ export class ElectionsRequestService extends RequestService {
    * @returns an observable of all elections or elections specified by urlParams
    */
   listElection(queryParams?: any): Observable<Election[]> {
-    const electionsObservable = super.get('elections/election', queryParams).pipe(
+    const electionsObservable = super.get(`${this.baseURL}/election`, queryParams).pipe(
       map((data: {elections: Election[]}) => data.elections)
     );
     return electionsObservable;
@@ -41,7 +42,7 @@ export class ElectionsRequestService extends RequestService {
    * @returns a single election JSON object
    */
   readElectionCurrent(): Observable<Election> {
-    const electionObservable = super.get('elections/current');
+    const electionObservable = super.get(`${this.baseURL}/current`);
     return electionObservable;
   }
 
@@ -51,8 +52,20 @@ export class ElectionsRequestService extends RequestService {
    *https://docs.aswwu.com/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/elections.yml#/election/post_election
    *@returns JSON object containing the election info created
    */
-  createElections(data: any): Observable<Election[]> {
-    const electionsObservable = super.post('elections/election', data);
+  createElection(data: any): Observable<Election[]> {
+    const electionsObservable = super.post(`${this.baseURL}/election`, data);
     return electionsObservable;
+  }
+
+  /**
+   * Update elections
+   *
+   * https://docs.aswwu.com/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/elections.yml#/election/put_election__election_id_
+   * @param queryParams
+   * @returns JSON object containing the elction info that was updated
+   */
+  updateElection(data: any, queryParams: any): Observable<Election[]> {
+    const electionObservable = super.put(`${this.baseURL}/election/` + queryParams, data);
+    return electionObservable;
   }
 }
