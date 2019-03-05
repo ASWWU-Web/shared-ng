@@ -44,13 +44,16 @@ export class ElectionsRequestService extends RequestService {
     const electionObservable = super.get('elections/current');
     return electionObservable;
   }
+
+  /**
+   * Create elections
+   *
+   *https://docs.aswwu.com/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/elections.yml#/election/post_election
+  *@param queryParams
+  *@returns JSON object containing the election info created
+  */
+  createElections(data: any): Observable<Election[]> {
+    const electionsObservable = super.post('elections/election', data);
+    return electionsObservable;
+  }
 }
-
-/**
- * Create elections
- *
- *https://docs.aswwu.com/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/elections.yml#/election/post_election
- *@param queryParams
- *@returns JSON object containing the election info created
- */
-
