@@ -1,6 +1,3 @@
-<div *ngIf="!invertColor" id="header-light" class="header center-content tiled-window" [ngStyle]="headerStyle">
-  <h1 id="title" class="text-uppercase">{{title}}</h1>
-</div>
-<div *ngIf="invertColor" id="header-dark" class="header center-content tiled-window" [ngStyle]="headerStyle">
-  <h1 class="text-uppercase text-giant mx-auto">Title</h1>
+<div class="header center-content tiled-window" [ngStyle]="headerStyle">
+  <h1 id="title" class="text-uppercase" [ngStyle]="titleStyle">{{title}}</h1>
 </div>

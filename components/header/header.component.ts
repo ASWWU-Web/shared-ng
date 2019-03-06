@@ -8,16 +8,19 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  @Input() invertColor: boolean = false;
   @Input() tileImage: string = null;
   @Input() admin: boolean = false;
   @Input() adminLink: string = null;
 
   title = 'ASWWU';
+  imageUrl: string;
+  invert = false;
   headerStyle: Object = {};
+  titleStyle: Object = {};
   subscriptions = {
     title: <Subscription> null,
-    imageUrl: <Subscription> null
+    imageUrl: <Subscription> null,
+    invert: <Subscription> null
   };
 
   constructor(private hermesService: HermesService) {
@@ -27,7 +30,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
     // subscribe to imageURL
     this.subscriptions.imageUrl = this.hermesService.getHeaderImageUri().subscribe(message => {
-      this.setBackgroundImage(message);
+      this.imageUrl = message;
+      this.setStyle();
+    });
+    // subscribe to invert
+    this.subscriptions.invert = this.hermesService.getHeaderInvert().subscribe(message => {
+      this.invert = message;
+      this.setStyle();
     });
   }
 
@@ -41,11 +50,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
 
-  setBackgroundImage(imageUri: string) {
-    if (imageUri !== null) {
-      this.headerStyle = {
-        'background-image': `url(${imageUri})`,
-      };
+  setStyle() {
+    // image URI
+    if (this.imageUrl !== null) {
+      this.headerStyle['background-image'] = `url(${this.imageUrl})`;
+    } else {
+      delete this.headerStyle['background-image'];
+    }
+    // color inversion
+    if (this.invert) {
+      this.headerStyle['background-color'] = 'var(--color-aswwu-dark)';
+      this.titleStyle['color'] = 'white';
+    } else {
+      this.headerStyle['background-color'] = 'var(--color-aswwu-light)';
+      this.titleStyle['color'] = 'black';
     }
   }
 }

@@ -11,10 +11,12 @@ export class HermesService {
 
   private headerTitleSubject: BehaviorSubject<string>;
   private headerImageUriSubject: BehaviorSubject<string>;
+  private headerInvert: BehaviorSubject<boolean>;
 
   constructor() {
     this.headerTitleSubject = new BehaviorSubject<string>(null);
     this.headerImageUriSubject = new BehaviorSubject<string>(null);
+    this.headerInvert = new BehaviorSubject<boolean>(null);
   }
 
   sendHeaderTitle(title: string) {
@@ -29,5 +31,12 @@ export class HermesService {
   }
   getHeaderImageUri(): Observable<string> {
     return this.headerImageUriSubject.asObservable();
+  }
+
+  sendHeaderInvert(invert: boolean) {
+    this.headerInvert.next(invert);
+  }
+  getHeaderInvert(): Observable<boolean> {
+    return this.headerInvert.asObservable();
   }
 }
