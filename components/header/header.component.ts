@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { HermesService } from 'src/shared-ng/services/services';
 import { Subscription } from 'rxjs';
+import { HeaderButton } from 'src/shared-ng/interfaces/interfaces';
 
 @Component({
   selector: 'header',
@@ -8,25 +9,35 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  @Input() tileImage: string = null;
-  @Input() admin: boolean = false;
-  @Input() adminLink: string = null;
-
+  // styles
+  headerStyle: Object = {};
+  titleStyle: Object = {};
+  // service items
   title = 'ASWWU';
   imageUrl: string;
   invert = false;
-  headerStyle: Object = {};
-  titleStyle: Object = {};
+  headerButton: HeaderButton = {
+    buttonText: null,
+    buttonLink: null,
+    buttonAdmin: true,
+    buttonRouterLink: true
+  };
+  // subscriptions
   subscriptions = {
     title: <Subscription> null,
     imageUrl: <Subscription> null,
-    invert: <Subscription> null
+    invert: <Subscription> null,
+    headerButton: <Subscription> null
   };
 
   constructor(private hermesService: HermesService) {
     // subscribe to title
     this.subscriptions.title = this.hermesService.getHeaderTitle().subscribe(message => {
       this.title = message;
+    });
+    // subscribe to show button
+    this.subscriptions.headerButton = this.hermesService.getHeaderButton().subscribe(message => {
+      this.headerButton = message;
     });
     // subscribe to imageURL
     this.subscriptions.imageUrl = this.hermesService.getHeaderImageUri().subscribe(message => {
