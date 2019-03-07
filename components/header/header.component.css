@@ -11,6 +11,16 @@
   }
 }
 
+#header-container {
+  position: relative;
+}
+
+#header-button {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+
 .header {
   width: 100%;
   height: 250px;

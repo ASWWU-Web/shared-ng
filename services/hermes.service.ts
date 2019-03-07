@@ -1,3 +1,10 @@
+/*
+ * Created by: Stephen Ermshar and Sheldon Woodward
+ * Date: 2018-2019
+ *
+ * Note: Based on http://jasonwatmore.com/post/2018/06/25/angular-6-communicating-between-components-with-observable-subject
+ */
+
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
@@ -7,8 +14,6 @@ import { HeaderButton } from 'src/shared-ng/interfaces/interfaces';
   providedIn: 'root'
 })
 export class HermesService {
-  // http://jasonwatmore.com/post/2018/06/25/angular-6-communicating-between-components-with-observable-subject
-
   private headerTitleSubject: BehaviorSubject<string>;
   private headerImageUriSubject: BehaviorSubject<string>;
   private headerInvert: BehaviorSubject<boolean>;
