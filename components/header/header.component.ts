@@ -16,6 +16,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   title = 'ASWWU';
   imageUrl: string;
   invert = false;
+  showButton = false;
   headerButton: HeaderButton = {
     buttonText: null,
     buttonLink: null,
@@ -38,6 +39,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     // subscribe to show button
     this.subscriptions.headerButton = this.hermesService.getHeaderButton().subscribe(message => {
       this.headerButton = message;
+      this.showButton = this.checkShowButton();
     });
     // subscribe to imageURL
     this.subscriptions.imageUrl = this.hermesService.getHeaderImageUri().subscribe(message => {
@@ -76,5 +78,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.headerStyle['background-color'] = 'var(--color-aswwu-light)';
       this.titleStyle['color'] = 'black';
     }
+  }
+
+  checkShowButton() {
+    if (this.headerButton === null || this.headerButton.buttonText === null) {
+      return false;
+    } else if (this.headerButton.buttonAdmin) {
+      // TODO: use request service to check if admin
+      return true;
+    }
+    return true;
   }
 }

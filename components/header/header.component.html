@@ -5,8 +5,8 @@
   </div>
 
   <!-- header button -->
-  <div *ngIf="headerButton !== null" id="header-button">
-    <a *ngIf="headerButton.buttonText !== null" [routerLink]="[headerButton.buttonLink]">
+  <div *ngIf="showButton" id="header-button">
+    <a [routerLink]="[headerButton.buttonLink]">
       <button class="btn btn-primary">{{headerButton.buttonText}}</button>
     </a>
   </div>
