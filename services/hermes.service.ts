@@ -21,6 +21,7 @@ export class HermesService {
     this.headerButton = new BehaviorSubject<HeaderButton>(null);
   }
 
+  // header title
   sendHeaderTitle(title: string) {
     this.headerTitleSubject.next(title);
   }
@@ -28,6 +29,7 @@ export class HermesService {
     return this.headerTitleSubject.asObservable();
   }
 
+  // header image
   sendHeaderImageUri(uri: string) {
     this.headerImageUriSubject.next(uri);
   }
@@ -35,6 +37,7 @@ export class HermesService {
     return this.headerImageUriSubject.asObservable();
   }
 
+  // header invert
   sendHeaderInvert(invert: boolean) {
     this.headerInvert.next(invert);
   }
@@ -42,6 +45,7 @@ export class HermesService {
     return this.headerInvert.asObservable();
   }
 
+  // header button
   sendHeaderButton(headerButton: HeaderButton) {
     this.headerButton.next(headerButton);
   }
