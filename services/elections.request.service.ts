@@ -112,4 +112,15 @@ export class ElectionsRequestService extends RequestService {
     );
     return positionObservable;
   }
+
+  /**
+   * Create position
+   *
+   * https://docs.aswwu.com/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/elections.yml#/position/post_position
+   * @return JSON object containing the position info created
+   */
+  createPosition(data: any): Observable<Position[]> {
+    const positionsObservable = super.post(`${this.baseURL}/position`, data);
+    return positionsObservable;
+  }
 }
