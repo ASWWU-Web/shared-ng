@@ -35,7 +35,7 @@ export class ElectionsRequestService extends RequestService {
    * @return a single election JSON object
    */
   readElection(queryParams: any): Observable<Election[]> {
-    const electionObservable = super.get(`${this.baseURL}/election`);
+    const electionObservable = super.get(`${this.baseURL}/election/${queryParams}`);
     return electionObservable;
   }
 
@@ -97,5 +97,19 @@ export class ElectionsRequestService extends RequestService {
       map((data: {positions: Position[]}) => data.positions)
     );
     return positionsObservable;
+  }
+
+  /**
+   * Read position
+   *
+   * https://docs.aswwu.com/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/elections.yml#/position/get_position__position_id_
+   * @param queryParams
+   * @return a single election JSON object
+   */
+  readPosition(queryParams: any): Observable<Position[]> {
+    const positionObservable = super.get(`${this.baseURL}/position`, queryParams).pipe(
+      map((data: {positions: Position[]}) => data.positions)
+    );
+    return positionObservable;
   }
 }
