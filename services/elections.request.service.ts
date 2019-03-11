@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { RequestService } from './request.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { map } from 'rxjs/internal/operators/map';
-import {Election} from 'src/shared-ng/interfaces/elections';
+import { Election, Position } from 'src/shared-ng/interfaces/elections';
 
 @Injectable()
 export class ElectionsRequestService extends RequestService {
@@ -53,8 +53,8 @@ export class ElectionsRequestService extends RequestService {
   /**
    * Create elections
    *
-   *https://docs.aswwu.com/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/elections.yml#/election/post_election
-   *@returns JSON object containing the election info created
+   * https://docs.aswwu.com/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/elections.yml#/election/post_election
+   * @returns JSON object containing the election info created
    */
   createElection(data: any): Observable<Election[]> {
     const electionsObservable = super.post(`${this.baseURL}/election`, data);
@@ -80,8 +80,22 @@ export class ElectionsRequestService extends RequestService {
    * @param queryParams
    * @return JSON object of votes for candidates
    */
-  readElectionCount(queryParams: any){
+  readElectionCount(queryParams: any) {
     const electionCount = super.get(`${this.baseURL}/election/${queryParams}/count`);
     return electionCount;
+  }
+
+  /**
+   * Lists Positions
+   *
+   * https://docs.aswwu.com/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/elections.yml#/position/get_position
+   * @param queryParams
+   * @return an observable of all elections or elections specified by urlParams
+   */
+  listPosition(queryParams?: any): Observable<Position[]> {
+    const positionsObservable = super.get(`${this.baseURL}/position`, queryParams).pipe(
+      map((data: {positions: Position[]}) => data.positions)
+    );
+    return positionsObservable;
   }
 }
