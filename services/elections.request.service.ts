@@ -123,4 +123,16 @@ export class ElectionsRequestService extends RequestService {
     const positionsObservable = super.post(`${this.baseURL}/position`, data);
     return positionsObservable;
   }
+
+  /**
+   * Update positions
+   *
+   * https://docs.aswwu.com/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/elections.yml#/position/put_position__position_id_
+   * @param queryParams
+   * @return JSON object containing the election info that was updated
+   */
+  updatePosition(data: any, queryParams: any): Observable<Position[]> {
+    const positionObservable = super.put(`${this.baseURL}/position/` + queryParams, data);
+    return positionObservable;
+  }
 }
