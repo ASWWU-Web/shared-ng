@@ -20,7 +20,10 @@ export class RequestService {
   private isLoggedIn = false;
   private URLENCODED = 'application/x-www-form-urlencoded; charset=UTF-8';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    // verify and login the current user
+    this.verify();
+  }
 
   private setCurrentUser(user: any): void {
     if (user.hasOwnProperty('wwuid') && user.wwuid) {
@@ -151,15 +154,13 @@ export class RequestService {
 
   /**
    * generates an http request
-   * @param requestType string, request type, options: "GET", "DELETE", "POST", "PUT"
+   * @param requestType string, request type, options: "GET", "DELETE", "POST", "PUT", "PATCH"
    * @param uri string, the part of the URL following aswwu.com and before parameters, or a full URL
    * @param urlParams javascript object, containing parameters to be placed in the request URL
    * @param data javascript object, data to be used in POST and PUT requests
    * @param encoding string, use "urlencoded" if the server needs that format, defaults to json
    */
-  private request(requestType: string, uriSuffix: string, urlParams?: any, data?: any, encoding?: string): Observable<any>{
-    this.verify;
-
+  private request(requestType: string, uriSuffix: string, urlParams?: any, data?: any, encoding?: string): Observable<any> {
     const url = this.createUri(uriSuffix);
     const body = this.createBody(data, encoding);
     const options = this.createOptions(urlParams, encoding);
@@ -202,11 +203,11 @@ export class RequestService {
     return this.request('PATCH', uri, urlParams, data, encoding);
   }
 
-  uploadImage(file: File, callback:Function, catchError:Function) {
-    const data = new FormData;
-    data.append('file', file, file.name);
+  uploadImage(file: File, callback: Function, catchError: Function) {
+    const formData = new FormData;
+    formData.append('file', file, file.name);
     const request = this.createUri('/pages/media/upload_image');
-    this.http.post(request, data).subscribe(
+    this.http.post(request, formData).subscribe(
       data => callback(data),
       err => (catchError ? catchError(err) : console.log(err))
     );
