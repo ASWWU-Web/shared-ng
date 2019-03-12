@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-import { HermesService } from 'src/shared-ng/services/services';
+import { HermesService } from '../../services/services';
 import { Subscription } from 'rxjs';
-import { HeaderButton } from 'src/shared-ng/interfaces/interfaces';
+import { HeaderButton } from '../../interfaces/interfaces';
 
 @Component({
   selector: 'header',
