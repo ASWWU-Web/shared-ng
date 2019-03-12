@@ -4,3 +4,8 @@ export interface HeaderButton {
   buttonRouterLink: boolean;
   buttonAdmin: boolean;
 }
+
+export interface SubNavbarLink {
+  linkText: string;
+  linkURI: string;
+}
