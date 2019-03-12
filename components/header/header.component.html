@@ -1,6 +1,13 @@
-<div *ngIf="!invertColor" id="header-light" class="header center-content tiled-window" [ngStyle]="style">
-  <h1 id="title" class="text-uppercase">{{title}}</h1>
-</div>
-<div *ngIf="invertColor" id="header-dark" class="header center-content tiled-window" [ngStyle]="style">
-  <h1 class="text-uppercase text-giant mx-auto">Title</h1>
+<div id="header-container">
+  <!-- header content -->
+  <div class="header tiled-window center-content" [ngStyle]="headerStyle">
+    <h1 id="title" class="text-uppercase" [ngStyle]="titleStyle">{{title}}</h1>
+  </div>
+
+  <!-- header button -->
+  <div *ngIf="showButton" id="header-button">
+    <a [routerLink]="[headerButton.buttonLink]">
+      <button class="btn btn-primary">{{headerButton.buttonText}}</button>
+    </a>
+  </div>
 </div>
