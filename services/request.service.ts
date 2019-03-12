@@ -65,6 +65,20 @@ export class RequestService {
     }
   }
 
+  /*
+  * Seperate function to make get requests in the Verify function.
+  * Use of the normal get function would cause an infinite loop.
+  */
+  private verifyGet(uri: string, afterRequest, catchError): void {
+    const req = this.createUri(uri);
+    const options = this.createOptions();
+    this.http.get(req, options)
+      .subscribe(
+        data => afterRequest(data),
+        err => (catchError ? catchError(err) : console.error(err))
+      );
+  }
+
   /**
    * Takes a uri suffix or a full url. If it is not a full url append aswwu.com and add forward slashes as needed.
    * @param uri The part of the url following aswwu.com, or a full url
@@ -120,20 +134,6 @@ export class RequestService {
     };
 
     return options;
-  }
-
-  /*
-  * Seperate function to make get requests in the Verify function.
-  * Use of the normal get function would cause an infinite loop.
-  * */
-  private verifyGet(uri: string, afterRequest, catchError): void {
-    const req = this.createUri(uri);
-    const options = this.createOptions();
-    this.http.get(req, options)
-      .subscribe(
-        data => afterRequest(data),
-        err => (catchError ? catchError(err) : console.error(err))
-      );
   }
 
   /**
