@@ -8,7 +8,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { HeaderButton } from 'src/shared-ng/interfaces/interfaces';
+import { HeaderButton, SubNavbarLink } from 'src/shared-ng/interfaces/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -18,12 +18,14 @@ export class HermesService {
   private headerImageUriSubject: BehaviorSubject<string>;
   private headerInvert: BehaviorSubject<boolean>;
   private headerButton: BehaviorSubject<HeaderButton>;
+  private subNavbarLinks: BehaviorSubject<SubNavbarLink[]>;
 
   constructor() {
     this.headerTitleSubject = new BehaviorSubject<string>(null);
     this.headerImageUriSubject = new BehaviorSubject<string>(null);
     this.headerInvert = new BehaviorSubject<boolean>(null);
     this.headerButton = new BehaviorSubject<HeaderButton>(null);
+    this.subNavbarLinks = new BehaviorSubject<SubNavbarLink[]>(null);
   }
 
   // header title
@@ -56,5 +58,13 @@ export class HermesService {
   }
   getHeaderButton(): Observable<HeaderButton> {
     return this.headerButton.asObservable();
+  }
+
+  // sub navbar links
+  sendSubNavbarLinks(links: SubNavbarLink[]) {
+    this.subNavbarLinks.next(links);
+  }
+  getSubNavbarLinks(): Observable<SubNavbarLink[]> {
+    return this.subNavbarLinks.asObservable();
   }
 }
