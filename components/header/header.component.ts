@@ -84,7 +84,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (this.headerButton === null || this.headerButton.buttonText === null) {
       return false;
     } else if (this.headerButton.buttonAdmin) {
-      // TODO: use request service to check if admin
+      // TODO: GENF-60 use request service to check if admin
       return true;
     }
     return true;
