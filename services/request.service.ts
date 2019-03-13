@@ -14,7 +14,9 @@ import { environment } from '../../shared-ng/environments/environment';
 import { User } from './user.model';
 
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class RequestService {
   authUser: User;
   private isLoggedIn = false;
