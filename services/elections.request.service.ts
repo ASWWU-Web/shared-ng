@@ -113,9 +113,9 @@ export class ElectionsRequestService extends RequestService {
    * @param positionID
    * @return a single election JSON object
    */
-  readPosition(positionID: string): Observable<Position[]> {
+  readPosition(positionID: string): Observable<Position> {
     const positionObservable = super.get(`${this.baseURL}/position`, positionID).pipe(
-      map((data: {positions: Position[]}) => data.positions)
+      map((data: {positions: Position}) => data.positions)
     );
     return positionObservable;
   }
