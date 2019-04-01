@@ -33,11 +33,11 @@ export class ElectionsRequestService extends RequestService {
    * Read election
    *
    * https://docs.aswwu.com/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/elections.yml#/election/get_election__election_id_
-   * @param queryParams
+   * @param electionID
    * @return a single election JSON object
    */
-  readElection(queryParams: any): Observable<Election> {
-    const electionObservable = super.get(`${this.baseURL}/election/${queryParams}`);
+  readElection(electionID: string): Observable<Election> {
+    const electionObservable = super.get(`${this.baseURL}/election/${electionID}`);
     return electionObservable;
   }
 
@@ -69,11 +69,11 @@ export class ElectionsRequestService extends RequestService {
    *
    * https://docs.aswwu.com/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/elections.yml#/election/put_election__election_id_
    * @param data
-   * @param queryParams
+   * @param electionID
    * @returns JSON object containing the elction info that was updated
    */
-  updateElection(data: any, queryParams: any): Observable<Election> {
-    const electionObservable = super.put(`${this.baseURL}/election/` + queryParams, data);
+  updateElection(data: any, electionID: string): Observable<Election> {
+    const electionObservable = super.put(`${this.baseURL}/election/${electionID}`, data);
     return electionObservable;
   }
 
@@ -81,11 +81,11 @@ export class ElectionsRequestService extends RequestService {
    * Count election votes
    *
    * https://docs.aswwu.com/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/elections.yml#/election/get_election__election_id__count
-   * @param queryParams
+   * @param electionID
    * @return JSON object of votes for candidates
    */
-  readElectionCount(queryParams: any) {
-    const electionCount = super.get(`${this.baseURL}/election/${queryParams}/count`);
+  readElectionCount(electionID: string) {
+    const electionCount = super.get(`${this.baseURL}/election/${electionID}/count`);
     return electionCount;
   }
 
@@ -110,11 +110,11 @@ export class ElectionsRequestService extends RequestService {
    * Read position
    *
    * https://docs.aswwu.com/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/elections.yml#/position/get_position__position_id_
-   * @param queryParams
+   * @param positionID
    * @return a single election JSON object
    */
-  readPosition(queryParams: any): Observable<Position[]> {
-    const positionObservable = super.get(`${this.baseURL}/position`, queryParams).pipe(
+  readPosition(positionID: string): Observable<Position[]> {
+    const positionObservable = super.get(`${this.baseURL}/position`, positionID).pipe(
       map((data: {positions: Position[]}) => data.positions)
     );
     return positionObservable;
@@ -137,11 +137,11 @@ export class ElectionsRequestService extends RequestService {
    *
    * https://docs.aswwu.com/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/elections.yml#/position/put_position__position_id_
    * @param data
-   * @param queryParams
+   * @param positionID
    * @return JSON object containing the position info that was updated
    */
-  updatePosition(data: any, queryParams: any): Observable<Position> {
-    const positionObservable = super.put(`${this.baseURL}/position/` + queryParams, data);
+  updatePosition(data: any, positionID: string): Observable<Position> {
+    const positionObservable = super.put(`${this.baseURL}/position/${positionID}`, data);
     return positionObservable;
   }
 
@@ -166,12 +166,12 @@ export class ElectionsRequestService extends RequestService {
    * Read candidates
    *
    * https://docs.aswwu.com/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/elections.yml#/candidate/get_election__election_id__candidate__candidate_id_
-   * @param queryParams
+   * @param electionID
    * @param candidateId
    * @return a single candidate JSON object
    */
-  readCandidate(queryParams: any, candidateId: any): Observable<Candidate> {
-    const candidateObservable = super.get(`${this.baseURL}/election/${queryParams}/candidate/${candidateId}`).pipe(
+  readCandidate(electionID: string, candidateId: string): Observable<Candidate> {
+    const candidateObservable = super.get(`${this.baseURL}/election/${electionID}/candidate/${candidateId}`).pipe(
       map((data: {candidates: Candidate}) => data.candidates)
     );
     return candidateObservable;
@@ -181,11 +181,11 @@ export class ElectionsRequestService extends RequestService {
    * Create candidate
    *
    * https://docs.aswwu.com/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/elections.yml#/candidate/post_election__election_id__candidate
-   * @param queryParams
+   * @param electionID
    * @return JSON object containing the candidate info created
    */
-  createCandidate( queryParams: any, data: any): Observable<Candidate> {
-    const candidatesObservable = super.post(`${this.baseURL}/election/${queryParams}/candidate`, data);
+  createCandidate( electionID: string, data: any): Observable<Candidate> {
+    const candidatesObservable = super.post(`${this.baseURL}/election/${electionID}/candidate`, data);
     return candidatesObservable;
   }
 
@@ -194,12 +194,12 @@ export class ElectionsRequestService extends RequestService {
    *
    * https://docs.aswwu.com/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/elections.yml#/candidate/put_election__election_id__candidate__candidate_id_
    * @param data
-   * @param queryParams
+   * @param electionID
    * @param candidateID
    * @return JSON object containing the candidate info that was updated
    */
-  updateCandidate(data: any, queryParams: any, candidateID: any): Observable<Candidate> {
-    const candidateObservable = super.put(`${this.baseURL}/election/${queryParams}/candidate/${candidateID}`, data);
+  updateCandidate(data: any, electionID: string, candidateID: string): Observable<Candidate> {
+    const candidateObservable = super.put(`${this.baseURL}/election/${electionID}/candidate/${candidateID}`, data);
     return candidateObservable;
   }
 
@@ -207,11 +207,11 @@ export class ElectionsRequestService extends RequestService {
    * Remove candidate
    *
    * https://docs.aswwu.com/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/elections.yml#/candidate/delete_election__election_id__candidate__candidate_id_
-   * @param queryParams
+   * @param electionID
    * @param candidateID
    */
-  removeCandidate(queryParams: any, candidateID: any): Observable<[]> {
-    const candidateObservable = super.delete(`${this.baseURL}/election/${queryParams}/candidate/${candidateID}`);
+  removeCandidate(electionID: string, candidateID: string): Observable<[]> {
+    const candidateObservable = super.delete(`${this.baseURL}/election/${electionID}/candidate/${candidateID}`);
     return candidateObservable;
   }
 
@@ -236,11 +236,11 @@ export class ElectionsRequestService extends RequestService {
    * Read vote
    *
    * https://docs.aswwu.com/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/elections.yml#/vote/get_vote__vote_id_   * @param queryParams
-   * @param queryParams
+   * @param voteID
    * @return a single vote JSON object
    */
-  readVote(queryParams: any): Observable<Vote> {
-    const voteObservable = super.get(`${this.baseURL}/vote/${queryParams}`);
+  readVote(voteID: string): Observable<Vote> {
+    const voteObservable = super.get(`${this.baseURL}/vote/${voteID}`);
     return voteObservable;
   }
 
@@ -261,11 +261,11 @@ export class ElectionsRequestService extends RequestService {
    *
    * https://docs.aswwu.com/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/elections.yml#/vote/put_vote__vote_id_
    * @param data
-   * @param queryParams
+   * @param voteID
    * @return JSON object containing the vote info that was changed
    */
-  updateVote(data: any, queryParams: any): Observable<Vote> {
-    const voteObservable = super.put(`${this.baseURL}/vote/${queryParams}`, data);
+  updateVote(data: any, voteID: string): Observable<Vote> {
+    const voteObservable = super.put(`${this.baseURL}/vote/${voteID}`, data);
     return voteObservable;
   }
 
@@ -273,10 +273,10 @@ export class ElectionsRequestService extends RequestService {
    * Remove Vote
    *
    * https://docs.aswwu.com/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/elections.yml#/vote/delete_vote__vote_id_
-   * @param queryParams
+   * @param voteID
    */
-  removeVote(queryParams: any): Observable<[]> {
-    const voteObservable = super.delete(`${this.baseURL}/vote/${queryParams}`);
+  removeVote(voteID: string): Observable<[]> {
+    const voteObservable = super.delete(`${this.baseURL}/vote/${voteID}`);
     return voteObservable;
   }
 
@@ -291,7 +291,7 @@ export class ElectionsRequestService extends RequestService {
    * @param filterParams an object with properties used to filter results
    * @return a lit of all votes in a ballot
    */
-  listBallot(electionID: any, filterParams?: any): Observable<Ballot[]> {
+  listBallot(electionID: string, filterParams?: any): Observable<Ballot[]> {
     const ballotsObservable = super.get(`${this.baseURL}/election/${electionID}/ballot`, filterParams).pipe(
       map((data: {ballots: Ballot[]}) => data.ballots)
     );
@@ -302,12 +302,12 @@ export class ElectionsRequestService extends RequestService {
    * Read ballot
    *
    * https://docs.aswwu.com/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/elections.yml#/ballot/get_election__election_id__ballot__vote_id_
-   * @param queryParams
+   * @param ballotID
    * @param electionID
    * @return a single JSON object that conatins a vote
    */
-  readBallot(electionID: any, queryParams: any): Observable<Ballot> {
-    const ballotObservable = super.get(`${this.baseURL}/election/${electionID}/ballot/${queryParams}`).pipe(
+  readBallot(electionID: string, ballotID: string): Observable<Ballot> {
+    const ballotObservable = super.get(`${this.baseURL}/election/${electionID}/ballot/${ballotID}`).pipe(
       map((data: {ballots: Ballot}) => data.ballots)
     );
     return ballotObservable;
@@ -321,7 +321,7 @@ export class ElectionsRequestService extends RequestService {
    * @param data
    * @return JSON object containing info of ballot created
    */
-  createBallot(data: any, electionID: any): Observable<Ballot> {
+  createBallot(data: any, electionID: string): Observable<Ballot> {
     const ballotObservable = super.post(`${this.baseURL}/election/${electionID}/ballot`, data);
     return ballotObservable;
   }
@@ -330,11 +330,11 @@ export class ElectionsRequestService extends RequestService {
    * Remove ballot
    *
    * https://docs.aswwu.com/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/elections.yml#/ballot/delete_election__election_id__ballot__vote_id_
-   * @param queryParams
+   * @param ballotID
    * @param electionID
    */
-  removeBallot(electionID: any, queryParams: any): Observable<[]> {
-    const ballotObservable = super.delete(`${this.baseURL}/election/${electionID}/ballot/${queryParams}`);
+  removeBallot(electionID: string, ballotID: string): Observable<[]> {
+    const ballotObservable = super.delete(`${this.baseURL}/election/${electionID}/ballot/${ballotID}`);
     return ballotObservable;
   }
 }
