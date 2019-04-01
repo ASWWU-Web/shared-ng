@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
-
-=======
 /*
  * Created by: Stephen Ermshar and Sheldon Woodward
  * Date: 2018-2019
@@ -13,7 +8,6 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
->>>>>>> 09eef84055ef07e3d4ceb6c5fbb626806d9a1ccc
 import { Observable } from 'rxjs';
 
 import { environment } from '../../shared-ng/environments/environment';
@@ -27,10 +21,6 @@ export class RequestService {
   authUser: User;
   private isLoggedIn = false;
   private URLENCODED = 'application/x-www-form-urlencoded; charset=UTF-8';
-<<<<<<< HEAD
-
-=======
->>>>>>> 09eef84055ef07e3d4ceb6c5fbb626806d9a1ccc
 
   constructor(private http: HttpClient) {
     // verify and login the current user
@@ -61,13 +51,6 @@ export class RequestService {
         // Log in the user
         const user = data.user || null;
         this.setCurrentUser(user);
-<<<<<<< HEAD
-        if (typeof cb === 'function') { cb(user); }
-      }, () => {
-        // user in not logged in remove authUser.
-        this.setCurrentUser({});
-        if (typeof cb === 'function') { cb(null); }
-=======
         if (typeof cb === 'function') {
           cb(user);
         }
@@ -77,7 +60,6 @@ export class RequestService {
         if (typeof cb === 'function') {
           cb(null);
         }
->>>>>>> 09eef84055ef07e3d4ceb6c5fbb626806d9a1ccc
       });
     } else {
       this.authUser = undefined;
@@ -107,13 +89,9 @@ export class RequestService {
     let url = uri;
     if (!url.startsWith('http')) {
       url = environment.SERVER_URL;
-<<<<<<< HEAD
-      if (url.split('').pop() !== '/' && uri[0] !== '/') { url += '/'; }
-=======
       if (url.split('').pop() !== '/' && uri[0] !== '/') {
         url += '/';
       }
->>>>>>> 09eef84055ef07e3d4ceb6c5fbb626806d9a1ccc
       url += uri;
     }
     return url;
