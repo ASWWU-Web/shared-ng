@@ -19,11 +19,11 @@ export class ElectionsRequestService extends RequestService {
    * Lists elections
    *
    * https://docs.aswwu.com/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/elections.yml#/election/get_election
-   * @param queryParams
+   * @param filterParams an object with properties used to filter results
    * @returns an observable of all elections or elections specified by urlParams
    */
-  listElection(queryParams?: any): Observable<Election[]> {
-    const electionsObservable = super.get(`${this.baseURL}/election`, queryParams).pipe(
+  listElection(filterParams?: any): Observable<Election[]> {
+    const electionsObservable = super.get(`${this.baseURL}/election`, filterParams).pipe(
       map((data: {elections: Election[]}) => data.elections)
     );
     return electionsObservable;
@@ -96,11 +96,11 @@ export class ElectionsRequestService extends RequestService {
    * Lists Positions
    *
    * https://docs.aswwu.com/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/elections.yml#/position/get_position
-   * @param queryParams
+   * @param filterParams an object with properties used to filter results
    * @return an observable of all elections or elections specified by urlParams
    */
-  listPosition(queryParams?: any): Observable<Position[]> {
-    const positionsObservable = super.get(`${this.baseURL}/position`, queryParams).pipe(
+  listPosition(filterParams?: any): Observable<Position[]> {
+    const positionsObservable = super.get(`${this.baseURL}/position`, filterParams).pipe(
       map((data: {positions: Position[]}) => data.positions)
     );
     return positionsObservable;
@@ -152,11 +152,11 @@ export class ElectionsRequestService extends RequestService {
    * List candidates
    *
    * https://docs.aswwu.com/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/elections.yml#/candidate/get_election__election_id__candidate
-   * @param queryParams
+   * @param filterParams an object with properties used to filter results
    * @return an observable of all elections or elections specified by urlParams
    */
-  listCandidates( queryParams: any, jsonData?: any): Observable<Candidate[]> {
-    const candidateObservable = super.get(`${this.baseURL}/election/${queryParams}/candidate`, jsonData).pipe(
+  listCandidates( filterParams: any, jsonData?: any): Observable<Candidate[]> {
+    const candidateObservable = super.get(`${this.baseURL}/election/${filterParams}/candidate`, jsonData).pipe(
       map((data: {candidates: Candidate[]}) => data.candidates)
     );
     return candidateObservable;
@@ -222,11 +222,11 @@ export class ElectionsRequestService extends RequestService {
    * List Votes
    *
    * https://docs.aswwu.com/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/elections.yml#/vote/get_vote
-   * @param queryParams
+   * @param filterParams an object with properties used to filter results
    * @return  an observable of all votes or specified votes by parameters
    */
-  listVote(queryParams?: any): Observable<Vote[]> {
-    const votesObservable = super.get(`${this.baseURL}/vote`, queryParams).pipe(
+  listVote(filterParams?: any): Observable<Vote[]> {
+    const votesObservable = super.get(`${this.baseURL}/vote`, filterParams).pipe(
       map((data: {votes: Vote[]}) => data.votes)
     );
     return votesObservable;
@@ -288,11 +288,11 @@ export class ElectionsRequestService extends RequestService {
    *
    * https://docs.aswwu.com/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/elections.yml#/ballot/get_election__election_id__ballot
    * @param electionID
-   * @param queryParams
+   * @param filterParams an object with properties used to filter results
    * @return a lit of all votes in a ballot
    */
-  listBallot(electionID: any, queryParams?: any): Observable<Ballot[]> {
-    const ballotsObservable = super.get(`${this.baseURL}/election/${electionID}/ballot`, queryParams).pipe(
+  listBallot(electionID: any, filterParams?: any): Observable<Ballot[]> {
+    const ballotsObservable = super.get(`${this.baseURL}/election/${electionID}/ballot`, filterParams).pipe(
       map((data: {ballots: Ballot[]}) => data.ballots)
     );
     return ballotsObservable;
