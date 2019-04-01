@@ -139,15 +139,9 @@ export class RequestService {
    * @param queryParams optional, parameters to be added to the request url
    * @param encoding optional, request encoding, defaults to json
    */
-<<<<<<< HEAD
-  private createOptions(queryParams?: any, encoding?: string) {
-    if (!queryParams) {
-      queryParams = {};
-=======
   private createOptions(urlParams?: any, encoding?: string) {
     if (!urlParams) {
       urlParams = {};
->>>>>>> 09eef84055ef07e3d4ceb6c5fbb626806d9a1ccc
     }
 
     if (encoding === 'urlencoded') {
@@ -166,25 +160,6 @@ export class RequestService {
     return options;
   }
 
-<<<<<<< HEAD
-
-  /*
-  * Seperate function to make get requests in the Verify function.
-  * Use of the normal get function would cause an infinite loop.
-  * */
-  private verifyGet(uri: string, afterRequest, catchError): void {
-    const req = this.createUri(uri);
-    const options = this.createOptions();
-    this.http.get(req, options)
-      .subscribe(
-        data => afterRequest(data),
-        err => (catchError ? catchError(err) : console.error(err))
-      );
-  }
-
-
-=======
->>>>>>> 09eef84055ef07e3d4ceb6c5fbb626806d9a1ccc
   /**
    * Converts a javascript object into an httpParam object for use in sending url encoded data in requests
    * @param obj javascript object to convert
@@ -209,18 +184,6 @@ export class RequestService {
    * @param data javascript object, data to be used in POST and PUT requests
    * @param encoding string, use "urlencoded" if the server needs that format, defaults to json
    */
-<<<<<<< HEAD
-  private request(requestType: string, uriSuffix: string, queryParams?: any, data?: any, encoding?: string): Observable<any> {
-    this.verify;
-
-    const url = this.createUri(uriSuffix);
-    const body = this.createBody(data, encoding);
-    const options = this.createOptions(queryParams, encoding);
-
-    let observable: Observable<any>;
-
-    if (requestType == 'GET') { observable = this.http.get(url, options); } else if (requestType == 'DELETE') { observable = this.http.delete(url, options); } else if (requestType == 'POST') { observable = this.http.post(url, body, options); } else if (requestType == 'PUT') { observable = this.http.put(url, body, options); } else if (requestType == 'PATCH') { observable = this.http.patch(url, body, options); }
-=======
   private request(requestType: string, uriSuffix: string, urlParams?: any, data?: any, encoding?: string): Observable<any> {
     const url = this.createUri(uriSuffix);
     const body = this.createBody(data, encoding);
@@ -239,41 +202,10 @@ export class RequestService {
     } else if (requestType === 'PATCH') {
       observable = this.http.patch(url, body, options);
     }
->>>>>>> 09eef84055ef07e3d4ceb6c5fbb626806d9a1ccc
 
     return observable;
   }
 
-<<<<<<< HEAD
-
-  get(uri: string, queryParams?: any): Observable<any> {
-    return this.request('GET', uri, queryParams, null, null);
-  }
-
-  delete(uri: string, queryParams?: any): Observable<any> {
-    return this.request('DELETE', uri, queryParams, null, null);
-  }
-
-  post(uri: string, data: any, queryParams?: any, encoding?: any): Observable<any> {
-    return this.request('POST', uri, queryParams, data, encoding);
-  }
-
-  put(uri: string, data: any, queryParams?: any, encoding?: any): Observable<any> {
-    return this.request('PUT', uri, queryParams, data, encoding);
-  }
-
-  // patch not tested
-  patch(uri: string, data: any, queryParams?: any, encoding?: any): Observable<any> {
-    return this.request('PATCH', uri, queryParams, data, encoding);
-  }
-
-
-  uploadImage(file: File, callback: Function, catchError: Function) {
-    const data = new FormData;
-    data.append('file', file, file.name);
-    const request = this.createUri('/pages/media/upload_image');
-    this.http.post(request, data).subscribe(
-=======
   get(uri: string, urlParams?: any): Observable<any> {
     return this.request('GET', uri, urlParams, null, null);
   }
@@ -300,7 +232,6 @@ export class RequestService {
     formData.append('file', file, file.name);
     const request = this.createUri('/pages/media/upload_image');
     this.http.post(request, formData).subscribe(
->>>>>>> 09eef84055ef07e3d4ceb6c5fbb626806d9a1ccc
       data => callback(data),
       err => (catchError ? catchError(err) : console.log(err))
     );
