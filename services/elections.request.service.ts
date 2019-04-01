@@ -155,7 +155,7 @@ export class ElectionsRequestService extends RequestService {
    * @param filterParams an object with properties used to filter results
    * @return an observable of all elections or elections specified by urlParams
    */
-  listCandidates( filterParams: any, jsonData?: any): Observable<Candidate[]> {
+  listCandidates(filterParams: any, jsonData?: any): Observable<Candidate[]> {
     const candidateObservable = super.get(`${this.baseURL}/election/${filterParams}/candidate`, jsonData).pipe(
       map((data: {candidates: Candidate[]}) => data.candidates)
     );
@@ -198,7 +198,7 @@ export class ElectionsRequestService extends RequestService {
    * @param candidateID
    * @return JSON object containing the candidate info that was updated
    */
-  updateCandidate(data: any, electionID: string, candidateID: string): Observable<Candidate> {
+  updateCandidate(data: Candidate, electionID: string, candidateID: string): Observable<Candidate> {
     const candidateObservable = super.put(`${this.baseURL}/election/${electionID}/candidate/${candidateID}`, data);
     return candidateObservable;
   }
