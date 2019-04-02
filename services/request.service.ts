@@ -114,7 +114,7 @@ export class RequestService {
 
   /**
    * create the options part of an angular http request. sets header (content type) and url parameters.
-   * @param queryParams optional, parameters to be added to the request url
+   * @param urlParams optional, parameters to be added to the request url
    * @param encoding optional, request encoding, defaults to json
    */
   private createOptions(urlParams?: any, encoding?: string) {
@@ -132,7 +132,7 @@ export class RequestService {
 
     const options = {
       headers: headers,
-      params: queryParams
+      params: urlParams
     };
 
     return options;
@@ -158,7 +158,7 @@ export class RequestService {
    * generates an http request
    * @param requestType string, request type, options: "GET", "DELETE", "POST", "PUT", "PATCH"
    * @param uri string, the part of the URL following aswwu.com and before parameters, or a full URL
-   * @param queryParams javascript object, containing parameters to be placed in the request URL
+   * @param urlParams javascript object, containing parameters to be placed in the request URL
    * @param data javascript object, data to be used in POST and PUT requests
    * @param encoding string, use "urlencoded" if the server needs that format, defaults to json
    */
