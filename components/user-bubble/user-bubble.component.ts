@@ -5,9 +5,10 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { RequestService } from '../../services/services';
+import { RequestService, AuthService } from '../../services/services';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 import { MEDIA_SM, DEFAULT_PHOTO, CURRENT_YEAR } from '../../config';
+import { User } from 'src/shared-ng/interfaces/user';
 
 @Component({
   selector: 'user-bubble',
@@ -31,19 +32,26 @@ import { MEDIA_SM, DEFAULT_PHOTO, CURRENT_YEAR } from '../../config';
 })
 
 export class UserBubbleComponent implements OnInit {
-  profile: any;
+  profile: User;
   router: any;
   isLoggedIn: boolean = false;
 
-  constructor(private requestService: RequestService, private _router: Router) {
+  constructor(private authService: AuthService, private requestService: RequestService, private _router: Router) {
       this.router = _router;
   }
 
   ngOnInit() {
-      this.requestService.verify((data) => {
+      // this.requestService.verify((data) => {
+      //     this.profile = data;
+      //     this.isLoggedIn = this.requestService.isLoggedOn();
+      // });
+      this.authService.authenticateUser().subscribe(
+        (data) => {
           this.profile = data;
-          this.isLoggedIn = this.requestService.isLoggedOn();
-      });
+          this.isLoggedIn = this.authService.isLoggedIn();
+          console.log(this.authService.isLoggedIn());
+        }
+      );
   }
 
   current_year = CURRENT_YEAR;
@@ -57,15 +65,24 @@ export class UserBubbleComponent implements OnInit {
   }
 
   displayUserOptions():void {
+    // TODO: this was commented out all the way back in pages and mask for some reason,
+    // wasn't able to find git history where it wasn't commented out, leaving for now...
+    // remove in cleanup
       // let popup = document.getElementById("bubble-popup");
       // popup.style.display = popup.style.display == 'none' ? 'block' : 'none';
   }
 
-  logout():void {
-      document.cookie='token=;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-      document.getElementById('bubble-popup').style.display = 'none';
-      this.profile = undefined;
-      this.requestService.verify();
-      this.isLoggedIn = false;
+  // logout():void {
+  //     document.cookie='token=;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+  //     document.getElementById('bubble-popup').style.display = 'none';
+  //     this.profile = undefined;
+  //     this.requestService.verify();
+  //     this.isLoggedIn = false;
+  // }
+
+  logout(): void {
+    this.authService.logout();
+    this.profile = null;
+    this.isLoggedIn = this.authService.isLoggedIn();
   }
 }
