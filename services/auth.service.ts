@@ -3,6 +3,7 @@
  * Date: 2018-2019
  *
  * Note: Based on http://jasonwatmore.com/post/2018/10/29/angular-7-user-registration-and-login-example-tutorial#authentication-service-ts
+ * and the old request service originally copied from the pages project and reworked from Ryan Rabello's implementation.
  */
 
 import { Injectable } from '@angular/core';
@@ -11,7 +12,7 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { HeaderButton, SubNavbarLink } from 'src/shared-ng/interfaces/interfaces';
 import { User } from '../interfaces/interfaces';
 import { RequestService } from './request.service';
-import { map } from 'rxjs/internal/operators/map';
+import { map, tap, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -36,11 +37,11 @@ export class AuthService {
    * Gets current user and sets it to authUser
    * Also returns the user object to the callback function.
    */
-  verify(cb ? : any): void {
+  not_verify(cb ? : any): void {
     // TODO: Determine if the token really should be updated. (ie. Only if the
     // token is older than 1 hour should a new one be generated.)
     if (document.cookie.search('token=') !== -1) {
-      this.verifyGet('verify', data => {
+      this.rs.get('verify').subscribe(data => {
         // Log in the user
         const user = data.user || null;
         this.setCurrentUser(user);
@@ -55,41 +56,49 @@ export class AuthService {
         }
       });
     } else {
-      this.userInfo = undefined;
-      this.isLoggedIn = false;
+      this.userInfo = null;
     }
   }
 
-  buildUser(data: any) {
-    if (typeof data == "string") data = JSON.parse(data);
-    for (var key in data) this[key] = data[key];
-  }
-
+  /**
+   * sends the request to the server for user information
+   */
   private readVerify(): Observable<User> {
     return this.rs.get('verify').pipe(
-      map((data) => data.user)
+      map((data) => data.user),
+      catchError((err) => {
+        this.userInfo = null;
+        return null;
+      })
     );
   }
 
-  public authenticateUser() {
-    this.readVerify().subscribe(
-      (data) => {
-        this.userInfo = data;
-      }, (err) => {
-
-      }, () => {
-
-      }
+  /**
+   * adds the side effect of setting the current user variable to the server request for user data.
+   */
+  public authenticateUser(): Observable<User> {
+    return this.readVerify().pipe(
+      tap((data: User) => this.setCurrentUser(data))
     );
   }
 
-  public logout() {
-    document.cookie='token=;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-    document.getElementById('bubble-popup').style.display = 'none';
-    this.profile = undefined;
-    this.requestService.verify();
-    this.isLoggedIn = false;
-}
+  public logout(): void {
+    document.cookie = 'token=;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    this.userInfo = null;
+  }
+
+
+  /**
+   * temporary function, this should be replaced with a subject to be subscribed to
+   * just adding it so that we can keep userInfo as a private variable
+   */
+  isLoggedIn(): boolean {
+    let isLoggedIn = false;
+    if (this.userInfo) {
+      isLoggedIn = true;
+    }
+    return isLoggedIn;
+  }
 
   // /*
   //  * Seperate function to make get requests in the Verify function.

@@ -41,15 +41,10 @@ export class UserBubbleComponent implements OnInit {
   }
 
   ngOnInit() {
-      // this.requestService.verify((data) => {
-      //     this.profile = data;
-      //     this.isLoggedIn = this.requestService.isLoggedOn();
-      // });
       this.authService.authenticateUser().subscribe(
         (data) => {
           this.profile = data;
           this.isLoggedIn = this.authService.isLoggedIn();
-          console.log(this.authService.isLoggedIn());
         }
       );
   }
@@ -71,14 +66,6 @@ export class UserBubbleComponent implements OnInit {
       // let popup = document.getElementById("bubble-popup");
       // popup.style.display = popup.style.display == 'none' ? 'block' : 'none';
   }
-
-  // logout():void {
-  //     document.cookie='token=;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-  //     document.getElementById('bubble-popup').style.display = 'none';
-  //     this.profile = undefined;
-  //     this.requestService.verify();
-  //     this.isLoggedIn = false;
-  // }
 
   logout(): void {
     this.authService.logout();
