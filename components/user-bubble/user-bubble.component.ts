@@ -41,10 +41,15 @@ export class UserBubbleComponent implements OnInit {
   }
 
   ngOnInit() {
+      console.log('user-bubble.component>ngOnInit');
       this.authService.authenticateUser().subscribe(
         (data) => {
+          console.log('user-bubble.component>ngOnInit>authenticateUser>success');
           this.profile = data;
           this.isLoggedIn = this.authService.isLoggedIn();
+        },
+        (err) => {
+          console.log('user-bubble.component>ngOnInit>authenticateUser>error');
         }
       );
   }
