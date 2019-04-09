@@ -67,11 +67,9 @@ export class AuthService {
   private readVerify(): Observable<User> {
     return this.rs.get('verify').pipe(
       map((data) => {
-        console.log('map data.user', data.user);
         return data.user;
       }),
       catchError((err) => {
-        console.log('readverify>catcherror>err', err.status);
         if (err.status === 401) {
           return of(null);
         } else {
@@ -90,7 +88,6 @@ export class AuthService {
   public authenticateUser(): Observable<User> {
     return this.readVerify().pipe(
       tap((data: User) => {
-        console.log('authservice>authenticateuser>tap>data', data);
         let user: User = data;
         if (document.cookie.search('token=') === -1) {
           user = null;
