@@ -11,74 +11,15 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../shared-ng/environments/environment';
-import { User } from './user.model';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class RequestService {
-  authUser: User;
-  private isLoggedIn = false;
   private URLENCODED = 'application/x-www-form-urlencoded; charset=UTF-8';
 
   constructor(private http: HttpClient) {
-    // verify and login the current user
-    this.verify();
-  }
-
-  private setCurrentUser(user: any): void {
-    if (user.hasOwnProperty('wwuid') && user.wwuid) {
-      this.authUser = new User(user);
-      this.isLoggedIn = true;
-    } else {
-      this.authUser = undefined;
-      this.isLoggedIn = false;
-    }
-  }
-
-
-  /**
-  * Verifies the login status of the current user.
-  * Gets current user and sets it to authUser
-  * Also returns the user object to the callback function.
-  */
-  verify(cb?: any): void {
-    // TODO: Determine if the token really should be updated. (ie. Only if the
-    // token is older than 1 hour should a new one be generated.)
-    if (document.cookie.search('token=') !== -1) {
-      this.verifyGet('verify', data => {
-        // Log in the user
-        const user = data.user || null;
-        this.setCurrentUser(user);
-        if (typeof cb === 'function') {
-          cb(user);
-        }
-      }, () => {
-        // user in not logged in remove authUser.
-        this.setCurrentUser({});
-        if (typeof cb === 'function') {
-          cb(null);
-        }
-      });
-    } else {
-      this.authUser = undefined;
-      this.isLoggedIn = false;
-    }
-  }
-
-  /*
-  * Seperate function to make get requests in the Verify function.
-  * Use of the normal get function would cause an infinite loop.
-  */
-  private verifyGet(uri: string, afterRequest, catchError): void {
-    const req = this.createUri(uri);
-    const options = this.createOptions();
-    this.http.get(req, options)
-      .subscribe(
-        data => afterRequest(data),
-        err => (catchError ? catchError(err) : console.error(err))
-      );
   }
 
   /**
@@ -131,7 +72,7 @@ export class RequestService {
     const headers = new HttpHeaders().set('Content-Type', encoding);
 
     const options = {
-      headers: headers,
+      headers, // shorthand for `headers: headers`, see tslint rules
       params: urlParams
     };
 
@@ -205,8 +146,11 @@ export class RequestService {
     return this.request('PATCH', uri, urlParams, data, encoding);
   }
 
-  uploadImage(file: File, callback: Function, catchError: Function) {
-    const formData = new FormData;
+  /**
+   * upload an image for the pages site. TODO: move into pages request service.
+   */
+  uploadImage(file: File, callback: (data) => void, catchError: (err) => void) {
+    const formData = new FormData();
     formData.append('file', file, file.name);
     const request = this.createUri('/pages/media/upload_image');
     this.http.post(request, formData).subscribe(
@@ -214,10 +158,4 @@ export class RequestService {
       err => (catchError ? catchError(err) : console.log(err))
     );
   }
-
-  isLoggedOn(): boolean {
-    // Returns true if authUser is defined, false otherwise.
-    return this.isLoggedIn;
-  }
-
 }
