@@ -13,7 +13,9 @@ import { Observable } from 'rxjs';
 import { environment } from '../../shared-ng/environments/environment';
 
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class RequestService {
   private URLENCODED = 'application/x-www-form-urlencoded; charset=UTF-8';
 

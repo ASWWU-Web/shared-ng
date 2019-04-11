@@ -8,7 +8,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { HeaderButton, SubNavbarLink } from 'src/shared-ng/interfaces/interfaces';
+import { HeaderButton, SubNavbarLink } from '../interfaces/interfaces';
 
 @Injectable({
   providedIn: 'root'
