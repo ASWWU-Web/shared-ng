@@ -14,6 +14,7 @@ import { User } from '../interfaces/interfaces';
 import { RequestService } from './request.service';
 import { map, tap, catchError } from 'rxjs/operators';
 import { throwError, of } from 'rxjs';
+import { userInfo } from 'os';
 
 @Injectable({
   providedIn: 'root'
@@ -84,5 +85,9 @@ export class AuthService {
       isLoggedIn = true;
     }
     return isLoggedIn;
+  }
+
+  public getUserInfo(): User {
+    return this.userInfo;
   }
 }
