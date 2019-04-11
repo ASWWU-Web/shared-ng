@@ -25,6 +25,11 @@ export class AuthService {
     this.authenticateUser().subscribe();
   }
 
+  /**
+   * Handles setting the userInfo variable. call without argument to remove
+   * saved user information.
+   * @param user optional User object to set current user with.
+   */
   private setCurrentUser(user?: User): void {
     if (user) {
       this.userInfo = user;
@@ -34,7 +39,9 @@ export class AuthService {
   }
 
   /**
-   * sends the request to the server for user information
+   * sends the request to the server for user information.
+   * 401 errors will be caught and pass a null value down the pipe,
+   * other errors will be re-thrown.
    */
   private readVerify(): Observable<User> {
     return this.rs.get('verify').pipe(
@@ -52,10 +59,9 @@ export class AuthService {
   }
 
   /**
-   * adds the side effect of setting the current user variable to the server request for user data.
-   * side effects: sets the userInfo in auth.service using the setCurrentUser method
-   *               checks for a cookie and if its invalid, or if the server rejects the authentication
-   *               userInfo is set to null, again through the setCurrentUser method
+   * Send a request to the server to verify the current user.
+   * Sets user information and handles the aswwu cookie.
+   * Returns an observable with user information.
    */
   public authenticateUser(): Observable<User> {
     return this.readVerify().pipe(
@@ -69,16 +75,22 @@ export class AuthService {
     );
   }
 
+  /**
+   * Invalidates the cookie and removes current user information from
+   * the auth service.
+   */
   public logout(): void {
     document.cookie = 'token=;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-    this.userInfo = null;
+    this.setCurrentUser();
   }
 
   /**
-   * temporary function, this should be replaced with a subject to be subscribed to
-   * just adding it so that we can keep userInfo as a private variable
+   * indicates whether there is currently userInfo available.
    */
   public isLoggedIn(): boolean {
+    // user info should always be managed in conjunction with the cookie if it's being removed
+    // and with authentication when it's being added, so we should only need to check whether
+    // userInfo is null.
     let isLoggedIn = false;
     if (this.userInfo) {
       isLoggedIn = true;
@@ -86,6 +98,9 @@ export class AuthService {
     return isLoggedIn;
   }
 
+  /**
+   * return the userInfo object.
+   */
   public getUserInfo(): User {
     return this.userInfo;
   }
