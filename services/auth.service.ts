@@ -34,34 +34,6 @@ export class AuthService {
   }
 
   /**
-   * Verifies the login status of the current user.
-   * Gets current user and sets it to authUser
-   * Also returns the user object to the callback function.
-   */
-  not_verify(cb ? : any): void {
-    // TODO: Determine if the token really should be updated. (ie. Only if the
-    // token is older than 1 hour should a new one be generated.)
-    if (document.cookie.search('token=') !== -1) {
-      this.rs.get('verify').subscribe(data => {
-        // Log in the user
-        const user = data.user || null;
-        this.setCurrentUser(user);
-        if (typeof cb === 'function') {
-          cb(user);
-        }
-      }, () => {
-        // user in not logged in remove authUser.
-        this.setCurrentUser();
-        if (typeof cb === 'function') {
-          cb(null);
-        }
-      });
-    } else {
-      this.userInfo = null;
-    }
-  }
-
-  /**
    * sends the request to the server for user information
    */
   private readVerify(): Observable<User> {
@@ -106,30 +78,11 @@ export class AuthService {
    * temporary function, this should be replaced with a subject to be subscribed to
    * just adding it so that we can keep userInfo as a private variable
    */
-  isLoggedIn(): boolean {
+  public isLoggedIn(): boolean {
     let isLoggedIn = false;
     if (this.userInfo) {
       isLoggedIn = true;
     }
     return isLoggedIn;
   }
-
-  // /*
-  //  * Seperate function to make get requests in the Verify function.
-  //  * Use of the normal get function would cause an infinite loop.
-  //  */
-  // private verifyGet(uri: string, afterRequest, catchError): void {
-  //   const req = this.createUri(uri);
-  //   const options = this.createOptions();
-  //   this.http.get(req, options)
-  //     .subscribe(
-  //       data => afterRequest(data),
-  //       err => (catchError ? catchError(err) : console.error(err))
-  //     );
-  // }
-
-  // isLoggedOn(): boolean {
-  //   // Returns true if authUser is defined, false otherwise.
-  //   return this.isLoggedIn;
-  // }
 }
