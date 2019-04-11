@@ -72,7 +72,7 @@ export class RequestService {
     const headers = new HttpHeaders().set('Content-Type', encoding);
 
     const options = {
-      headers: headers,
+      headers, // shorthand for `headers: headers`, see tslint rules
       params: urlParams
     };
 
@@ -146,8 +146,11 @@ export class RequestService {
     return this.request('PATCH', uri, urlParams, data, encoding);
   }
 
-  uploadImage(file: File, callback: Function, catchError: Function) {
-    const formData = new FormData;
+  /**
+   * upload an image for the pages site. TODO: move into pages request service.
+   */
+  uploadImage(file: File, callback: (data) => void, catchError: (err) => void) {
+    const formData = new FormData();
     formData.append('file', file, file.name);
     const request = this.createUri('/pages/media/upload_image');
     this.http.post(request, formData).subscribe(
