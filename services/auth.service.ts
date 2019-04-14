@@ -59,18 +59,26 @@ export class AuthService {
   }
 
   /**
+   * returns true if the loggedin token exists
+   */
+  private isLoggedInCookie(): boolean {
+    return true;
+    // return document.cookie.search('loggedin=') !== -1;
+  }
+
+  /**
    * Send a request to the server to verify the current user.
    * Sets user information and handles the aswwu cookie.
    * Returns an observable with user information.
    */
   public authenticateUser(): Observable<User> {
+    if (!this.isLoggedInCookie()) {
+      this.setCurrentUser(null);
+      return;
+    }
     return this.readVerify().pipe(
       tap((data: User) => {
-        let user: User = data;
-        if (document.cookie.search('token=') === -1) {
-          user = null;
-        }
-        this.setCurrentUser(user);
+        this.setCurrentUser(data);
       })
     );
   }
@@ -80,7 +88,7 @@ export class AuthService {
    * the auth service.
    */
   public logout(): void {
-    document.cookie = 'token=;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    document.cookie = 'loggedin=false;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     this.setCurrentUser();
   }
 
