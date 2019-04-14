@@ -14,6 +14,7 @@ import { User } from '../interfaces/interfaces';
 import { RequestService } from './request.service';
 import { map, tap, catchError } from 'rxjs/operators';
 import { throwError, of } from 'rxjs';
+import { SAML_LOGIN_URL, SAML_LOGOUT_URL } from '../../shared-ng/config';
 
 @Injectable({
   providedIn: 'root'
@@ -69,13 +70,14 @@ export class AuthService {
    * Send a request to the server to verify the current user.
    * Sets user information and handles the aswwu cookie.
    * if the loggedin cookie is not set no request is made
-   * Returns an observable with user information.
+   * Returns an observable with user information, or a null
+   * observable if there's no loggedin cookie.
    */
   public authenticateUser(): Observable<User> {
 
     if (!this.isLoggedInCookie()) {
       this.setCurrentUser(null);
-      return;
+      return of(null);
     }
     return this.readVerify().pipe(
       tap((data: User) => {
@@ -89,7 +91,8 @@ export class AuthService {
    * the auth service.
    */
   public logout(): void {
-    document.cookie = 'loggedin=false;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    // TODO: begin saml logout workflow
+    // document.cookie = ';path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     this.setCurrentUser();
   }
 
@@ -105,5 +108,13 @@ export class AuthService {
    */
   public getUserInfo(): User {
     return this.userInfo;
+  }
+
+  public buildLoginLink(): string {
+    return SAML_LOGIN_URL + window.location.pathname;
+  }
+
+  public buildLogoutLink() {
+    // TODO: do the logout workflow
   }
 }

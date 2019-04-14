@@ -1,4 +1,11 @@
-// originally coppied from pages
+// DOMAINS
+export const SERVER_URL = 'http://127.0.0.1:8888';
+export const COOKIE_DOMAIN = '.localhost';
+
+// SAML LINK
+export const SAML_URL = 'https://saml.aswwu.com';
+export const SAML_LOGIN_URL = SAML_URL + '/?sso&redirect=';
+export const SAML_LOGOUT_URL = SAML_URL + '/?slo&redirect=';
 
 // IMAGES
 export const MEDIA_URI = 'https://aswwu.com/media';

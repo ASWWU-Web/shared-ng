@@ -26,7 +26,7 @@ import { User } from 'src/shared-ng/interfaces/user';
                       </div>
                   </div>
              </div>
-             <a *ngIf="!isLoggedIn" class="btn btn-primary float-right" [href]="'https://saml.aswwu.com/?sso&redirect=/mask'+ router.url">Log in</a>
+             <a *ngIf="!isLoggedIn" class="btn btn-primary float-right" [href]="buildLoginLink()">Log in</a>
 `,
   styleUrls: ['user-bubble.component.css'],
 })
@@ -35,9 +35,11 @@ export class UserBubbleComponent implements OnInit {
   profile: User;
   router: any;
   isLoggedIn: boolean = false;
+  buildLoginLink: () => string;
 
   constructor(private authService: AuthService, private requestService: RequestService, private _router: Router) {
-      this.router = _router;
+    this.buildLoginLink = authService.buildLoginLink;
+    this.router = _router;
   }
 
   ngOnInit() {
