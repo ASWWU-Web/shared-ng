@@ -62,16 +62,17 @@ export class AuthService {
    * returns true if the loggedin token exists
    */
   private isLoggedInCookie(): boolean {
-    return true;
-    // return document.cookie.search('loggedin=') !== -1;
+    return document.cookie.search('loggedin=') !== -1;
   }
 
   /**
    * Send a request to the server to verify the current user.
    * Sets user information and handles the aswwu cookie.
+   * if the loggedin cookie is not set no request is made
    * Returns an observable with user information.
    */
   public authenticateUser(): Observable<User> {
+
     if (!this.isLoggedInCookie()) {
       this.setCurrentUser(null);
       return;
@@ -93,17 +94,10 @@ export class AuthService {
   }
 
   /**
-   * indicates whether there is currently userInfo available.
+   * returns false if the loggedin cookie doesn't exist.
    */
   public isLoggedIn(): boolean {
-    // user info should always be managed in conjunction with the cookie if it's being removed
-    // and with authentication when it's being added, so we should only need to check whether
-    // userInfo is null.
-    let isLoggedIn = false;
-    if (this.userInfo) {
-      isLoggedIn = true;
-    }
-    return isLoggedIn;
+    return this.isLoggedInCookie();
   }
 
   /**
