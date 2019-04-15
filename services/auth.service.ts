@@ -14,6 +14,7 @@ import { User } from '../interfaces/interfaces';
 import { RequestService } from './request.service';
 import { map, tap, catchError } from 'rxjs/operators';
 import { throwError, of } from 'rxjs';
+import { SAML_LOGIN_URL, SAML_LOGOUT_URL } from '../../shared-ng/config';
 
 @Injectable({
   providedIn: 'root'
@@ -59,18 +60,28 @@ export class AuthService {
   }
 
   /**
+   * returns true if the loggedin token exists
+   */
+  private isLoggedInCookie(): boolean {
+    return document.cookie.search('loggedin=') !== -1;
+  }
+
+  /**
    * Send a request to the server to verify the current user.
    * Sets user information and handles the aswwu cookie.
-   * Returns an observable with user information.
+   * if the loggedin cookie is not set no request is made
+   * Returns an observable with user information, or a null
+   * observable if there's no loggedin cookie.
    */
   public authenticateUser(): Observable<User> {
+
+    if (!this.isLoggedInCookie()) {
+      this.setCurrentUser(null);
+      return of(null);
+    }
     return this.readVerify().pipe(
       tap((data: User) => {
-        let user: User = data;
-        if (document.cookie.search('token=') === -1) {
-          user = null;
-        }
-        this.setCurrentUser(user);
+        this.setCurrentUser(data);
       })
     );
   }
@@ -80,22 +91,16 @@ export class AuthService {
    * the auth service.
    */
   public logout(): void {
-    document.cookie = 'token=;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    // TODO: begin saml logout workflow
+    // document.cookie = ';path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     this.setCurrentUser();
   }
 
   /**
-   * indicates whether there is currently userInfo available.
+   * returns false if the loggedin cookie doesn't exist.
    */
   public isLoggedIn(): boolean {
-    // user info should always be managed in conjunction with the cookie if it's being removed
-    // and with authentication when it's being added, so we should only need to check whether
-    // userInfo is null.
-    let isLoggedIn = false;
-    if (this.userInfo) {
-      isLoggedIn = true;
-    }
-    return isLoggedIn;
+    return this.isLoggedInCookie();
   }
 
   /**
@@ -103,5 +108,13 @@ export class AuthService {
    */
   public getUserInfo(): User {
     return this.userInfo;
+  }
+
+  public buildLoginLink(): string {
+    return SAML_LOGIN_URL + window.location.pathname;
+  }
+
+  public buildLogoutLink() {
+    // TODO: do the logout workflow
   }
 }
