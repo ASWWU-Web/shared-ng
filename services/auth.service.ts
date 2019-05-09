@@ -9,8 +9,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { HeaderButton, SubNavbarLink } from 'src/shared-ng/interfaces/interfaces';
-import { User } from '../interfaces/interfaces';
+import { User, HeaderButton, SubNavbarLink } from '../interfaces/interfaces';
 import { RequestService } from './request.service';
 import { map, tap, catchError } from 'rxjs/operators';
 import { throwError, of } from 'rxjs';

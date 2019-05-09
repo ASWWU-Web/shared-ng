@@ -3,11 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { RequestService } from './request.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { map } from 'rxjs/internal/operators/map';
-import { Profile, ProfileFull, Names, ProfilePOST } from 'src/shared-ng/interfaces/mask';
+import { Profile, ProfileFull, Names, ProfilePOST } from '../interfaces/interfaces';
 
 @Injectable()
 export class MaskRequestService extends RequestService {
-  baseURL = 'mask';
+  baseURL = 'mask';  // currently unused
 
   constructor(http: HttpClient) {
     super(http);
@@ -18,13 +18,14 @@ export class MaskRequestService extends RequestService {
   ///////////////////
   /**
    * Lists profiles
-   * "/search/all"
    *
-   * @returns an observable of all profiles
+   * "/search/all"
+   * https://petstore.swagger.io/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/mask.yml#/mask/get_search_all
+   * @return array of all profiles
    */
   listProfile(): Observable<Profile[]> {
-    const profileObservable = super.get(`${this.baseURL}/search/all`).pipe(
-      map((results: {profiles: Profile[]}) => results.profiles)
+    const profileObservable = super.get(`search/all`).pipe(
+      map((results: Profile[]) => results)
     );
     return profileObservable;
   }
@@ -33,13 +34,12 @@ export class MaskRequestService extends RequestService {
    * Lists names
    *
    * "/search/names"
-   *
+   * https://petstore.swagger.io/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/mask.yml#/mask/get_search_names
    * @param filterParams limit = number of results to return, full_name is the search query
-   * @return an observable of names
+   * @return list of Names 
    */
-  // listName(limit: number, full_name: string): Observable<Names> {
   listName(filterParams: any): Observable<Names[]> {
-    const maskObservable = super.get(`${this.baseURL}/search/names`, filterParams).pipe(
+    const maskObservable = super.get(`search/names`, filterParams).pipe(
       map((results: {names: Names[]}) => results.names)
     );
     return maskObservable;
@@ -49,34 +49,49 @@ export class MaskRequestService extends RequestService {
    *  Read profile
    *
    * "/profile/(.*)/(.*)"
-   *
+   * https://petstore.swagger.io/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/mask.yml#/profile/get_profile__year___username_
    * @param year
    * @param username
-   * @return a user's profile
+   * @return user's profile
    */
   readProfile(year: string, username: string): Observable<ProfileFull> {
-    const profileObservable = super.get(`${this.baseURL}/profile/${year}/${username}`);
+    const profileObservable = super.get(`profile/${year}/${username}`);
     return profileObservable;
   }
 
   /**
    * "/search/(.*)/(.*)"
+   * 
+   * https://petstore.swagger.io/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/mask.yml#/mask/get_search__year___search_query_
    * @param year
    * @param searchQuery username or full_name
    * @return array of user profiles
    */
   listProfileFilter(year: string, searchQuery: string): Observable<Profile[]> {
-    const profileObservable = super.get(`${this.baseURL}/search/${year}/${searchQuery}`).pipe(
-      map((results: {profiles: Profile[]}) => results.profiles)
-    )
+    const profileObservable = super.get(`search/${year}/${searchQuery}`).pipe(
+      map((results: {results: Profile[]}) => results.results)
+    );
     return profileObservable;
   }
 
   /**
    * "/update/(.*)"
+   * 
+   * https://petstore.swagger.io/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/mask.yml#/profile/post_update__username_
+   * @return user's updated full profile
    */
   updateProfile(username: string, data: any):Observable<ProfilePOST> {
-    const profileObservable = super.post(`${this.baseURL}/update/${username}`, data);
+    const profileObservable = super.post(`update/${username}`, data);
     return profileObservable;
+  }
+
+  /**
+   * "/update/list_photos"
+   * 
+   * @return array of photo urls
+   */
+  listPhotos(): Observable<string[]> {
+    const photoObservable = super.get(`/update/list_photos`);
+    return photoObservable;
   }
 }
