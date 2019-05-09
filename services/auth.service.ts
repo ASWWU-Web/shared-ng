@@ -38,19 +38,6 @@ export class AuthService {
   }
 
   /**
-   * Handles setting the userInfo variable. call without argument to remove
-   * saved user information.
-   * @param user optional User object to set current user with.
-   */
-  private setCurrentUser(user?: User): void {
-    if (user) {
-      this.userInfo = user;
-    } else {
-      this.userInfo = null;
-    }
-  }
-
-  /**
    * sends the request to the server for user information.
    * 401 errors will be caught and pass a null value down the pipe,
    * other errors will be re-thrown.
