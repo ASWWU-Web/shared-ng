@@ -26,14 +26,4 @@ export class TypeAheadRequestService {
       })
     );
   }
-
-  public typeaheadSearch(searchFunction: (data: string) => Observable<string>) {
-    return (text: Observable<string>) => {
-      return text.pipe(
-        debounceTime(300),
-        distinctUntilChanged(),
-        switchMap((data: string) => searchFunction(data))
-      );
-    };
-  }
 }
