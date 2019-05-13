@@ -4,6 +4,7 @@ import { RequestService } from './request.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { map } from 'rxjs/internal/operators/map';
 import { Profile, ProfileFull, Names, ProfilePOST } from '../interfaces/interfaces';
+import { filter } from 'rxjs/operators';
 
 @Injectable()
 export class MaskRequestService extends RequestService {
@@ -17,16 +18,29 @@ export class MaskRequestService extends RequestService {
   // Mask
   ///////////////////
   /**
-   * Lists profiles
+   * Lists profiles; either all profiles, or with filter params
    *
    * "/search/all"
+   * "/search/(.*)/(.*)"
+   *
    * https://petstore.swagger.io/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/mask.yml#/mask/get_search_all
-   * @return array of all profiles
+   * https://petstore.swagger.io/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/mask.yml#/mask/get_search__year___search_query_
+   * @param year
+   * @param searchQuery username or full_name
+   * @return array of user profiles
    */
-  listProfile(): Observable<Profile[]> {
-    const profileObservable = super.get(`search/all`).pipe(
-      map((results: Profile[]) => results)
-    );
+  listProfile(filterParams?: any): Observable<Profile[]> {
+    let profileObservable = null;
+    if (filterParams && filterParams['year'] != null && filterParams['searchQuery'] != null) {
+      profileObservable = super.get(`search/${filterParams['year']}/${filterParams['searchQuery']}`).pipe(
+        map((results: {results: Profile[]}) => results.results)
+      );
+    } else {
+      profileObservable = super.get(`search/all`).pipe(
+        map((results: Profile[]) => results)
+      );
+    }
+
     return profileObservable;
   }
 
@@ -36,7 +50,7 @@ export class MaskRequestService extends RequestService {
    * "/search/names"
    * https://petstore.swagger.io/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/mask.yml#/mask/get_search_names
    * @param filterParams limit = number of results to return, full_name is the search query
-   * @return list of Names 
+   * @return list of Names
    */
   listName(filterParams: any): Observable<Names[]> {
     const maskObservable = super.get(`search/names`, filterParams).pipe(
@@ -60,34 +74,19 @@ export class MaskRequestService extends RequestService {
   }
 
   /**
-   * "/search/(.*)/(.*)"
-   * 
-   * https://petstore.swagger.io/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/mask.yml#/mask/get_search__year___search_query_
-   * @param year
-   * @param searchQuery username or full_name
-   * @return array of user profiles
-   */
-  listProfileFilter(year: string, searchQuery: string): Observable<Profile[]> {
-    const profileObservable = super.get(`search/${year}/${searchQuery}`).pipe(
-      map((results: {results: Profile[]}) => results.results)
-    );
-    return profileObservable;
-  }
-
-  /**
    * "/update/(.*)"
-   * 
+   *
    * https://petstore.swagger.io/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/mask.yml#/profile/post_update__username_
    * @return user's updated full profile
    */
-  updateProfile(username: string, data: any):Observable<ProfilePOST> {
+  updateProfile(username: string, data: any): Observable<ProfilePOST> {
     const profileObservable = super.post(`update/${username}`, data);
     return profileObservable;
   }
 
   /**
    * "/update/list_photos"
-   * 
+   *
    * @return array of photo urls
    */
   listPhotos(): Observable<string[]> {
