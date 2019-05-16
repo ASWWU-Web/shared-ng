@@ -43,6 +43,14 @@ $font2: 'HelveticaNeueRoman', sans-serif;
     --font-2: #{$font2}; /* Generic Text */
     --font-test: "Brush Script MT", cursive; /* an eye-sore font to make sure it's working */
     // ASWWU colors
+    --color-aswwu-primary: #{$color-aswwu-primary};
+    --color-aswwu-secondary: #{$color-aswwu-secondary};
+    --color-aswwu-success: #{$color-aswwu-success};
+    --color-aswwu-danger: #{$color-aswwu-danger};
+    --color-aswwu-warning: #{$color-aswwu-warning};
+    --color-aswwu-info: #{$color-aswwu-info};
+    --color-aswwu-light: #{color-aswwu-light};
+    --color-aswwu-dark: #{$color-aswwu-dark};
     --color-aswwu-light: #{$color-aswwu-light};
     --color-aswwu-dark: #{$color-aswwu-dark};
     /* Departmental Colors */
