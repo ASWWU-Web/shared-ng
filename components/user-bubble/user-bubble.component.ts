@@ -9,52 +9,38 @@ import { AuthService } from '../../services/services';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 import { MEDIA_SM, DEFAULT_PHOTO, CURRENT_YEAR } from '../../config';
 import { User } from '../../interfaces/interfaces';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'user-bubble',
-  template: `<div *ngIf="isLoggedIn" class="contain">
-                  <div id="bubble-popup" ngbDropdown placement="bottom-right">
-                      <button id="bubbleicon" ngbDropdownToggle>
-                          <div *ngIf="(profile?.photo == 'images/mask_unknown.png' || profile?.photo == 'None' || !profile?.photo)" class="btn btn-default btn-circle">{{profile?.username.charAt(0).toUpperCase()}}</div>
-                          <img *ngIf="!(profile?.photo == 'images/mask_unknown.png' || profile?.photo == 'None' || !profile?.photo)" class="btn btn-default btn-circle" src="{{getPhotoLink(profile.photo)}}">
-                      </button>
-                      <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="bubbleicon">
-                          <a class="btn btn-default dropdown-item" href="https://aswwu.com/mask/profile/{{profile?.username}}">View Profile</a>
-                          <a class="btn btn-default dropdown-item" href="https://aswwu.com/mask/update">Update Profile</a>
-                          <div class="dropdown-divider"></div>
-                          <button class="btn btn-default dropdown-item" (click)="logout()" [routerLink]="'/'">Log Out</button>
-                      </div>
-                  </div>
-             </div>
-             <a *ngIf="!isLoggedIn" class="btn btn-primary float-right" [href]="buildLoginLink()">Log in</a>
-`,
+  templateUrl: 'user-bubble.component.html',
   styleUrls: ['user-bubble.component.css'],
 })
 
 export class UserBubbleComponent implements OnInit {
+  current_year = CURRENT_YEAR;
   profile: User;
   router: any;
-  isLoggedIn: boolean = false;
+  UserInfoSubscription: Subscription;
   buildLoginLink: () => string;
 
   constructor(private authService: AuthService, private _router: Router) {
     this.buildLoginLink = authService.buildLoginLink;
     this.router = _router;
+    this.UserInfoSubscription = authService.getUserInfo().subscribe(
+      (data: User) => {
+        this.profile = data;
+      });
   }
 
   ngOnInit() {
-      this.authService.authenticateUser().subscribe(
-        (data) => {
-          this.profile = data;
-          this.isLoggedIn = this.authService.isLoggedIn();
-        },
-        (err) => {
-          console.log('user-bubble.component>ngOnInit>authenticateUser>error');
-        }
-      );
   }
 
-  current_year = CURRENT_YEAR;
+  ngOnDestroy() {
+    // unsubscribe from all subjects
+    this.UserInfoSubscription.unsubscribe();
+  }
+
   // Photourl to link funciton returns proper url and BLANK photo if photo == "None"
   getPhotoLink(url: string){
       if(url && url != 'None'){
@@ -66,7 +52,5 @@ export class UserBubbleComponent implements OnInit {
 
   logout(): void {
     this.authService.logout();
-    this.profile = null;
-    this.isLoggedIn = this.authService.isLoggedIn();
   }
 }
