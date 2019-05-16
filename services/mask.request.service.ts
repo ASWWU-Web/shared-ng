@@ -29,17 +29,17 @@ export class MaskRequestService extends RequestService {
    * @param searchQuery username or full_name
    * @return array of user profiles
    */
-  listProfile(filterParams?: any): Observable<Profile[]> {
-    let profileObservable = null;
-    if (filterParams && filterParams['year'] != null && filterParams['searchQuery'] != null) {
-      profileObservable = super.get(`search/${filterParams['year']}/${filterParams['searchQuery']}`).pipe(
-        map((results: {results: Profile[]}) => results.results)
-      );
-    } else {
-      profileObservable = super.get(`search/all`).pipe(
-        map((results: Profile[]) => results)
-      );
+  listProfile(year: string, searchQuery: string): Observable<Profile[]>;
+  listProfile(): Observable<Profile[]>;
+  listProfile(year?: string, searchQuery?: string): Observable<Profile[]> {
+    let uri: string = `search/all`;
+    if (year && searchQuery) {
+      uri = `search/${year}/${searchQuery}`;
     }
+
+    const profileObservable = super.get(uri).pipe(
+      map((data: {results: Profile[]}) => data.results)
+    );
 
     return profileObservable;
   }
