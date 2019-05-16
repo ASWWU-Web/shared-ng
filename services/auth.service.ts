@@ -20,23 +20,21 @@ import { SAML_LOGIN_URL, SAML_LOGOUT_URL } from '../../shared-ng/config';
   providedIn: 'root'
 })
 export class AuthService {
-  private userInfo: User;
+  // private userInfo: User;
+  private userInfoSubject: BehaviorSubject<User>;
 
   constructor(private rs: RequestService) {
+    this.userInfoSubject = new BehaviorSubject<User>(null);
     this.authenticateUser().subscribe();
   }
 
-  /**
-   * Handles setting the userInfo variable. call without argument to remove
-   * saved user information.
-   * @param user optional User object to set current user with.
-   */
-  private setCurrentUser(user?: User): void {
-    if (user) {
-      this.userInfo = user;
-    } else {
-      this.userInfo = null;
-    }
+  // User Object
+  sendUserInfo(user: User) {
+    this.userInfoSubject.next(user);
+  }
+
+  getUserInfo(): Observable<User> {
+    return this.userInfoSubject.asObservable();
   }
 
   /**
@@ -76,12 +74,12 @@ export class AuthService {
   public authenticateUser(): Observable<User> {
 
     if (!this.isLoggedInCookie()) {
-      this.setCurrentUser(null);
+      this.sendUserInfo(null);
       return of(null);
     }
     return this.readVerify().pipe(
       tap((data: User) => {
-        this.setCurrentUser(data);
+        this.sendUserInfo(data);
       })
     );
   }
@@ -93,7 +91,7 @@ export class AuthService {
   public logout(): void {
     // TODO: begin saml logout workflow
     // document.cookie = ';path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-    this.setCurrentUser();
+    this.sendUserInfo(null);
   }
 
   /**
@@ -101,13 +99,6 @@ export class AuthService {
    */
   public isLoggedIn(): boolean {
     return this.isLoggedInCookie();
-  }
-
-  /**
-   * return the userInfo object.
-   */
-  public getUserInfo(): User {
-    return this.userInfo;
   }
 
   public buildLoginLink(): string {
