@@ -1,9 +1,9 @@
-// originally coppied from pages
+// originally copied from pages
 
 /**
  * Created by ethan on 3/7/17.
  */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { RequestService, AuthService } from '../../services/services';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
@@ -17,7 +17,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['user-bubble.component.css'],
 })
 
-export class UserBubbleComponent implements OnInit {
+export class UserBubbleComponent implements OnInit, OnDestroy {
   current_year = CURRENT_YEAR;
   profile: User;
   router: any;

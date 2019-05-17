@@ -12,7 +12,7 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { HeaderButton, SubNavbarLink } from 'src/shared-ng/interfaces/interfaces';
 import { User } from '../interfaces/interfaces';
 import { RequestService } from './request.service';
-import { map, tap, catchError } from 'rxjs/operators';
+import { map, tap, catchError, distinctUntilChanged } from 'rxjs/operators';
 import { throwError, of } from 'rxjs';
 import { SAML_LOGIN_URL, SAML_LOGOUT_URL } from '../../shared-ng/config';
 
@@ -28,12 +28,18 @@ export class AuthService {
     this.authenticateUser().subscribe();
   }
 
-  // User Object
+  /**
+   * pushes a new User value to the userInfoSubject.
+   * @param user a User object to broadcast to all getUserInfo() subscribers
+   */
   sendUserInfo(user: User) {
     this.userInfoSubject.next(user);
   }
 
-  getUserInfo(): Observable<User> {
+  /**
+   * Returns an observable of a BehaviorSubject.
+   */
+  public getUserInfo(): Observable<User> {
     return this.userInfoSubject.asObservable();
   }
 
@@ -72,7 +78,6 @@ export class AuthService {
    * observable if there's no loggedin cookie.
    */
   public authenticateUser(): Observable<User> {
-
     if (!this.isLoggedInCookie()) {
       this.sendUserInfo(null);
       return of(null);
@@ -95,14 +100,20 @@ export class AuthService {
   }
 
   /**
-   * returns false if the loggedin cookie doesn't exist.
+   * returns true if the loggedin cookie exists and the userInfoSubject has been
+   * set.
    */
   public isLoggedIn(): boolean {
-    return this.isLoggedInCookie();
+    return this.isLoggedInCookie() && this.userInfoSubject.value !== null;
   }
 
-  public buildLoginLink(): string {
-    return SAML_LOGIN_URL + window.location.pathname;
+  /**
+   * build a link that takes the user to the saml login with a redirect link
+   * back to the current page.
+   * @param redirectPathname optional: if set will cause saml to redirect back to a different page instead of the current page after authentication.
+   */
+  public buildLoginLink(redirectPathname?: string): string {
+    return SAML_LOGIN_URL + (redirectPathname || window.location.pathname);
   }
 
   public buildLogoutLink() {
