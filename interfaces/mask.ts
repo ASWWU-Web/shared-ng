@@ -3,7 +3,7 @@ export interface Profile {
   photo: string;
   email: string;
   full_name: string;
-  views: number;
+  views: number | string;
 }
 
 export interface Names {
