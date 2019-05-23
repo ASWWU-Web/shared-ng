@@ -12,6 +12,7 @@ import { User } from 'src/shared-ng/interfaces/user';
 import { Subscription } from 'rxjs';
 
 @Component({
+// tslint:disable-next-line: component-selector
   selector: 'user-bubble',
   templateUrl: 'user-bubble.component.html',
   styleUrls: ['user-bubble.component.css'],
@@ -24,7 +25,8 @@ export class UserBubbleComponent implements OnInit, OnDestroy {
   UserInfoSubscription: Subscription;
   buildLoginLink: () => string;
 
-  constructor(private authService: AuthService, private requestService: RequestService, private _router: Router) {
+  constructor(private authService: AuthService,
+              private requestService: RequestService, private _router: Router) {
     this.buildLoginLink = authService.buildLoginLink;
     this.router = _router;
     this.UserInfoSubscription = authService.getUserInfo().subscribe(
@@ -41,9 +43,9 @@ export class UserBubbleComponent implements OnInit, OnDestroy {
     this.UserInfoSubscription.unsubscribe();
   }
 
-  // Photourl to link funciton returns proper url and BLANK photo if photo == "None"
-  getPhotoLink(url: string){
-      if(url && url != 'None'){
+  // Photo url to link function returns proper url and BLANK photo if photo == "None"
+  getPhotoLink(url: string) {
+      if (url && url !== 'None') {
           return MEDIA_SM + '/' + url;
       } else {
           return MEDIA_SM + '/' + DEFAULT_PHOTO;
