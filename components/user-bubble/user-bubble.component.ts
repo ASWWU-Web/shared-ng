@@ -5,10 +5,10 @@
  */
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { RequestService, AuthService } from '../../services/services';
+import { AuthService } from '../../services/services';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 import { MEDIA_SM, DEFAULT_PHOTO, CURRENT_YEAR } from '../../config';
-import { User } from 'src/shared-ng/interfaces/user';
+import { User } from '../../interfaces/interfaces';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -25,8 +25,7 @@ export class UserBubbleComponent implements OnInit, OnDestroy {
   UserInfoSubscription: Subscription;
   buildLoginLink: () => string;
 
-  constructor(private authService: AuthService,
-              private requestService: RequestService, private _router: Router) {
+  constructor(private authService: AuthService, private _router: Router) {
     this.buildLoginLink = authService.buildLoginLink;
     this.router = _router;
     this.UserInfoSubscription = authService.getUserInfo().subscribe(

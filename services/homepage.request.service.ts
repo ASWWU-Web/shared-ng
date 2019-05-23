@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { RequestService } from './request.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { map } from 'rxjs/internal/operators/map';
-import { Forum } from 'src/shared-ng/interfaces/homepage';
+import { Forum } from '../interfaces/interfaces';
 
 @Injectable()
 export class HomepageRequestService extends RequestService {
