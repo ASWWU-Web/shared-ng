@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { RequestService } from './request.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { map } from 'rxjs/internal/operators/map';
-import { Election, Position, Candidate, Vote, Ballot, BallotPOST } from 'src/shared-ng/interfaces/elections';
+import { Election, Position, Candidate, Vote, Ballot, BallotPOST } from '../interfaces/interfaces';
 
 @Injectable()
 export class ElectionsRequestService extends RequestService {

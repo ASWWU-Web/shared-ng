@@ -46,7 +46,7 @@ export class RequestService {
   private createBody(data: any, encoding?: string): string {
     let body: string;
     if (encoding === 'urlencoded') {
-      body = this.objToHttpParams(data).toString();
+      body = this.objToHttpParams(data);
     } else {
       body = JSON.stringify(data);
     }
@@ -83,16 +83,17 @@ export class RequestService {
    * Converts a javascript object into an httpParam object for use in sending url encoded data in requests
    * @param obj javascript object to convert
    */
-  private objToHttpParams(obj: any): HttpParams {
+  private objToHttpParams(obj: any): string {
     let params: HttpParams = new HttpParams();
     for (const key of Object.keys(obj)) {
       if (typeof obj[key] === 'string') {
-        params = params.append(key, obj[key].replace(/\;/g, ','));
+        params = params.append(key, obj[key]);
       } else {
         params = params.append(key, JSON.stringify(obj[key]));
       }
     }
-    return params;
+    // toString does not appear to encode semicolons correctly, so we manually do it with `replace`
+    return params.toString().replace(/\;/g, '%3B');
   }
 
   /**
