@@ -53,7 +53,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.invert = message;
       this.setStyle();
     });
-
+    // subscribe to visible
     this.subscriptions.visible = this.hermesService.getShowHeader().subscribe(message => {
       if (message !== null) {
         this.visible = message;
