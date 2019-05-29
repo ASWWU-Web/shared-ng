@@ -25,7 +25,7 @@ export class NavBarComponent {
 			{ text: "Global Service",       link: "https://aswwu.com/pages/globalservice" },
 			{ text: "Outdoors",          	link: "https://aswwu.com/pages/outdoors" },
       { text: "Photo",          		link: "https://aswwu.com/pages/photo" },
-      { text: "Publications",          		link: "https://aswwu.com/pages/aswwu-publications" },
+      { text: "Productions",          		link: "https://aswwu.com/pages/aswwu-productions" },
 			{ text: "Senate",          		link: "https://aswwu.com/pages/senate" },
 			{ text: "Social",          		link: "https://aswwu.com/pages/social" },
 			{ text: "Tread Shed",          	link: "https://aswwu.com/pages/treadshed" },
