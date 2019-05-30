@@ -1,4 +1,4 @@
-<div id="header-container">
+<div id="header-container" *ngIf="visible">
   <!-- header content -->
   <div class="header tiled-window center-content" [ngStyle]="headerStyle">
     <h1 id="title" class="text-uppercase" [ngStyle]="titleStyle">{{title}}</h1>

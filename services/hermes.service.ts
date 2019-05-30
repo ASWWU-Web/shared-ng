@@ -17,6 +17,7 @@ export class HermesService {
   private headerTitleSubject: BehaviorSubject<string>;
   private headerImageUriSubject: BehaviorSubject<string>;
   private headerInvert: BehaviorSubject<boolean>;
+  private showHeader: BehaviorSubject<boolean>;
   private headerButton: BehaviorSubject<HeaderButton>;
   private subNavbarLinks: BehaviorSubject<SubNavbarLink[]>;
   private searchBarSubject: BehaviorSubject<boolean>;
@@ -26,6 +27,7 @@ export class HermesService {
     this.headerTitleSubject = new BehaviorSubject<string>(null);
     this.headerImageUriSubject = new BehaviorSubject<string>(null);
     this.headerInvert = new BehaviorSubject<boolean>(null);
+    this.showHeader = new BehaviorSubject<boolean>(null);
     this.headerButton = new BehaviorSubject<HeaderButton>(null);
     this.subNavbarLinks = new BehaviorSubject<SubNavbarLink[]>(null);
     this.searchBarSubject = new BehaviorSubject<boolean>(null);
@@ -54,6 +56,14 @@ export class HermesService {
   }
   getHeaderInvert(): Observable<boolean> {
     return this.headerInvert.asObservable();
+  }
+
+  // show header
+  sendShowHeader(show: boolean) {
+    this.showHeader.next(show);
+  }
+  getShowHeader(): Observable<boolean> {
+    return this.showHeader.asObservable();
   }
 
   // header button
