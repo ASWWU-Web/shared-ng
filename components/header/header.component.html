@@ -2,7 +2,19 @@
   <!-- header content -->
   <div class="header tiled-window center-content" [ngStyle]="headerStyle">
     <h1 id="title" class="text-uppercase" [ngStyle]="titleStyle">{{title}}</h1>
+
+    <div class="align-items-center" (keyup.enter)="runSearch()" style="margin-left:auto;margin-right:auto;">
+      <div class="row justify-content-center">
+        <input id="mask-search-query" class="search-area-element col form-control" [(ngModel)]='typedQuery' (ngModelChange)="addFirstResult()" (selectItem)="runSearch($event)" [ngbTypeahead]="typeaheadSearch" [resultFormatter]="typeaheadFormatter" type="text" placeholder="Find the one...">
+        <button id="mask-search-button" class="search-area-element col-1 form-control" (click)="runSearch()"><i class="fas fa-search"></i></button>
+      </div>
+      <div class="row">
+        <h3 id="results" class="text-white text-uppercase mx-auto">↓results↓</h3>
+      </div>
+    </div>
+
   </div>
+
 
   <!-- header button -->
   <div *ngIf="showButton" id="header-button">

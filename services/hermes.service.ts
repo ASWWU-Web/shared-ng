@@ -19,6 +19,8 @@ export class HermesService {
   private headerInvert: BehaviorSubject<boolean>;
   private headerButton: BehaviorSubject<HeaderButton>;
   private subNavbarLinks: BehaviorSubject<SubNavbarLink[]>;
+  private searchBarSubject: BehaviorSubject<boolean>;
+  private searchText: BehaviorSubject<string>;
 
   constructor() {
     this.headerTitleSubject = new BehaviorSubject<string>(null);
@@ -26,6 +28,8 @@ export class HermesService {
     this.headerInvert = new BehaviorSubject<boolean>(null);
     this.headerButton = new BehaviorSubject<HeaderButton>(null);
     this.subNavbarLinks = new BehaviorSubject<SubNavbarLink[]>(null);
+    this.searchBarSubject = new BehaviorSubject<boolean>(null);
+    this.searchText = new BehaviorSubject<string>(null);
   }
 
   // header title
@@ -66,5 +70,13 @@ export class HermesService {
   }
   getSubNavbarLinks(): Observable<SubNavbarLink[]> {
     return this.subNavbarLinks.asObservable();
+  }
+
+  // search bar
+  getSearchBar(): Observable<boolean> {
+    return this.searchBarSubject.asObservable();
+  }
+  sendSearchText(text: string) {
+    this.searchText.next(text);
   }
 }
