@@ -1,9 +1,9 @@
-// originally coppied from pages
+// originally copied from pages
 
 /**
  * Created by ethan on 3/7/17.
  */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/services';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
@@ -12,12 +12,13 @@ import { User } from '../../interfaces/interfaces';
 import { Subscription } from 'rxjs';
 
 @Component({
+// tslint:disable-next-line: component-selector
   selector: 'user-bubble',
   templateUrl: 'user-bubble.component.html',
   styleUrls: ['user-bubble.component.css'],
 })
 
-export class UserBubbleComponent implements OnInit {
+export class UserBubbleComponent implements OnInit, OnDestroy {
   current_year = CURRENT_YEAR;
   profile: User;
   router: any;
@@ -41,9 +42,9 @@ export class UserBubbleComponent implements OnInit {
     this.UserInfoSubscription.unsubscribe();
   }
 
-  // Photourl to link funciton returns proper url and BLANK photo if photo == "None"
-  getPhotoLink(url: string){
-      if(url && url != 'None'){
+  // Photo url to link function returns proper url and BLANK photo if photo == "None"
+  getPhotoLink(url: string) {
+      if (url && url !== 'None') {
           return MEDIA_SM + '/' + url;
       } else {
           return MEDIA_SM + '/' + DEFAULT_PHOTO;
