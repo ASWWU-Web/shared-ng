@@ -36,6 +36,17 @@
 </nav>
 <div id="nav-spacer"></div>
 
+<!-- Sub Navbar -->
+<div *ngIf="subNavbarLinks" id="subnav-bar" class="navbar navbar-toggleable-sm hidden-sm-down sticky-top">
+  <div id="subnav-links" class="filter-invert">
+    <ul class="nav navbar-nav text-xs-center mr-auto">
+      <li *ngFor="let link of subNavbarLinks" class="nav-item">
+        <a class="smooth" [routerLink]="link.linkURI">{{ link.linkText }}</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
 <!-- Mobile Navigation Menu -->
 <div class="desktop-hide mobile-scrollable-menu bg-dark" id="mobile-nav-collapsible" [ngbCollapse]="!isCollapsed">
     <ul id="mobile-nav-links" class="navbar-nav text-xs-center">

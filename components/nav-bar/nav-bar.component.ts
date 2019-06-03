@@ -1,7 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { UserBubbleComponent } from '../components';
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
+import { SubNavbarLink } from '../../interfaces/interfaces';
+import { Subscription } from 'rxjs';
+import { HermesService } from '../../services/services';
 
 @Component({
 	selector: 'nav-bar',
@@ -13,6 +14,21 @@ import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 })
 
 export class NavBarComponent {
+
+	// service item
+	subNavbarLinks: SubNavbarLink[] = [];
+
+	// subscriptions
+	subscriptions = {
+		subNavbarLinks: <Subscription> null
+	}
+
+	constructor(private hermesService: HermesService) {
+		// subscribe to generate sub-navbar links
+		this.subscriptions.subNavbarLinks = this.hermesService.getSubNavbarLinks().subscribe(message => {
+			this.subNavbarLinks = message;
+		});
+	}
 
 	links: any = [
 		{ text: "Mask",        link: "https://aswwu.com/mask" },
@@ -47,6 +63,7 @@ export class NavBarComponent {
 		if ($event.panelId.startsWith("linkOnly")) {
 		  $event.preventDefault();
 		}
-	  }
+		}
+		
 
 }
