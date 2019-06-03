@@ -21,6 +21,12 @@
   padding: 0px;
   margin: 0px;
   border-left: 1rem solid black;
+  /* the following !important styles override
+  inline styles applied by angular and/or bootstrap.
+  this makes the dropdown menus push down other menu buttons
+  when they're open */
+  transform: translate(0px,0px) !important;
+  position: relative !important;
 }
 
 #mobile-nav-links .dropdown-menu a {
