@@ -82,7 +82,7 @@ nav {
 
 /* Sub-Nav Bar */
 #subnav-bar {
-  background-color: var(--color-aswwu-light);
+  background-color: #282828;
   font-size: 15px;
   border-bottom: solid 2px black;
   vertical-align: middle;
@@ -96,12 +96,13 @@ nav {
 }
 
 #subnav-links li a {
-  color: #a7abae;
+  color: white;
   font-family: var(--font-2);
+  transition: color .2s, background-color .2s;
 }
 
 #subnav-links li a:hover {
-  color: white;
+  color: grey;
   text-decoration: none;
 }
 

@@ -38,7 +38,7 @@
 
 <!-- Sub Navbar -->
 <div *ngIf="subNavbarLinks" id="subnav-bar" class="navbar navbar-toggleable-sm hidden-sm-down sticky-top">
-  <div id="subnav-links" class="filter-invert">
+  <div id="subnav-links">
     <ul class="nav navbar-nav text-xs-center mr-auto">
       <li *ngFor="let link of subNavbarLinks" class="nav-item">
         <a class="smooth" [routerLink]="link.linkURI">{{ link.linkText }}</a>
