@@ -22,6 +22,7 @@ export class HermesService {
   private subNavbarLinks: BehaviorSubject<SubNavbarLink[]>;
   private searchBarSubject: BehaviorSubject<boolean>;
   private searchText: BehaviorSubject<string>;
+  private placeholder: BehaviorSubject<string>;
 
   constructor() {
     this.headerTitleSubject = new BehaviorSubject<string>(null);
@@ -32,6 +33,7 @@ export class HermesService {
     this.subNavbarLinks = new BehaviorSubject<SubNavbarLink[]>(null);
     this.searchBarSubject = new BehaviorSubject<boolean>(null);
     this.searchText = new BehaviorSubject<string>(null);
+    this.placeholder = new BehaviorSubject<string>(null);
   }
 
   // header title
@@ -86,7 +88,25 @@ export class HermesService {
   getSearchBar(): Observable<boolean> {
     return this.searchBarSubject.asObservable();
   }
+  sendSearchBar(display: boolean) {
+    this.searchBarSubject.next(display);
+  }
+
+  // search text
+  getSearchText(): Observable<string> {
+    return this.searchText.asObservable();
+  }
   sendSearchText(text: string) {
     this.searchText.next(text);
   }
+
+  // placeholder for shared search bar
+  getPlaceholder(): Observable<string> {
+    return this.placeholder.asObservable();
+  }
+  sendPlaceholder(text: string) {
+    this.placeholder.next(text);
+  }
+
+
 }

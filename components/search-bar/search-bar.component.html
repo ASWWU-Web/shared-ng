@@ -1,14 +1,7 @@
 <div class="search-bar input-group mb-3" *ngIf="showSearchBar">
-    <ng-template #rt let-r="result" let-t="term">
-        <div (click)="superSearch(r.username)">
-        <ngb-highlight [result]="r.full_name" [term]="t"></ngb-highlight>
-        </div>
-    </ng-template>
-  <form [formGroup]="formGroup" (ngSubmit)="superSearch(1)" class="input-group">
-    <input #nameInput formControlName="name" type="search" id="search-input" class="form-control search-outline" (keyup.enter)="superSearch()" [resultTemplate]="rt" [inputFormatter]="formatter" [ngbTypeahead]="search" placeholder="{{placeHolder}}">
-    <div class="input-group-append">
-      <button id="search-button" class="btn btn-primary search-outline"><fa-icon id="search-icon" icon="search"></fa-icon></button>
-    </div>
-  </form>
+  <input #nameInput type="search" id="search-input" class="form-control search-outline" (keyup.enter)="sendText()"  placeholder="{{placeholder}}" [(ngModel)]="textInput">
+  <div class="input-group-append">
+    <button id="search-button" class="btn btn-primary search-outline" (click)="sendText()"></button>
+  </div>
 </div>
 
