@@ -1,12 +1,7 @@
 <nav class="navbar navbar-dark bg-dark navbar-expand-md">
 
-  <button class="navbar navbar-toggler"
-          type="button"
-          data-target="#mobile-nav-collapsible"
-          aria-controls="mobile-nav-collapsible"
-          (click)="isCollapsed = !isCollapsed"
-          [attr.aria-expanded]="!isCollapsed"
-  >
+  <button class="navbar navbar-toggler" type="button" data-target="#mobile-nav-collapsible"
+    aria-controls="mobile-nav-collapsible" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed">
     <span class="navbar-toggler-icon"></span>
   </button>
 
@@ -15,7 +10,7 @@
   </a>
 
   <!-- Desktop Navbar -->
-  <div class="collapse navbar-collapse" >
+  <div class="collapse navbar-collapse">
 
     <ul id="nav-links" class="navbar-nav text-xs-center mr-auto d-none d-md-block">
       <li *ngFor="let item of links" [ngClass]="{'nav-item': item.link != null, 'dropdown': item.link == null}">
@@ -23,10 +18,12 @@
         <a *ngIf="item.link != null" class="smooth text-uppercase" href="{{item.link}}"> {{item.text}} </a>
         <!-- For Links with Dropdowns -->
         <div *ngIf="item.link == null" ngbDropdown class="d-inline-block">
-            <button ngbDropdownToggle class="btn btn-outline-primary text-uppercase" id="{{'dropdown' + item.text}}" >{{item.text}}</button>
-            <div ngbDropdownMenu class="dropdown-menu bg-dark" [attr.aria-valuenow]="'dropdown' + item.text">
-              <a *ngFor="let dropdownItem of item.dropdownLinks" href="{{dropdownItem.link}}" class="dropdown-item text-uppercase">{{dropdownItem.text}}</a>
-            </div>
+          <button ngbDropdownToggle class="btn btn-outline-primary text-uppercase"
+            id="{{'dropdown' + item.text}}">{{item.text}}</button>
+          <div ngbDropdownMenu class="dropdown-menu bg-dark" [attr.aria-valuenow]="'dropdown' + item.text">
+            <a *ngFor="let dropdownItem of item.dropdownLinks" href="{{dropdownItem.link}}"
+              class="dropdown-item text-uppercase">{{dropdownItem.text}}</a>
+          </div>
         </div>
       </li>
     </ul>
@@ -36,19 +33,40 @@
 </nav>
 <div id="nav-spacer"></div>
 
+<!-- Sub Navbar -->
+<div *ngIf="subNavbarLinks" id="subnav-bar" class="navbar navbar-toggleable-sm hidden-sm-down sticky-top">
+  <div id="subnav-links">
+    <ul class="nav navbar-nav text-xs-center mr-auto">
+      <li *ngFor="let link of subNavbarLinks" class="nav-item">
+        <a class="smooth" [routerLink]="link.linkURI">{{ link.linkText }}</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
 <!-- Mobile Navigation Menu -->
 <div class="desktop-hide mobile-scrollable-menu bg-dark" id="mobile-nav-collapsible" [ngbCollapse]="!isCollapsed">
-    <ul id="mobile-nav-links" class="navbar-nav text-xs-center">
-        <li *ngFor="let item of links" class="" [ngClass]="{'nav-item': item.link != null, 'dropdown': item.link == null}">
-          <!-- For Direct Links -->
-          <a *ngIf="item.link != null" class="smooth text-uppercase d-block p-4" href="{{item.link}}"> {{item.text}} </a>
-          <!-- For Links with Dropdowns -->
-          <div *ngIf="item.link == null" ngbDropdown class="d-block">
-              <button ngbDropdownToggle class="btn btn-outline-primary text-uppercase d-block p-4" id="{{'dropdown' + item.text}}" >{{item.text}}</button>
-              <div ngbDropdownMenu class="dropdown-menu" [attr.aria-valuenow]="'dropdown' + item.text">
-                <a *ngFor="let dropdownItem of item.dropdownLinks" href="{{dropdownItem.link}}" class="dropdown-item text-uppercase p-3">{{dropdownItem.text}}</a>
-              </div>
-          </div>
-        </li>
-      </ul>
+  <ul id="mobile-subnav-links" class="navbar-nav text-xs-center">
+    <li *ngFor="let item of subNavbarLinks" class="boop"
+      [ngClass]="{'nav-item': item.linkURI != null, 'dropdown': item.linkURI == null}">
+      <!-- For Direct Links -->
+      <a *ngIf="item.linkURI != null" class="smooth text-uppercase d-block p-4" href="{{item.linkURI}}">
+        {{item.linkText}} </a>
+    </li>
+  </ul>
+  <ul id="mobile-nav-links" class="navbar-nav text-xs-center">
+    <li *ngFor="let item of links" class="" [ngClass]="{'nav-item': item.link != null, 'dropdown': item.link == null}">
+      <!-- For Direct Links -->
+      <a *ngIf="item.link != null" class="smooth text-uppercase d-block p-4" href="{{item.link}}"> {{item.text}} </a>
+      <!-- For Links with Dropdowns -->
+      <div *ngIf="item.link == null" ngbDropdown class="d-block">
+        <button ngbDropdownToggle class="dropdown-button btn btn-outline-primary text-uppercase d-block p-4"
+          id="{{'dropdown' + item.text}}">{{item.text}}</button>
+        <div ngbDropdownMenu class="dropdown-menu" [attr.aria-valuenow]="'dropdown' + item.text">
+          <a *ngFor="let dropdownItem of item.dropdownLinks" href="{{dropdownItem.link}}"
+            class="dropdown-item text-uppercase p-3">{{dropdownItem.text}}</a>
+        </div>
+      </div>
+    </li>
+  </ul>
 </div>

@@ -80,3 +80,29 @@ nav {
   }
 }
 
+/* Sub-Nav Bar */
+#subnav-bar {
+  background-color: #282828;
+  font-size: 15px;
+  border-bottom: solid 2px black;
+  vertical-align: middle;
+  /* allows dropdown of navbar to be seen */
+  z-index: 1;
+}
+
+#subnav-links li {
+  display: inline-block;
+  padding: 0 16px 0 16px;
+}
+
+#subnav-links li a {
+  color: white;
+  font-family: var(--font-2);
+  transition: color .2s, background-color .2s;
+}
+
+#subnav-links li a:hover {
+  color: grey;
+  text-decoration: none;
+}
+

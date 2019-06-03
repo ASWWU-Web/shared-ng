@@ -5,7 +5,7 @@
   color: white;
   transition: color .2s, background-color .2s;
   text-decoration: none;
-  background-color: var(--gray);
+  background-color: var(--color-aswwu-dark);
   border-bottom: 1px solid black;
   width: fill-available;
   width: -webkit-fill-available;
@@ -18,15 +18,16 @@
 
 #mobile-nav-links .dropdown-menu {
   border: 0px none;
-  padding: 0px;
+  padding: 0px 0px;
   margin: 0px;
-  border-left: 1rem solid black;
+  border-left: 2rem solid black;
   /* the following !important styles override
   inline styles applied by angular and/or bootstrap.
   this makes the dropdown menus push down other menu buttons
   when they're open */
   transform: translate(0px,0px) !important;
   position: relative !important;
+  line-height: 1;
 }
 
 #mobile-nav-links .dropdown-menu a {
@@ -60,4 +61,25 @@
     .desktop-hide {
       width:0 !important;
     }
+  }
+
+  /* mobile sub-navbar */
+  #mobile-subnav-links li {
+    line-height: .3 !important;
+    background-color: #282828;
+  }
+  #mobile-subnav-links li a, #mobile-subnav-links li div button  {
+    font-family: var(--font-1);
+    font-size: 1rem;
+    color: white;
+    transition: color .2s, background-color .2s;
+    text-decoration: none;
+    border-bottom: 1px solid black;
+    width: fill-available;
+    width: -webkit-fill-available;
+    width: -moz-available;
+  }
+  #mobile-subnav-links li a:active, #mobile-subnav-links li button:active {
+    filter: brightness(125%);
+    transition: .2s;
   }
