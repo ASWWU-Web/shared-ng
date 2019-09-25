@@ -7,7 +7,7 @@
   text-decoration: none;
   background-color: var(--color-aswwu-dark);
   border-bottom: 1px solid black;
-  width: fill-available;
+  width: stretch;
   width: -webkit-fill-available;
   width: -moz-available;
 }
@@ -75,7 +75,7 @@
     transition: color .2s, background-color .2s;
     text-decoration: none;
     border-bottom: 1px solid black;
-    width: fill-available;
+    width: stretch;
     width: -webkit-fill-available;
     width: -moz-available;
   }
