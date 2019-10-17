@@ -38,6 +38,7 @@ export class NavBarComponent {
 			{ text: "Administration", 		link: "https://aswwu.com/pages/administration" },
 			{ text: "Atlas",          		link: "https://aswwu.com/atlas" },
 			{ text: "Collegian",          	link: "https://aswwu.com/pages/collegian" },
+			{ text: "Diversity & Wellness",	link: "https://aswwu.com/pages/diversity-wellness"},
 			{ text: "Global Service",       link: "https://aswwu.com/pages/globalservice" },
 			{ text: "Outdoors",          	link: "https://aswwu.com/pages/outdoors" },
       { text: "Photo",          		link: "https://aswwu.com/pages/photo" },
@@ -46,7 +47,6 @@ export class NavBarComponent {
 			{ text: "Social",          		link: "https://aswwu.com/pages/social" },
 			{ text: "Tread Shed",          	link: "https://aswwu.com/pages/treadshed" },
 			{ text: "Video",          		link: "https://aswwu.com/pages/video" },
-			{ text: "Diversity & Wellness",	link: "https://aswwu.com/pages/diversity-wellness"}
 		]},
 		{ text: "More", link: null, dropdownLinks: [
 			{ text: "D2L",   			link: "https://class.wallawalla.edu/" },
