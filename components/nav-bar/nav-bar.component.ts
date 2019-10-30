@@ -37,7 +37,7 @@ export class NavBarComponent {
 		{ text: "Departments", link: null, dropdownLinks: [
 			{ text: "Administration", 		link: "https://aswwu.com/pages/administration" },
 			{ text: "Atlas",          		link: "https://aswwu.com/atlas" },
-			{ text: "Collegian",          	link: "https://aswwu.com/pages/collegian" },
+			{ text: "Collegian",          	link: "https://collegian.xyz" },
 			{ text: "Diversity & Wellness",	link: "https://aswwu.com/pages/diversity-wellness"},
 			{ text: "Global Service",       link: "https://aswwu.com/pages/globalservice" },
 			{ text: "Outdoors",          	link: "https://aswwu.com/pages/outdoors" },
@@ -64,6 +64,6 @@ export class NavBarComponent {
 		  $event.preventDefault();
 		}
 		}
-		
+
 
 }
