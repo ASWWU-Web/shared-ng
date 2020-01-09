@@ -20,6 +20,7 @@ export class HermesService {
   private showHeader: BehaviorSubject<boolean>;
   private headerButton: BehaviorSubject<HeaderButton>;
   private subNavbarLinks: BehaviorSubject<SubNavbarLink[]>;
+  private showSubNavBarLinks: BehaviorSubject<boolean>;
 
   constructor() {
     this.headerTitleSubject = new BehaviorSubject<string>(null);
@@ -28,6 +29,7 @@ export class HermesService {
     this.showHeader = new BehaviorSubject<boolean>(null);
     this.headerButton = new BehaviorSubject<HeaderButton>(null);
     this.subNavbarLinks = new BehaviorSubject<SubNavbarLink[]>(null);
+    this.showSubNavBarLinks = new BehaviorSubject<boolean>(null);
   }
 
   // header title
@@ -76,5 +78,13 @@ export class HermesService {
   }
   getSubNavbarLinks(): Observable<SubNavbarLink[]> {
     return this.subNavbarLinks.asObservable();
+  }
+
+  // display subnav bar links
+  sendShowSubNav(show: boolean) {
+    this.showSubNavBarLinks.next(show);
+  }
+  getShowSubNav(): Observable<boolean> {
+    return this.showSubNavBarLinks.asObservable();
   }
 }
