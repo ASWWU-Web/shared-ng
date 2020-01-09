@@ -1,3 +1,4 @@
+// tslint:disable:indent
 import { Component, Input } from '@angular/core';
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { SubNavbarLink } from '../../interfaces/interfaces';
@@ -15,18 +16,23 @@ import { HermesService } from '../../services/services';
 
 export class NavBarComponent {
 
-	// service item
+	// service items
 	subNavbarLinks: SubNavbarLink[] = [];
+	showSubNav = true;
 
 	// subscriptions
 	subscriptions = {
-		subNavbarLinks: <Subscription> null
-	}
+		subNavbarLinks: <Subscription> null,
+		showSubNavBarLinks: <Subscription> null,
+	};
 
 	constructor(private hermesService: HermesService) {
 		// subscribe to generate sub-navbar links
 		this.subscriptions.subNavbarLinks = this.hermesService.getSubNavbarLinks().subscribe(message => {
 			this.subNavbarLinks = message;
+		});
+		this.subscriptions.showSubNavBarLinks = this.hermesService.getShowSubNav().subscribe(message => {
+			this.showSubNav = message;
 		});
 	}
 

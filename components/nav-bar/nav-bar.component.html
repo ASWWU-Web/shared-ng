@@ -34,7 +34,7 @@
 <div id="nav-spacer"></div>
 
 <!-- Sub Navbar -->
-<div *ngIf="subNavbarLinks" id="subnav-bar" class="navbar navbar-expand-sm hidden-sm-down sticky-top">
+<div *ngIf="showSubNav" id="subnav-bar" class="navbar navbar-toggleable-sm hidden-sm-down sticky-top">
   <div id="subnav-links">
     <ul class="nav navbar-nav text-xs-center mr-auto">
       <li *ngFor="let link of subNavbarLinks" class="nav-item">
