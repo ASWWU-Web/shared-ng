@@ -46,6 +46,7 @@ export class NavBarComponent {
 			{ text: "Collegian",          	link: "https://collegian.xyz" },
 			{ text: "Diversity & Wellness",	link: "https://aswwu.com/pages/diversity-wellness"},
 			{ text: "Global Service",       link: "https://aswwu.com/pages/globalservice" },
+			{ text: "Mountain Rents",       link: "https://aswwu.com/pages/mt-rents" },
 			{ text: "Outdoors",          	link: "https://aswwu.com/pages/outdoors" },
       { text: "Photo",          		link: "https://aswwu.com/pages/photo" },
       { text: "Productions",          		link: "https://aswwu.com/pages/aswwu-productions" },
