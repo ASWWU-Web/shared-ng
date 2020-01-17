@@ -43,7 +43,7 @@ export class NavBarComponent {
 		{ text: "Departments", link: null, dropdownLinks: [
 			{ text: "Administration", 		link: "https://aswwu.com/pages/administration" },
 			{ text: "Atlas",          		link: "https://aswwu.com/atlas" },
-			{ text: "Collegian",          	link: "https://collegian.xyz" },
+			{ text: "Collegian",          	link: "https://www.aswwucollegian.com/" },
 			{ text: "Diversity & Wellness",	link: "https://aswwu.com/pages/diversity-wellness"},
 			{ text: "Global Service",       link: "https://aswwu.com/pages/globalservice" },
 			{ text: "Mountain Rents",       link: "https://aswwu.com/pages/mt-rents" },
