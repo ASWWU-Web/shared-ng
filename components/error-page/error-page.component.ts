@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
+import { HermesService } from '../../../shared-ng/services/services';
 
 @Component({
   selector: 'app-error-page',
@@ -7,7 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ErrorPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private hermesService: HermesService, private elementRef: ElementRef) {
+    // sets background color
+    this.elementRef.nativeElement.ownerDocument.body.style.backgroundColor = 'white';
+    // hides header and subnav bar
+    hermesService.sendShowHeader(false);
+    hermesService.sendShowSubNav(false);
+   }
 
   ngOnInit() {
   }
