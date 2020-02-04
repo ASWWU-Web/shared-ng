@@ -56,16 +56,16 @@
     /* if we add swiping to open and close the menu this doesn't need to be 100% */
   }
 
+  @media only screen and (max-width: 768px) {
+    #subnav-bar {
+      display: none;
+    }
+  }
+
   @media only screen and (min-width:768px) {
     /* for desktop */
     .desktop-hide {
       width:0 !important;
-    }
-  }
-
-  @media only screen and (max-width: 768px) {
-    #subnav-bar {
-      display: none;
     }
   }
 
