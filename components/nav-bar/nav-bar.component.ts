@@ -39,7 +39,7 @@ export class NavBarComponent {
 	}
 
 	links: any = [
-		{ text: 'Mask',        link: '/mask' },
+		{ text: 'Mask',        link: 'https://aswwu.com/mask' },
 		{ text: 'Jobs',        link: 'https://aswwu.com/jobs' },
 		{ text: 'Upcoming',   link: 'https://aswwu.com/#upcoming' },
 		{ text: 'Departments', link: null, dropdownLinks: [
