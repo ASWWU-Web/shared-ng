@@ -37,3 +37,8 @@ export interface ApplicationView {
   answers: AnswerObject[];
   jobID: number;
 }
+
+export interface FormPairView {
+  job: JobView;
+  application: ApplicationView;
+}
