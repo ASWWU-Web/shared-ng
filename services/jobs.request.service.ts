@@ -3,7 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { RequestService } from './request.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { map } from 'rxjs/internal/operators/map';
-import {JobView, ApplicationView, ApplicationPOST} from '../interfaces/interfaces';
+import {JobView, ApplicationView, ApplicationPOST, AnswerObject} from '../interfaces/interfaces';
+import {catchError, tap} from 'rxjs/operators';
+import {of} from 'rxjs';
 
 @Injectable()
 export class JobsRequestService extends RequestService {
@@ -25,9 +27,21 @@ export class JobsRequestService extends RequestService {
 
   /**
    * Returns an observable for all information about a specific application, including answers to questions.
+   * If the application is missing or there is an error in fetching it, a new unpopulated application is provided.
    */
   readApplication(jobId: number, applicantUsername: string): Observable<ApplicationView> {
     const applicationObservable = super.get(`${this.baseURL}/application/view/${jobId}/${applicantUsername}`).pipe(
+      catchError(error => {
+        const newApplicationView: ApplicationView = {
+          username: applicantUsername,
+          status: 'new',
+          resume: '',
+          answers: [],
+          jobID: jobId,
+        };
+        const newObservable = of({application: newApplicationView});
+        return newObservable;
+      }),
       map((data: {application: ApplicationView}) => data.application)
     );
     return applicationObservable;
