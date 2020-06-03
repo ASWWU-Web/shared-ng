@@ -5,7 +5,7 @@ import { RequestService } from './request.service';
 @Injectable()
 export class PagesRequestService extends RequestService {
 
-  constructor(http: HttpClient, private rs: RequestService) {
+  constructor(http: HttpClient) {
       super(http);
   }
 
@@ -16,7 +16,7 @@ export class PagesRequestService extends RequestService {
     const formData = new FormData();
     formData.append('file', file, file.name);
     const request = this.createUri('/pages/media/upload_image');
-    this.rs.post(request, formData).subscribe(
+    this.post(request, formData).subscribe(
       data => callback(data),
       err => (catchError ? catchError(err) : console.log(err))
     );
