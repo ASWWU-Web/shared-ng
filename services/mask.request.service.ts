@@ -6,7 +6,9 @@ import { map } from 'rxjs/internal/operators/map';
 import { Profile, ProfileFull, Names, ProfilePOST } from '../interfaces/interfaces';
 import { filter } from 'rxjs/operators';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class MaskRequestService extends RequestService {
   baseURL = 'mask';  // currently unused
 
@@ -92,5 +94,30 @@ export class MaskRequestService extends RequestService {
   listPhotos(): Observable<string[]> {
     const photoObservable = super.get(`/update/list_photos`);
     return photoObservable;
+  }
+
+  fileToBase64(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        let encoded = reader.result.toString().replace(/^data:(.*,)?/, '');
+        if ((encoded.length % 4) > 0) {
+          encoded += '='.repeat(4 - (encoded.length % 4));
+        }
+        resolve(encoded);
+      }
+      reader.onerror = error => reject(error);
+    });
+  }
+
+  /**
+   * "/update/upload_photo"
+   *
+   * @return
+   */
+  async uploadPhoto(fileToUpload: File) {
+    var imageBase64 = await this.fileToBase64(fileToUpload);
+    return super.post(`/update/upload_photo`, { image: imageBase64 });
   }
 }

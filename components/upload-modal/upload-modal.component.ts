@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
+import { MaskRequestService } from '../../../shared-ng/services/services'
+
 @Component({
   selector: 'upload-modal',
   templateUrl: './upload-modal.html',
@@ -12,11 +14,22 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 export class UploadModalComponent {
   closeResult = '';
+  fileToUpload: File = null;
 
-  constructor(private modalService: NgbModal) {}
+  constructor(private mrs: MaskRequestService, private modalService: NgbModal) {}
+
+  handleFileInput(files: FileList) {
+    this.fileToUpload = files.item(0);
+  }
+
+  async postFile(fileToUpload: File) {
+    var $uploadPhoto = await this.mrs.uploadPhoto(fileToUpload);
+    $uploadPhoto.subscribe(() => {});
+  }
 
   open(content) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.postFile(this.fileToUpload) // VALIDATE FILE
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
