@@ -59,7 +59,7 @@
       <!-- For Direct Links -->
       <a *ngIf="item.link != null" class="smooth text-uppercase d-block p-4" href="{{item.link}}"> {{item.text}} </a>
       <!-- For Links with Dropdowns -->
-      <div *ngIf="item.link == null" ngbDropdown class="d-block">
+      <div *ngIf="item.link == null" ngbDropdown class="d-block" [autoClose]="false">
         <button ngbDropdownToggle class="dropdown-button btn btn-outline-primary text-uppercase d-block p-4"
           id="{{'dropdown' + item.text}}">{{item.text}}</button>
         <div ngbDropdownMenu class="dropdown-menu" [attr.aria-valuenow]="'dropdown' + item.text">

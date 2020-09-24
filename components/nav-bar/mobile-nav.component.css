@@ -40,6 +40,7 @@
     height: calc(100vh - 66px);
     overflow-y: auto;
     position: fixed;
+    padding-bottom: 80px;
   }
 /* mobile nav menu animation */
 .collapse.mobile-scrollable-menu, .collapse.show {
