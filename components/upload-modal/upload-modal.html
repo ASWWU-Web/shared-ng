@@ -11,10 +11,11 @@
 			<label for="file">Choose File</label>
 			<input type="file"
 				   id="file"
-				   (change)="handleFileInput($event.target.files)">
+				   (change)="handleFileInput($event)">
 		</div>
 	  </form>
 	</div>
+	<img [src]="srcString" height="600" width="auto" *ngIf="srcString">
 	<div class="modal-footer">
 	  <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
 	</div>

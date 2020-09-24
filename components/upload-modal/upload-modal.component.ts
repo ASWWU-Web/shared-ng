@@ -15,16 +15,31 @@ import { MaskRequestService } from '../../../shared-ng/services/services'
 export class UploadModalComponent {
   closeResult = '';
   fileToUpload: File = null;
+  srcString: any = null;
 
   constructor(private mrs: MaskRequestService, private modalService: NgbModal) {}
 
-  handleFileInput(files: FileList) {
-    this.fileToUpload = files.item(0);
+  handleFileInput(event: any): void {
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
+
+      const reader = new FileReader();
+
+      reader.onload = e => {
+        this.srcString = reader.result;
+        this.fileToUpload = event.target.files.item(0);
+      }
+
+      reader.readAsDataURL(file);
+    }
   }
 
   async postFile(fileToUpload: File) {
     var $uploadPhoto = await this.mrs.uploadPhoto(fileToUpload);
-    $uploadPhoto.subscribe(() => {});
+    $uploadPhoto.subscribe(() => {
+      this.fileToUpload = null;
+      this.srcString = null;
+    });
   }
 
   open(content) {
