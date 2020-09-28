@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { Subject } from 'rxjs';
+
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 import { MaskRequestService } from '../../../shared-ng/services/services'
@@ -16,53 +18,40 @@ export class ContentModerationComponent {
 	closeResult = '';
 	fileToUpload: File = null;
 	srcString: any = null;
+	urlToJudge: string;
+	$pendingPhotoList: Subject<{photos: string[]}>;
 
 	constructor(private mrs: MaskRequestService, private modalService: NgbModal) {}
 
-	handleFileInput(event: any): void {
-    if (event.target.files && event.target.files[0]) {
-		const file = event.target.files[0];
-
-		const reader = new FileReader();
-
-		reader.onload = e => {
-			this.srcString = reader.result;
-			this.fileToUpload = event.target.files.item(0);
-		}
-
-      	reader.readAsDataURL(file);
-    }
-}
-
-  	async postFile(fileToUpload: File) {
-		var $uploadPhoto = await this.mrs.uploadPhoto(fileToUpload);
-		$uploadPhoto.subscribe(() => {
-			this.fileToUpload = null;
-			this.srcString = null;
-		});
- 	 }
-
 	open(content) {
-		const $photoList = this.mrs.listPhotos();
-		$photoList.subscribe((data: any) => {
-			console.log(data);
-			this.srcString = `http://localhost:8888/pages/media/static/${data.photos[0]}`;
+		this.$pendingPhotoList = this.mrs.listPendingPhotos();
+		this.$pendingPhotoList.subscribe((data: any) => {
+			if (data.photos && data.photos.length > 0) {
+				this.urlToJudge = data.photos[0];
+				this.srcString = `http://localhost:8888/pages/media/static/${this.urlToJudge}`;
+			} else {
+				this.srcString = null;
+			}
 		}, undefined);
 		this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
 			this.closeResult = `Closed with: ${result}`;
-			console.log(this.closeResult);
 		}, (reason) => {
 			this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-			console.log(this.closeResult);
 		});
 	}	
 
 	approve() {
-		console.log("APPROVE")
+		const $approvedPhoto = this.mrs.approvePhoto(this.urlToJudge);
+		$approvedPhoto.subscribe((data: any) => {
+			this.$pendingPhotoList.next(data);
+		})
 	}
 
 	dismay() {
-		console.log("DISMAY")
+		const $dismayPhoto = this.mrs.dismayPhoto(this.urlToJudge);
+		$dismayPhoto.subscribe((data: any) => {
+			this.$pendingPhotoList.next(data);
+		})
 	}
 
 	private getDismissReason(reason: any): string {

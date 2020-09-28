@@ -6,9 +6,12 @@
 	  </button>
 	</div>
 	<div class="modal-body">
-	  <img [src]="srcString" height="600" width="auto" *ngIf="srcString">
-	  <button class="btn" (click)="approve()">Approve</button>
-	  <button class="btn" (click)="dismay()">Dismay</button>
+		<div *ngIf="srcString">
+			<img [src]="srcString" height="600" width="auto">
+			<button class="btn" (click)="approve()">Approve</button>
+			<button class="btn" (click)="dismay()">Dismay</button>
+		</div>
+		<div *ngIf="!srcString">Out Of Pictures</div>
 	</div>
   </ng-template>
   
