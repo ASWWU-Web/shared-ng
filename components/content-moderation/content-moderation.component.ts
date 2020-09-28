@@ -4,7 +4,10 @@ import { Subject } from 'rxjs';
 
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
-import { MaskRequestService } from '../../../shared-ng/services/services'
+import { AuthService, MaskRequestService } from '../../../shared-ng/services/services'
+import { User, Profile } from '../../interfaces/interfaces';
+
+import { CURRENT_YEAR } from '../../config';
 
 @Component({
 	selector: 'content-moderation',
@@ -20,8 +23,25 @@ export class ContentModerationComponent {
 	srcString: any = null;
 	urlToJudge: string;
 	$pendingPhotoList: Subject<{photos: string[]}>;
+	hasModeratorPermissions: boolean = false;
+	fullName: string = "abc";
 
-	constructor(private mrs: MaskRequestService, private modalService: NgbModal) {}
+	constructor(
+		private as: AuthService, 
+		private mrs: MaskRequestService, 
+		private modalService: NgbModal
+	) {}
+
+	ngOnInit() {
+		this.as.getUserInfo().subscribe(
+			(profile: User) => {
+				console.log(profile);
+				var permissions = profile.roles.split(",");
+				if (permissions.includes("content-moderator")) {
+					this.hasModeratorPermissions = true;
+				}
+			});
+	}
 
 	open(content) {
 		this.$pendingPhotoList = this.mrs.listPendingPhotos();
@@ -29,6 +49,14 @@ export class ContentModerationComponent {
 			if (data.photos && data.photos.length > 0) {
 				this.urlToJudge = data.photos[0];
 				this.srcString = `http://localhost:8888/pages/media/static/${this.urlToJudge}`;
+				var wwuId = this.urlToJudge.match(/.*(\d{7})\..*/)[1];
+				this.mrs.listProfile(CURRENT_YEAR, `wwuid=${wwuId}`).subscribe((profile: Profile[]) => {
+					if (profile && profile.length > 0) {
+						this.fullName = profile[0].full_name;
+					} else {
+						console.log(`NO WWU PROFILE WITH ID: ${wwuId}`);
+					}
+				})
 			} else {
 				this.srcString = null;
 			}

@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
-import { MaskRequestService } from '../../../shared-ng/services/services'
+import { AuthService, MaskRequestService } from '../../../shared-ng/services/services'
+import { User } from '../../interfaces/interfaces';
 
 @Component({
   selector: 'upload-modal',
@@ -16,9 +17,21 @@ export class UploadModalComponent {
   closeResult = '';
   fileToUpload: File = null;
   srcString: any = null;
+  profile: User;
 
-  constructor(private mrs: MaskRequestService, private modalService: NgbModal) {}
+  constructor(
+    private as: AuthService, 
+    private mrs: MaskRequestService, 
+    private modalService: NgbModal
+  ) {}
 
+  ngOnInit() {
+    this.as.getUserInfo().subscribe(
+      (data: User) => {
+        this.profile = data;
+      });
+  }
+  
   handleFileInput(event: any): void {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
@@ -35,7 +48,9 @@ export class UploadModalComponent {
   }
 
   async postFile(fileToUpload: File) {
-    var $uploadPhoto = await this.mrs.uploadPhoto(fileToUpload);
+    var d = new Date();
+    var name = `${d.getMonth()}_${d.getDate()}_${d.getFullYear()}-${this.profile.wwuid}.jpeg`;
+    var $uploadPhoto = await this.mrs.uploadPhoto(fileToUpload, name);
     $uploadPhoto.subscribe(() => {
       this.fileToUpload = null;
       this.srcString = null;

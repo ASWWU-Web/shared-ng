@@ -7,6 +7,7 @@
 	</div>
 	<div class="modal-body">
 		<div *ngIf="srcString">
+			<div>{{ fullName }}</div>
 			<img [src]="srcString" height="600" width="auto">
 			<button class="btn" (click)="approve()">Approve</button>
 			<button class="btn" (click)="dismay()">Dismay</button>
@@ -15,5 +16,5 @@
 	</div>
   </ng-template>
   
-  <button class="btn upload-picture-button float-right" (click)="open(content)">Moderate</button>
+  <button *ngIf="hasModeratorPermissions" class="btn upload-picture-button float-right" (click)="open(content)">Moderate</button>
   <hr>
