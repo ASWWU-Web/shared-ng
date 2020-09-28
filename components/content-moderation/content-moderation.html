@@ -1,0 +1,16 @@
+<ng-template #content let-modal>
+	<div class="modal-header">
+	  <h4 class="modal-title" id="modal-basic-title">Moderate content</h4>
+	  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+		<span aria-hidden="true">&times;</span>
+	  </button>
+	</div>
+	<div class="modal-body">
+	  <img [src]="srcString" height="600" width="auto" *ngIf="srcString">
+	  <button class="btn" (click)="approve()">Approve</button>
+	  <button class="btn" (click)="dismay()">Dismay</button>
+	</div>
+  </ng-template>
+  
+  <button class="btn upload-picture-button float-right" (click)="open(content)">Moderate</button>
+  <hr>
