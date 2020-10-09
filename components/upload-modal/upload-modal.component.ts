@@ -5,11 +5,13 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService, MaskRequestService } from '../../../shared-ng/services/services'
 import { User } from '../../interfaces/interfaces';
 
+import { ToastrService } from 'ngx-toastr';
+
 @Component({
   selector: 'upload-modal',
   templateUrl: './upload-modal.html',
   styleUrls: [
-	  'upload-modal.css'
+    'upload-modal.css'
   ]
 })
 
@@ -22,7 +24,8 @@ export class UploadModalComponent {
   constructor(
     private as: AuthService, 
     private mrs: MaskRequestService, 
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private toastrService: ToastrService,
   ) {}
 
   ngOnInit() {
@@ -31,7 +34,7 @@ export class UploadModalComponent {
         this.profile = data;
       });
   }
-  
+
   handleFileInput(event: any): void {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
@@ -48,12 +51,24 @@ export class UploadModalComponent {
   }
 
   async postFile(fileToUpload: File) {
+    if (!fileToUpload) {
+      this.toastrService.error("Invalid Input");
+      return;
+    }
     var d = new Date();
     var name = `${d.getMonth()}_${d.getDate()}_${d.getFullYear()}-${this.profile.wwuid}.jpeg`;
     var $uploadPhoto = await this.mrs.uploadPhoto(fileToUpload, name);
-    $uploadPhoto.subscribe(() => {
-      this.fileToUpload = null;
-      this.srcString = null;
+    $uploadPhoto.subscribe({
+      next: () => {
+        this.toastrService.success("Success");
+        this.fileToUpload = null;
+        this.srcString = null;
+      },
+      error: (err) => {
+        this.toastrService.error("Invalid Input");
+        console.log(err)
+      },
+      complete: () => console.log("SUCCESS")
     });
   }
 

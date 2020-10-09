@@ -8,7 +8,7 @@
 
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { Subject } from 'rxjs/internal/Subject';
 import { User, HeaderButton, SubNavbarLink } from '../interfaces/interfaces';
 import { RequestService } from './request.service';
 import { map, tap, catchError, distinctUntilChanged } from 'rxjs/operators';
@@ -20,10 +20,10 @@ import { SAML_LOGIN_URL, SAML_LOGOUT_URL } from '../../shared-ng/config';
 })
 export class AuthService {
   // private userInfo: User;
-  private userInfoSubject: BehaviorSubject<User>;
+  private userInfoSubject: Subject<User>;
 
   constructor(private rs: RequestService) {
-    this.userInfoSubject = new BehaviorSubject<User>(null);
+    this.userInfoSubject = new Subject<User>();
     this.authenticateUser().subscribe();
   }
 
@@ -36,7 +36,7 @@ export class AuthService {
   }
 
   /**
-   * Returns an observable of a BehaviorSubject.
+   * Returns an observable of a Subject.
    */
   public getUserInfo(): Observable<User> {
     return this.userInfoSubject.asObservable();
@@ -99,11 +99,10 @@ export class AuthService {
   }
 
   /**
-   * returns true if the loggedin cookie exists and the userInfoSubject has been
-   * set.
+   * returns true if the loggedin cookie exists
    */
   public isLoggedIn(): boolean {
-    return this.isLoggedInCookie() && this.userInfoSubject.value !== null;
+    return this.isLoggedInCookie();
   }
 
   /**

@@ -5,6 +5,8 @@ import { Subject } from 'rxjs';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 import { AuthService, MaskRequestService } from '../../../shared-ng/services/services'
+import { environment } from '../../../shared-ng/environments/environment';
+
 import { User, Profile } from '../../interfaces/interfaces';
 
 import { CURRENT_YEAR } from '../../config';
@@ -33,14 +35,16 @@ export class ContentModerationComponent {
 	) {}
 
 	ngOnInit() {
-		this.as.getUserInfo().subscribe(
-			(profile: User) => {
-				console.log(profile);
+		this.as.getUserInfo().subscribe({
+			next: (profile: User) => {
 				var permissions = profile.roles.split(",");
 				if (permissions.includes("content-moderator")) {
 					this.hasModeratorPermissions = true;
 				}
-			});
+			},
+			error: (err) => console.log("ERROR"),
+			complete: () => console.log("COMPLETE")
+		});
 	}
 
 	open(content) {
@@ -48,7 +52,7 @@ export class ContentModerationComponent {
 		this.$pendingPhotoList.subscribe((data: any) => {
 			if (data.photos && data.photos.length > 0) {
 				this.urlToJudge = data.photos[0];
-				this.srcString = `http://localhost:8888/pages/media/static/${this.urlToJudge}`;
+				this.srcString = `${environment.SERVER_URL}/pages/media/static/${this.urlToJudge}`;
 				var wwuId = this.urlToJudge.match(/.*(\d{7})\..*/)[1];
 				this.mrs.listProfile(CURRENT_YEAR, `wwuid=${wwuId}`).subscribe((profile: Profile[]) => {
 					if (profile && profile.length > 0) {

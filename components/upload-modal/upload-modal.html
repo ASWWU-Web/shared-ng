@@ -8,7 +8,6 @@
 	<div class="modal-body">
 	  <form>
 		<div class="form-group">
-			<label for="file">Choose File</label>
 			<input type="file"
 				   id="file"
 				   (change)="handleFileInput($event)">
@@ -16,10 +15,15 @@
 	  </form>
 	</div>
 	<img [src]="srcString" height="600" width="auto" *ngIf="srcString">
-	<div class="modal-footer">
+	<div class="modal-footer space-between-content">
+		<div class="image-restriction">
+			Image file size must be smaller than 5 MB
+		</div>
 	  <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
 	</div>
   </ng-template>
   
-  <button *ngIf="profile" class="btn upload-picture-button float-right" (click)="open(content)">Upload Mask Photo</button>
+  <button id="text" *ngIf="profile" class="btn upload-picture-button float-right" (click)="open(content)">
+	<h1 id="h1">UP<span id="offset">L</span>OAD</h1>
+  </button>
   <hr>
