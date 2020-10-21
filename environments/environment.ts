@@ -6,6 +6,6 @@
 // You can run the server in production mode by running `ng serve -prod`.
 export const environment = {
   production: false,
-  SERVER_URL: "http://localhost:8888",
+  SERVER_URL: "https://aswwu.com/server",
   COOKIE_DOMAIN: ".localhost",
 };
