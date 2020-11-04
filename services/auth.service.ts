@@ -21,9 +21,11 @@ import { SAML_LOGIN_URL, SAML_LOGOUT_URL } from '../../shared-ng/config';
 export class AuthService {
   // private userInfo: User;
   private userInfoSubject: Subject<User>;
+  private user: User;
 
   constructor(private rs: RequestService) {
     this.userInfoSubject = new Subject<User>();
+    this.user = null;
     this.authenticateUser().subscribe();
   }
 
@@ -32,7 +34,18 @@ export class AuthService {
    * @param user a User object to broadcast to all getUserInfo() subscribers
    */
   sendUserInfo(user: User) {
+    this.user = user;
     this.userInfoSubject.next(user);
+  }
+
+  /**
+   * resends User object
+   * we should probably use BehaviorSubject instead of Subject...
+   */
+  repeatUserInfo() {
+    if (this.user) {
+      this.userInfoSubject.next(this.user)
+    }
   }
 
   /**
