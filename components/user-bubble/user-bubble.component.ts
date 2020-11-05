@@ -55,6 +55,8 @@ export class UserBubbleComponent implements OnInit, OnDestroy {
 
   logout() {
       this.authService.logout();
-      window.location.href = this.buildLogoutLink();
+      let string = this.buildLogoutLink();
+      console.log(string);
+      window.location.href = string;
   }
 }
