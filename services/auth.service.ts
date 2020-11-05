@@ -93,8 +93,8 @@ export class AuthService {
    * the auth service.
    */
   public logout(): void {
-    // TODO: begin saml logout workflow
-    // document.cookie = ';path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    document.cookie = "token= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+    document.cookie = "loggedin= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
     this.sendUserInfo(null);
   }
 
@@ -114,7 +114,7 @@ export class AuthService {
     return SAML_LOGIN_URL + (redirectPathname || window.location.pathname);
   }
 
-  public buildLogoutLink() {
-    // TODO: do the logout workflow
+  public buildLogoutLink(redirectPathname?: string): string {
+    return SAML_LOGOUT_URL + (redirectPathname || window.location.pathname);
   }
 }

@@ -29,18 +29,20 @@ export class ContentModerationComponent {
 	fullName: string = "abc";
 
 	constructor(
-		private as: AuthService, 
-		private mrs: MaskRequestService, 
+		private as: AuthService,
+		private mrs: MaskRequestService,
 		private modalService: NgbModal
 	) {}
 
 	ngOnInit() {
 		this.as.getUserInfo().subscribe({
 			next: (profile: User) => {
-				var permissions = profile.roles.split(",");
-				if (permissions.includes("content-moderator")) {
-					this.hasModeratorPermissions = true;
-				}
+			  if (profile) {
+          var permissions = profile.roles.split(",");
+          if (permissions.includes("content-moderator")) {
+            this.hasModeratorPermissions = true;
+          }
+        }
 			},
 			error: (err) => console.log("ERROR"),
 			complete: () => console.log("COMPLETE")
@@ -70,7 +72,7 @@ export class ContentModerationComponent {
 		}, (reason) => {
 			this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
 		});
-	}	
+	}
 
 	approve() {
 		const $approvedPhoto = this.mrs.approvePhoto(this.urlToJudge);

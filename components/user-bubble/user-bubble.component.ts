@@ -24,9 +24,11 @@ export class UserBubbleComponent implements OnInit, OnDestroy {
   router: any;
   UserInfoSubscription: Subscription;
   buildLoginLink: () => string;
+  buildLogoutLink: () => string;
 
   constructor(private authService: AuthService, private _router: Router) {
     this.buildLoginLink = authService.buildLoginLink;
+    this.buildLogoutLink = authService.buildLogoutLink;
     this.router = _router;
     this.UserInfoSubscription = authService.getUserInfo().subscribe(
       (data: User) => {
@@ -51,7 +53,8 @@ export class UserBubbleComponent implements OnInit, OnDestroy {
       }
   }
 
-  logout(): void {
-    this.authService.logout();
+  logout() {
+      this.authService.logout();
+      window.location.href = this.buildLogoutLink();
   }
 }
