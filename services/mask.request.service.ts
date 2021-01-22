@@ -2,11 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { RequestService } from './request.service';
 import { Observable } from 'rxjs/internal/Observable';
+import { Subject } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
 import { Profile, ProfileFull, Names, ProfilePOST } from '../interfaces/interfaces';
 import { filter } from 'rxjs/operators';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class MaskRequestService extends RequestService {
   baseURL = 'mask';  // currently unused
 
@@ -92,5 +95,64 @@ export class MaskRequestService extends RequestService {
   listPhotos(): Observable<string[]> {
     const photoObservable = super.get(`/update/list_photos`);
     return photoObservable;
+  }
+
+  /**
+   * "/update/list_pending_photos"
+   *
+   * @return array of pending photo urls
+   */
+  listPendingPhotos(): Subject<{photos: string[]}> {
+    const $pendingPhotos = super.get(`/update/list_pending_photos`);
+    const $sub: Subject<{photos: string[]}> = new Subject<{photos: string[]}>();
+    $pendingPhotos.subscribe({
+      complete: () => {},
+      error: x => $sub.error(x),
+      next: x => $sub.next(x)
+    });
+    return $sub;
+  }
+
+  /**
+   * "/pages/media/approve/(.*)"
+   *
+   * @return array of remaining pending photo urls
+   */
+  approvePhoto(url: string): Observable<string[]> {
+    return super.get(`/pages/media/approve/${url}`);
+  }
+
+  /**
+   * "/pages/media/dismay/(.*)"
+   *
+   * @return array of remaining pending photo urls
+   */
+  dismayPhoto(url: string): Observable<string[]> {
+    return super.get(`/pages/media/dismay/${url}`);
+  }
+
+  fileToBase64(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        let encoded = reader.result.toString().replace(/^data:(.*,)?/, '');
+        if ((encoded.length % 4) > 0) {
+          encoded += '='.repeat(4 - (encoded.length % 4));
+        }
+        resolve(encoded);
+      }
+      reader.onerror = error => reject(error);
+    });
+  }
+
+  /**
+   * "/update/upload_photo"
+   *
+   * @return
+   */
+  async uploadPhoto(fileToUpload: File, name: string) {
+    var imageBase64 = await this.fileToBase64(fileToUpload);
+    return super.post(`/update/upload_photo`, { image: imageBase64, name });
   }
 }

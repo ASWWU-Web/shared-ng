@@ -1,0 +1,29 @@
+<ng-template #content let-modal>
+	<div class="modal-header">
+	  <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+	  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+		<span aria-hidden="true">&times;</span>
+	  </button>
+	</div>
+	<div class="modal-body">
+	  <form>
+		<div class="form-group">
+			<input type="file"
+				   id="file"
+				   (change)="handleFileInput($event)">
+		</div>
+	  </form>
+	</div>
+	<img [src]="srcString" height="600" width="auto" *ngIf="srcString">
+	<div class="modal-footer space-between-content">
+		<div class="image-restriction">
+			Image file size must be smaller than 5 MB
+		</div>
+	  <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+	</div>
+  </ng-template>
+  
+  <button id="text" *ngIf="profile" class="btn upload-picture-button float-right" (click)="open(content)">
+	<h1 id="h1">UP<span id="offset">L</span>OAD</h1>
+  </button>
+  <hr>
