@@ -9,6 +9,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { Subject } from 'rxjs/internal/Subject';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { User, HeaderButton, SubNavbarLink } from '../interfaces/interfaces';
 import { RequestService } from './request.service';
 import { map, tap, catchError, distinctUntilChanged } from 'rxjs/operators';
@@ -20,10 +21,12 @@ import { SAML_LOGIN_URL, SAML_LOGOUT_URL } from '../../shared-ng/config';
 })
 export class AuthService {
   // private userInfo: User;
-  private userInfoSubject: Subject<User>;
+  private userInfoSubject: BehaviorSubject<User>;
+  private user: User;
 
   constructor(private rs: RequestService) {
-    this.userInfoSubject = new Subject<User>();
+    this.userInfoSubject = new BehaviorSubject<User>(null);
+    this.user = null;
     this.authenticateUser().subscribe();
   }
 
@@ -32,6 +35,7 @@ export class AuthService {
    * @param user a User object to broadcast to all getUserInfo() subscribers
    */
   sendUserInfo(user: User) {
+    this.user = user;
     this.userInfoSubject.next(user);
   }
 

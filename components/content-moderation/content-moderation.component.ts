@@ -37,12 +37,13 @@ export class ContentModerationComponent {
 	ngOnInit() {
 		this.as.getUserInfo().subscribe({
 			next: (profile: User) => {
-			  if (profile) {
-          var permissions = profile.roles.split(",");
-          if (permissions.includes("content-moderator")) {
-            this.hasModeratorPermissions = true;
-          }
-        }
+				if (!profile) {
+					return;
+				}
+				var permissions = profile.roles.split(",");
+				if (permissions.includes("content-moderator")) {
+					this.hasModeratorPermissions = true;
+				}
 			},
 			error: (err) => console.log("ERROR"),
 			complete: () => console.log("COMPLETE")
