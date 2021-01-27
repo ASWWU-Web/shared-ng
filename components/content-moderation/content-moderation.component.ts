@@ -29,8 +29,8 @@ export class ContentModerationComponent {
 	fullName: string = "abc";
 
 	constructor(
-		private as: AuthService, 
-		private mrs: MaskRequestService, 
+		private as: AuthService,
+		private mrs: MaskRequestService,
 		private modalService: NgbModal
 	) {}
 
@@ -73,7 +73,7 @@ export class ContentModerationComponent {
 		}, (reason) => {
 			this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
 		});
-	}	
+	}
 
 	approve() {
 		const $approvedPhoto = this.mrs.approvePhoto(this.urlToJudge);
