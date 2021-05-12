@@ -26,7 +26,7 @@ export class RequestService {
    * Takes a uri suffix or a full url. If it is not a full url append aswwu.com and add forward slashes as needed.
    * @param uri The part of the url following aswwu.com, or a full url
    */
-  private createUri(uri: string): string {
+  protected createUri(uri: string): string {
     let url = uri;
     if (!url.startsWith('http')) {
       url = environment.SERVER_URL;
@@ -147,16 +147,4 @@ export class RequestService {
     return this.request('PATCH', uri, urlParams, data, encoding);
   }
 
-  /**
-   * upload an image for the pages site. TODO: move into pages request service.
-   */
-  uploadImage(file: File, callback: (data) => void, catchError: (err) => void) {
-    const formData = new FormData();
-    formData.append('file', file, file.name);
-    const request = this.createUri('/pages/media/upload_image');
-    this.http.post(request, formData).subscribe(
-      data => callback(data),
-      err => (catchError ? catchError(err) : console.log(err))
-    );
-  }
 }

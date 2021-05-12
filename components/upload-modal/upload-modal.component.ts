@@ -60,7 +60,7 @@ export class UploadModalComponent {
     var $uploadPhoto = await this.mrs.uploadPhoto(fileToUpload, name);
     $uploadPhoto.subscribe({
       next: () => {
-        this.toastrService.success("Success");
+        this.toastrService.success("Success: Your photo is awaiting moderation");
         this.fileToUpload = null;
         this.srcString = null;
       },
