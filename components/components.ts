@@ -6,4 +6,4 @@ export * from './header/header.component';
 export * from './error-page/error-page.component';
 export * from './upload-modal/upload-modal.component';
 export * from './content-moderation/content-moderation.component';
-export * from './loading-spinner/loading-spinner.component'
+export * from './progress-loader/progress-loader.component';
