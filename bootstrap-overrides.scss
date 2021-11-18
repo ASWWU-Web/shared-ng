@@ -82,3 +82,7 @@ $enable-rounded: false;
 .btn-primary:disabled, .btn-secondary:disabled, .btn-success:disabled, .btn-danger:disabled, .btn-warning:disabled, .btn-info:disabled {
   color: white;
 }
+
+.progress-green {
+  background-color: #{$color-aswwu-primary}!important;
+}

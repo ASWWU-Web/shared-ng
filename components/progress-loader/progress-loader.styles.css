@@ -1,5 +1,6 @@
-.loader-container {
-    position: fixed;
+#progress {
+    position: absolute;
+    height: 10px;
     width: 100%;
-    z-index: 99;
 }
+
