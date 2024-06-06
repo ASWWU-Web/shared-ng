@@ -99,6 +99,11 @@ export class AuthService {
   public logout(): void {
     // TODO: begin saml logout workflow
     // document.cookie = ';path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    for (const cookie of document.cookie.split(';')) {
+      const eqPos = cookie.indexOf('=');
+      const name = eqPos > -1 ? cookie.substring(0, eqPos) : cookie;
+      document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    }
     this.sendUserInfo(null);
   }
 
