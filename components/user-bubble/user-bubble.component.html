@@ -1,15 +1,53 @@
 <div *ngIf="profile" class="contain">
   <div id="bubble-popup" ngbDropdown display="dynamic" placement="bottom-right">
-      <button id="bubbleicon" ngbDropdownToggle>
-          <div *ngIf="(profile?.photo == 'images/mask_unknown.png' || profile?.photo == 'None' || !profile?.photo)" class="btn btn-default btn-circle">{{profile?.username.charAt(0).toUpperCase()}}</div>
-          <img *ngIf="!(profile?.photo == 'images/mask_unknown.png' || profile?.photo == 'None' || !profile?.photo)" class="btn btn-default btn-circle" src="{{getPhotoLink(profile.photo)}}">
-      </button>
-      <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="bubbleicon">
-          <a class="btn btn-default dropdown-item" href="https://aswwu.com/mask/profile/{{profile?.username}}">View Profile</a>
-          <a class="btn btn-default dropdown-item" href="https://aswwu.com/mask/update">Update Profile</a>
-          <div class="dropdown-divider"></div>
-          <button class="btn btn-default dropdown-item" (click)="logout()" [routerLink]="'/'">Log Out</button>
+    <button id="bubbleicon" ngbDropdownToggle>
+      <div
+        *ngIf="
+          profile?.photo == 'images/mask_unknown.png' ||
+          profile?.photo == 'None' ||
+          !profile?.photo
+        "
+        class="btn btn-default btn-circle"
+      >
+        {{ profile?.username.charAt(0).toUpperCase() }}
       </div>
+      <img
+        *ngIf="
+          !(
+            profile?.photo == 'images/mask_unknown.png' ||
+            profile?.photo == 'None' ||
+            !profile?.photo
+          )
+        "
+        class="btn btn-default btn-circle"
+        src="{{ getPhotoLink(profile.photo) }}"
+      />
+    </button>
+    <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="bubbleicon">
+      <a
+        class="btn btn-default dropdown-item"
+        href="https://aswwumask.com/mask/profile/{{ profile?.username }}"
+        >View Profile</a
+      >
+      <a
+        class="btn btn-default dropdown-item"
+        href="https://aswwumask.com/mask/update"
+        >Update Profile</a
+      >
+      <div class="dropdown-divider"></div>
+      <button
+        class="btn btn-default dropdown-item"
+        (click)="logout()"
+        [routerLink]="'/'"
+      >
+        Log Out
+      </button>
+    </div>
   </div>
 </div>
-<a *ngIf="!profile" class="btn btn-primary float-right" [href]="buildLoginLink()">Log in</a>
+<a
+  *ngIf="!profile"
+  class="btn btn-primary float-right"
+  [href]="buildLoginLink()"
+  >Log in</a
+>

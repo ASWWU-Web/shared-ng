@@ -1,93 +1,101 @@
-#foot{
-    font-family: var(--font-1);
-    padding-left: 0px;
-    padding-right: 0px;
-    margin-top: 20px;
+#foot {
+  font-family: var(--font-1);
+  padding-left: 0px;
+  padding-right: 0px;
+  margin-top: 20px;
 }
-p, a, button {
-    font-family: var(--font-2);
+p,
+a,
+button {
+  font-family: var(--font-2);
 }
-h1, h2, h3, h4, h5, h6 {
-    font-weight: 300;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 300;
 }
 .text-white {
-    color: white;
+  color: white;
 }
 
 #color-bar {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .department-color {
-    height: 10px;
-    flex: 1 0 auto;
+  height: 10px;
+  flex: 1 0 auto;
 }
 
 /*Footer*/
 #footer {
-    padding-top: 50px;
-    padding-bottom: 34px;
+  padding-top: 50px;
+  padding-bottom: 34px;
 }
 #footerLogo {
-    max-width: 200px!important;
+  max-width: 200px !important;
 }
 .footerLink {
-    color:#a7abae;
-    transition: color .2s;
+  color: #a7abae;
+  transition: color 0.2s;
 }
-.footerLink:hover, .footerLink:active, .footerLink:focus{
-    color:white!important;
-    text-decoration: none;
+.footerLink:hover,
+.footerLink:active,
+.footerLink:focus {
+  color: white !important;
+  text-decoration: none;
 }
-
 
 /*Social*/
 #social {
-    list-style: none;
-    list-style-type: none;
-    padding-left: 0;
-  }
+  list-style: none;
+  list-style-type: none;
+  padding-left: 0;
+}
 #social li {
-    display: inline-block;
-    padding-right: 10px;
+  display: inline-block;
+  padding-right: 10px;
 }
 #social li a svg {
-    height: 30px;
-    width: 30px;
-    fill:#a7abae;
-    transition: fill .2s;
-    overflow: hidden;
+  height: 30px;
+  width: 30px;
+  fill: #a7abae;
+  transition: fill 0.2s;
+  overflow: hidden;
 }
 #social li a svg:hover {
-    fill:white;
+  fill: white;
 }
 #brand {
-    color:#cdcfd0;
+  color: #cdcfd0;
 }
 
 /*Random utilities*/
 .logo {
-    max-width: 400px;
-    width:100%!important;
-    height: auto;
-    margin-bottom: .8em;
+  max-width: 400px;
+  width: 100% !important;
+  height: auto;
+  margin-bottom: 0.8em;
 }
-#aswwuLogo{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-image: url(https://aswwu.com/media/background.php);
-    background-size:cover;
-    height:95vh;
-    width: 100%;
+#aswwuLogo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url(https://aswwumask.com/media/background.php);
+  background-size: cover;
+  height: 95vh;
+  width: 100%;
 }
-#aswwuLogo img{
-    width: 100%;
-    max-width: 800px;
-    height: auto;
-    padding: 0 20px 0 20px;
+#aswwuLogo img {
+  width: 100%;
+  max-width: 800px;
+  height: auto;
+  padding: 0 20px 0 20px;
 }
-.navbar>.container {
-    align-items: stretch !important;
+.navbar > .container {
+  align-items: stretch !important;
 }

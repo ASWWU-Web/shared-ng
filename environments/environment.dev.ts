@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  SERVER_URL: "https://dev.aswwu.com/server",
-  COOKIE_DOMAIN: ".aswwu.com",
+  SERVER_URL: "https://dev.aswwumask.com/server",
+  COOKIE_DOMAIN: ".aswwumask.com",
 };

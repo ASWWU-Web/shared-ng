@@ -23,8 +23,8 @@ export class RequestService {
   }
 
   /**
-   * Takes a uri suffix or a full url. If it is not a full url append aswwu.com and add forward slashes as needed.
-   * @param uri The part of the url following aswwu.com, or a full url
+   * Takes a uri suffix or a full url. If it is not a full url append aswwumask.com and add forward slashes as needed.
+   * @param uri The part of the url following aswwumask.com, or a full url
    */
   protected createUri(uri: string): string {
     let url = uri;
@@ -99,7 +99,7 @@ export class RequestService {
   /**
    * generates an http request
    * @param requestType string, request type, options: "GET", "DELETE", "POST", "PUT", "PATCH"
-   * @param uri string, the part of the URL following aswwu.com and before parameters, or a full URL
+   * @param uri string, the part of the URL following aswwumask.com and before parameters, or a full URL
    * @param urlParams javascript object, containing parameters to be placed in the request URL
    * @param data javascript object, data to be used in POST and PUT requests
    * @param encoding string, use "urlencoded" if the server needs that format, defaults to json
