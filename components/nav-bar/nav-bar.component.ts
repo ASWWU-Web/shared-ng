@@ -2,7 +2,7 @@
 // tslint:disable:component-selector
 // tslint:disable:no-angle-bracket-type-assertion
 import { Component, Input } from '@angular/core';
-import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
+import { NgbNavChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { SubNavbarLink } from '../../interfaces/interfaces';
 import { Subscription } from 'rxjs';
 import { HermesService } from '../../services/services';
@@ -72,8 +72,8 @@ export class NavBarComponent {
 
   public isCollapsed = false;
 
-  public beforeChange($event: NgbPanelChangeEvent) {
-    if ($event.panelId.startsWith('linkOnly')) {
+  public beforeChange($event: NgbNavChangeEvent) {
+    if ($event.activeId.startsWith('linkOnly')) {
       $event.preventDefault();
     }
   }
