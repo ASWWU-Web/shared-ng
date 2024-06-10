@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   title = 'ASWWU';
   imageUrl: string;
   invert = false;
-  visible = true;
+  visible = false;
   showButton = false;
   headerButton: HeaderButton = {
     buttonText: null,
@@ -26,11 +26,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   };
   // subscriptions
   subscriptions = {
-    title: <Subscription> null,
-    imageUrl: <Subscription> null,
-    invert: <Subscription> null,
-    visible: <Subscription> null,
-    headerButton: <Subscription> null
+    title: <Subscription>null,
+    imageUrl: <Subscription>null,
+    invert: <Subscription>null,
+    visible: <Subscription>null,
+    headerButton: <Subscription>null
   };
 
   constructor(private hermesService: HermesService) {
@@ -55,6 +55,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
     // subscribe to visible
     this.subscriptions.visible = this.hermesService.getShowHeader().subscribe(message => {
+      console.log('header visible', message);
       if (message !== null) {
         this.visible = message;
       }
