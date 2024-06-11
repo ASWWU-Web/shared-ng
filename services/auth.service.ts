@@ -7,14 +7,13 @@
  */
 
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/internal/Observable';
-import { Subject } from 'rxjs/internal/Subject';
+import { of, throwError } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { User, HeaderButton, SubNavbarLink } from '../interfaces/interfaces';
+import { Observable } from 'rxjs/internal/Observable';
+import { catchError, map, tap } from 'rxjs/operators';
+import { SAML_LOGIN_URL } from '../../shared-ng/config';
+import { User } from '../interfaces/interfaces';
 import { RequestService } from './request.service';
-import { map, tap, catchError, distinctUntilChanged } from 'rxjs/operators';
-import { throwError, of } from 'rxjs';
-import { SAML_LOGIN_URL, SAML_LOGOUT_URL } from '../../shared-ng/config';
 
 @Injectable({
   providedIn: 'root'
