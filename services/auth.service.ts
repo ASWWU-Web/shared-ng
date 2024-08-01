@@ -67,9 +67,10 @@ export class AuthService {
 
   /**
    * returns true if the loggedin token exists
+   * TODO: this should be replaced with a more secure method of checking if the user is logged in.
    */
   private isLoggedInCookie(): boolean {
-    return document.cookie.search('loggedin=') !== -1;
+    return document.cookie.search('token=') !== -1;
   }
 
   /**
