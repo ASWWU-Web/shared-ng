@@ -11,7 +11,7 @@ import { of, throwError } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Observable } from 'rxjs/internal/Observable';
 import { catchError, map, tap } from 'rxjs/operators';
-import { SAML_LOGIN_URL } from '../../shared-ng/config';
+import { SAML_LOGIN_URL, SAML_URL } from '../../shared-ng/config';
 import { User } from '../interfaces/interfaces';
 import { RequestService } from './request.service';
 
@@ -59,18 +59,10 @@ export class AuthService {
         if (err.status === 401) {
           return of(null);
         } else {
-          return throwError(err);
+          throw err;
         }
       })
     );
-  }
-
-  /**
-   * returns true if the loggedin token exists
-   * TODO: this should be replaced with a more secure method of checking if the user is logged in.
-   */
-  private isLoggedInCookie(): boolean {
-    return document.cookie.search('token=') !== -1;
   }
 
   /**
@@ -81,12 +73,8 @@ export class AuthService {
    * observable if there's no loggedin cookie.
    */
   public authenticateUser(): Observable<User> {
-    if (!this.isLoggedInCookie()) {
-      this.sendUserInfo(null);
-      return of(null);
-    }
     return this.readVerify().pipe(
-      tap((data: User) => {
+      tap((data: User | null) => {
         this.sendUserInfo(data);
       })
     );
@@ -98,13 +86,8 @@ export class AuthService {
    */
   public logout(): void {
     // TODO: begin saml logout workflow
-    // document.cookie = ';path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-    for (const cookie of document.cookie.split(';')) {
-      const eqPos = cookie.indexOf('=');
-      const name = eqPos > -1 ? cookie.substring(0, eqPos) : cookie;
-      document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-    }
     this.sendUserInfo(null);
+    document.location.href = this.buildLogoutLink();
 
   }
 
@@ -112,7 +95,7 @@ export class AuthService {
    * returns true if the loggedin cookie exists
    */
   public isLoggedIn(): boolean {
-    return this.isLoggedInCookie();
+    return this.user !== null;
   }
 
   /**
@@ -126,5 +109,6 @@ export class AuthService {
 
   public buildLogoutLink() {
     // TODO: do the logout workflow
+    return SAML_URL + '/?slo';
   }
 }
