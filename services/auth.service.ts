@@ -11,7 +11,8 @@ import { of, throwError } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Observable } from 'rxjs/internal/Observable';
 import { catchError, map, tap } from 'rxjs/operators';
-import { SAML_LOGIN_URL, SAML_URL } from '../../shared-ng/config';
+import { SAML_LOGIN_URL } from '../../shared-ng/config';
+import { environment } from '../environments/environment';
 import { User } from '../interfaces/interfaces';
 import { RequestService } from './request.service';
 
@@ -85,10 +86,8 @@ export class AuthService {
    * the auth service.
    */
   public logout(): void {
-    // TODO: begin saml logout workflow
     this.sendUserInfo(null);
     document.location.href = this.buildLogoutLink();
-
   }
 
   /**
@@ -107,8 +106,8 @@ export class AuthService {
     return SAML_LOGIN_URL + (redirectPathname || window.location.pathname);
   }
 
-  public buildLogoutLink() {
+  public buildLogoutLink(): string {
     // TODO: do the logout workflow
-    return SAML_URL + '/?slo';
+    return environment.SERVER_URL + '/logout';
   }
 }
