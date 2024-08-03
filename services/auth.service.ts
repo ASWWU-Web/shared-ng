@@ -87,7 +87,15 @@ export class AuthService {
    */
   public logout(): void {
     this.sendUserInfo(null);
-    document.location.href = this.buildLogoutLink();
+    this.rs.get('logout').pipe(
+      catchError((err) => {
+        if (err.status === 401) {
+          return of(null);
+        } else {
+          throw err;
+        }
+      })
+    );
   }
 
   /**
@@ -104,10 +112,5 @@ export class AuthService {
    */
   public buildLoginLink(redirectPathname?: string): string {
     return SAML_LOGIN_URL + (redirectPathname || window.location.pathname);
-  }
-
-  public buildLogoutLink(): string {
-    // TODO: do the logout workflow
-    return environment.SERVER_URL + '/logout';
   }
 }
