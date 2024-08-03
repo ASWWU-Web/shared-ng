@@ -86,16 +86,12 @@ export class AuthService {
    * the auth service.
    */
   public logout(): void {
-    this.sendUserInfo(null);
     this.rs.get('logout').pipe(
       catchError((err) => {
-        if (err.status === 401) {
-          return of(null);
-        } else {
-          throw err;
-        }
+        throw err;
       })
-    );
+    ).subscribe();
+    this.sendUserInfo(null);
   }
 
   /**
