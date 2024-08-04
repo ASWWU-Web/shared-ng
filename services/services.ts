@@ -7,3 +7,4 @@ export * from './auth.service';
 export * from './mask.request.service';
 export * from './pages.request.service';
 export * from './typeahead.service';
+export * from './url.service';

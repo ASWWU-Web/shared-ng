@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UrlService } from 'src/shared-ng/services/url.service';
 
 @Component({
   selector: 'footer',
@@ -6,8 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./footer.component.css']
 })
 export class FooterComponent implements OnInit {
-
-  constructor() { }
+  base_url: string;
+  constructor(urlService: UrlService) {
+    this.base_url = urlService.getBaseUrl();
+  }
 
   departments = [
     'outdoors',

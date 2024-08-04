@@ -5,33 +5,37 @@
  */
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/services';
+import { AuthService, UrlService } from '../../services/services';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 import { MEDIA_SM, DEFAULT_PHOTO, CURRENT_YEAR } from '../../config';
 import { User } from '../../interfaces/interfaces';
 import { Subscription } from 'rxjs';
+import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 @Component({
-// tslint:disable-next-line: component-selector
+  // tslint:disable-next-line: component-selector
   selector: 'user-bubble',
   templateUrl: 'user-bubble.component.html',
   styleUrls: ['user-bubble.component.css'],
 })
 
 export class UserBubbleComponent implements OnInit, OnDestroy {
+  base_url: string;
   current_year = CURRENT_YEAR;
   profile: User;
-  router: any;
+  router: Router;
   UserInfoSubscription: Subscription;
   buildLoginLink: () => string;
 
-  constructor(private authService: AuthService, private _router: Router) {
+  constructor(private authService: AuthService, private _router: Router, private urlService: UrlService) {
     this.buildLoginLink = authService.buildLoginLink;
     this.router = _router;
     this.UserInfoSubscription = authService.getUserInfo().subscribe(
       (data: User) => {
         this.profile = data;
       });
+    this.base_url = urlService.getBaseUrl();
+
   }
 
   ngOnInit() {
@@ -44,11 +48,11 @@ export class UserBubbleComponent implements OnInit, OnDestroy {
 
   // Photo url to link function returns proper url and BLANK photo if photo == "None"
   getPhotoLink(url: string) {
-      if (url && url !== 'None') {
-          return MEDIA_SM + '/' + url;
-      } else {
-          return MEDIA_SM + '/' + DEFAULT_PHOTO;
-      }
+    if (url && url !== 'None') {
+      return MEDIA_SM + '/' + url;
+    } else {
+      return MEDIA_SM + '/' + DEFAULT_PHOTO;
+    }
   }
 
   logout(): void {
