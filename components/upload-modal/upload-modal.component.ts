@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
@@ -10,9 +10,8 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'upload-modal',
   templateUrl: './upload-modal.html',
-  styleUrls: [
-    'upload-modal.css'
-  ]
+  styleUrl: './upload-modal.css',
+  encapsulation: ViewEncapsulation.None
 })
 
 export class UploadModalComponent {
@@ -22,11 +21,11 @@ export class UploadModalComponent {
   profile: User;
 
   constructor(
-    private as: AuthService, 
-    private mrs: MaskRequestService, 
+    private as: AuthService,
+    private mrs: MaskRequestService,
     private modalService: NgbModal,
     private toastrService: ToastrService,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.as.getUserInfo().subscribe(
@@ -73,7 +72,7 @@ export class UploadModalComponent {
   }
 
   open(content) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.postFile(this.fileToUpload) // VALIDATE FILE
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {

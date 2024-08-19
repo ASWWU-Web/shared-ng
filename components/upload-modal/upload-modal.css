@@ -4,6 +4,9 @@
   /* background-color: mediumvioletred; */
   color: white;
 }
+.modal {
+  z-index: 9999 !important;
+}
 
 #text {
   text-align: center;
