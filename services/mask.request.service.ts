@@ -41,7 +41,7 @@ export class MaskRequestService extends RequestService {
     }
 
     const profileObservable = super.get(uri).pipe(
-      map((data: {results: Profile[]}) => data.results)
+      map((data: { results: Profile[] }) => data.results)
     );
 
     return profileObservable;
@@ -57,7 +57,7 @@ export class MaskRequestService extends RequestService {
    */
   listName(filterParams: any): Observable<Names[]> {
     const maskObservable = super.get(`search/names`, filterParams).pipe(
-      map((results: {names: Names[]}) => results.names)
+      map((results: { names: Names[] }) => results.names)
     );
     return maskObservable;
   }
@@ -102,11 +102,11 @@ export class MaskRequestService extends RequestService {
    *
    * @return array of pending photo urls
    */
-  listPendingPhotos(): Subject<{photos: string[]}> {
+  listPendingPhotos(): Subject<{ photos: string[] }> {
     const $pendingPhotos = super.get(`/update/list_pending_photos`);
-    const $sub: Subject<{photos: string[]}> = new Subject<{photos: string[]}>();
+    const $sub: Subject<{ photos: string[] }> = new Subject<{ photos: string[] }>();
     $pendingPhotos.subscribe({
-      complete: () => {},
+      complete: () => { },
       error: x => $sub.error(x),
       next: x => $sub.next(x)
     });
@@ -151,8 +151,8 @@ export class MaskRequestService extends RequestService {
    *
    * @return
    */
-  async uploadPhoto(fileToUpload: File, name: string) {
+  async uploadPhoto(fileToUpload: File) {
     var imageBase64 = await this.fileToBase64(fileToUpload);
-    return super.post(`/update/upload_photo`, { image: imageBase64, name });
+    return super.post(`/update/upload_photo`, { image: imageBase64 });
   }
 }

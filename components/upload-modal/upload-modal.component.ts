@@ -55,8 +55,7 @@ export class UploadModalComponent {
       return;
     }
     var d = new Date();
-    var name = `${d.getMonth()}_${d.getDate()}_${d.getFullYear()}-${this.profile.wwuid}.jpeg`;
-    var $uploadPhoto = await this.mrs.uploadPhoto(fileToUpload, name);
+    var $uploadPhoto = await this.mrs.uploadPhoto(fileToUpload);
     $uploadPhoto.subscribe({
       next: () => {
         this.toastrService.success("Success: Your photo is awaiting moderation");

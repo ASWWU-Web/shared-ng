@@ -29,7 +29,7 @@ export class RequestService {
   protected createUri(uri: string): string {
     let url = uri;
     if (!url.startsWith('http')) {
-      url = environment.SERVER_URL;
+      url = environment.API_URL;
       if (url.split('').pop() !== '/' && uri[0] !== '/') {
         url += '/';
       }
