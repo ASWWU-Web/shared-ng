@@ -3,8 +3,8 @@
     <button id="bubbleicon" ngbDropdownToggle>
       <div
         *ngIf="
-          profile?.photo == 'images/mask_unknown.png' ||
-          profile?.photo == 'None' ||
+          profile?.photo === 'images/mask_unknown.png' ||
+          profile?.photo === 'None' ||
           !profile?.photo
         "
         class="btn btn-default btn-circle"
@@ -14,8 +14,8 @@
       <img
         *ngIf="
           !(
-            profile?.photo == 'images/mask_unknown.png' ||
-            profile?.photo == 'None' ||
+            profile?.photo === 'images/mask_unknown.png' ||
+            profile?.photo === 'None' ||
             !profile?.photo
           )
         "

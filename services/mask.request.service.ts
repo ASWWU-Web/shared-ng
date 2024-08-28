@@ -17,9 +17,9 @@ export class MaskRequestService extends RequestService {
     super(http);
   }
 
-  ////////////////////
+  /// /////////////////
   // Mask
-  ///////////////////
+  /// ////////////////
   /**
    * Lists profiles; either all profiles, or with filter params
    *
@@ -35,7 +35,7 @@ export class MaskRequestService extends RequestService {
   listProfile(year: string, searchQuery: string): Observable<Profile[]>;
   listProfile(): Observable<Profile[]>;
   listProfile(year?: string, searchQuery?: string): Observable<Profile[]> {
-    let uri: string = `search/all`;
+    let uri = `search/all`;
     if (year && searchQuery) {
       uri = `search/${year}/${searchQuery}`;
     }
@@ -152,7 +152,7 @@ export class MaskRequestService extends RequestService {
    * @return
    */
   async uploadPhoto(fileToUpload: File) {
-    var imageBase64 = await this.fileToBase64(fileToUpload);
+    const imageBase64 = await this.fileToBase64(fileToUpload);
     return super.post(`/update/upload_photo`, { image: imageBase64 });
   }
 }

@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
@@ -14,7 +14,7 @@ import { ToastrService } from 'ngx-toastr';
   encapsulation: ViewEncapsulation.None
 })
 
-export class UploadModalComponent {
+export class UploadModalComponent implements OnInit {
   closeResult = '';
   fileToUpload: File = null;
   srcString: any = null;
@@ -54,8 +54,8 @@ export class UploadModalComponent {
       this.toastrService.error("Invalid Input");
       return;
     }
-    var d = new Date();
-    var $uploadPhoto = await this.mrs.uploadPhoto(fileToUpload);
+    const d = new Date();
+    const $uploadPhoto = await this.mrs.uploadPhoto(fileToUpload);
     $uploadPhoto.subscribe({
       next: () => {
         this.toastrService.success("Success: Your photo is awaiting moderation");

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { Subject } from 'rxjs';
 
@@ -19,14 +19,14 @@ import { CURRENT_YEAR, MEDIA_URI } from '../../config';
   ]
 })
 
-export class ContentModerationComponent {
+export class ContentModerationComponent implements OnInit {
   closeResult = '';
   fileToUpload: File = null;
   srcString: any = null;
   urlToJudge: string;
   $pendingPhotoList: Subject<{ photos: string[] }>;
-  hasModeratorPermissions: boolean = false;
-  fullName: string = "";
+  hasModeratorPermissions = false;
+  fullName = "";
 
   constructor(
     private as: AuthService,
@@ -40,7 +40,7 @@ export class ContentModerationComponent {
         if (!profile) {
           return;
         }
-        var permissions = profile.roles.split(",");
+        const permissions = profile.roles.split(",");
         if (permissions.includes("content-moderator")) {
           this.hasModeratorPermissions = true;
         }
@@ -56,7 +56,7 @@ export class ContentModerationComponent {
       if (data.photos && data.photos.length > 0) {
         this.urlToJudge = data.photos[0];
         this.srcString = `${MEDIA_URI}/${this.urlToJudge}`;
-        var wwuId = this.urlToJudge.match(/(\d{7})/)[1];
+        const wwuId = this.urlToJudge.match(/(\d{7})/)[1];
         this.mrs.listProfile(CURRENT_YEAR, `wwuid=${wwuId}`).subscribe((profile: Profile[]) => {
           if (profile && profile.length > 0) {
             this.fullName = profile[0].full_name;

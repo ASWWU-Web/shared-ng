@@ -1,6 +1,3 @@
-// tslint:disable:indent
-// tslint:disable:component-selector
-// tslint:disable:no-angle-bracket-type-assertion
 import { Component, Input } from '@angular/core';
 import { NgbNavChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { SubNavbarLink } from '../../interfaces/interfaces';
@@ -24,8 +21,8 @@ export class NavBarComponent {
 
   // subscriptions
   subscriptions = {
-    subNavbarLinks: <Subscription>null,
-    showSubNavBarLinks: <Subscription>null,
+    subNavbarLinks: null as Subscription,
+    showSubNavBarLinks: null as Subscription,
   };
 
   constructor(private hermesService: HermesService) {

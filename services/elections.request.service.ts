@@ -12,9 +12,9 @@ export class ElectionsRequestService extends RequestService {
   constructor(http: HttpClient) {
     super(http);
   }
-  ////////////////////
+  /// /////////////////
   // Elections
-  ///////////////////
+  /// ////////////////
   /**
    * Lists elections
    *
@@ -89,9 +89,9 @@ export class ElectionsRequestService extends RequestService {
     return electionCount;
   }
 
-  ///////////////////
+  /// ////////////////
   // Positions
-  //////////////////
+  /// ///////////////
   /**
    * Lists Positions
    *
@@ -145,9 +145,9 @@ export class ElectionsRequestService extends RequestService {
     return positionObservable;
   }
 
-  ///////////////////
+  /// ////////////////
   // Candidates
-  //////////////////
+  /// ///////////////
   /**
    * List candidates
    *
@@ -215,9 +215,9 @@ export class ElectionsRequestService extends RequestService {
     return candidateObservable;
   }
 
-  /////////////////
+  /// //////////////
   // Vote
-  ////////////////
+  /// /////////////
   /**
    * List Votes
    *
@@ -280,9 +280,9 @@ export class ElectionsRequestService extends RequestService {
     return voteObservable;
   }
 
-  ////////////////
+  /// /////////////
   // Ballot
-  ///////////////
+  /// ////////////
   /**
    * List ballot
    *

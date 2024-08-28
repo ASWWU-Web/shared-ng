@@ -13,8 +13,7 @@ import { Subscription } from 'rxjs';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 @Component({
-  // tslint:disable-next-line: component-selector
-  selector: 'user-bubble',
+   selector: 'user-bubble',
   templateUrl: 'user-bubble.component.html',
   styleUrls: ['user-bubble.component.css'],
 })

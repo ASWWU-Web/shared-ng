@@ -10,8 +10,8 @@ import { HeaderButton } from '../../interfaces/interfaces';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   // styles
-  headerStyle: Object = {};
-  titleStyle: Object = {};
+  headerStyle: object = {};
+  titleStyle: object = {};
   // service items
   title = 'ASWWU';
   imageUrl: string;
@@ -26,11 +26,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   };
   // subscriptions
   subscriptions = {
-    title: <Subscription>null,
-    imageUrl: <Subscription>null,
-    invert: <Subscription>null,
-    visible: <Subscription>null,
-    headerButton: <Subscription>null
+    title: null as Subscription,
+    imageUrl: null as Subscription,
+    invert: null as Subscription,
+    visible: null as Subscription,
+    headerButton: null as Subscription
   };
 
   constructor(private hermesService: HermesService) {
