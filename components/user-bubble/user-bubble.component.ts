@@ -49,9 +49,10 @@ export class UserBubbleComponent implements OnInit, OnDestroy {
   // Photo url to link function returns proper url and BLANK photo if photo == "None"
   getPhotoLink(url: string) {
     if (url && url !== 'None') {
+      if (url === DEFAULT_PHOTO) return DEFAULT_PHOTO;
       return MEDIA_SM + '/' + url;
     } else {
-      return MEDIA_SM + '/' + DEFAULT_PHOTO;
+      return DEFAULT_PHOTO;
     }
   }
 

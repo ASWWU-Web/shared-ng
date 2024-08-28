@@ -11,7 +11,7 @@ export const MEDIA_XS = MEDIA_URI + '';
 export const MEDIA_SM = MEDIA_URI + '';
 export const MEDIA_MD = MEDIA_URI + '';
 export const MEDIA_LG = MEDIA_URI + '';
-export const DEFAULT_PHOTO = 'images/default_mask/default.jpg';
+export const DEFAULT_PHOTO = 'assets/mask/default.jpg';
 
 // YEARS
 // TODO: get current year from API
