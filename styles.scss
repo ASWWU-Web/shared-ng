@@ -1,10 +1,10 @@
 // ASWWU site colors
-$color-aswwu-primary: rgb(152,208,135);
-$color-aswwu-secondary: rgb(192,220,117);
-$color-aswwu-success: rgb(225,225,109);
-$color-aswwu-danger: rgb(255,82,29);
-$color-aswwu-warning: rgb(249,141,53);
-$color-aswwu-info: rgb(255,196,63);
+$color-aswwu-primary: rgb(152, 208, 135);
+$color-aswwu-secondary: rgb(192, 220, 117);
+$color-aswwu-success: rgb(225, 225, 109);
+$color-aswwu-danger: rgb(255, 82, 29);
+$color-aswwu-warning: rgb(249, 141, 53);
+$color-aswwu-info: rgb(255, 196, 63);
 $color-aswwu-light: rgb(241, 242, 242);
 $color-aswwu-dark: rgb(0, 0, 0);
 
@@ -25,62 +25,71 @@ $color-senate: rgb(132, 201, 139);
 $color-executive: rgb(121, 193, 76);
 // fonts
 @font-face {
-    font-family: BrandonGrotesqueBold;
-    font-weight: bold;
-    src: url("./fonts/brandon-grotesque-bold.otf") format("opentype");
+  font-family: BrandonGrotesqueBold;
+  font-weight: bold;
+  src: url("../assets/fonts/brandon-grotesque-bold.otf") format("opentype");
 }
 @font-face {
-    font-family: HelveticaNeueRoman;
-    src: url("./fonts/helvetica-neue-roman.otf") format("opentype");
+  font-family: HelveticaNeueRoman;
+  src: url("../assets/fonts/helvetica-neue-roman.otf") format("opentype");
 }
-$font1: 'BrandonGrotesqueBold', sans-serif;
-$font2: 'HelveticaNeueRoman', sans-serif;
+$font1: "BrandonGrotesqueBold", sans-serif;
+$font2: "HelveticaNeueRoman", sans-serif;
 
 // CSS transformation
 :root {
-    /* ASWWU Fonts */
-    --font-1: #{$font1}; /* Headers and big text */
-    --font-2: #{$font2}; /* Generic Text */
-    --font-test: "Brush Script MT", cursive; /* an eye-sore font to make sure it's working */
-    // ASWWU colors
-    --color-aswwu-primary: #{$color-aswwu-primary};
-    --color-aswwu-secondary: #{$color-aswwu-secondary};
-    --color-aswwu-success: #{$color-aswwu-success};
-    --color-aswwu-danger: #{$color-aswwu-danger};
-    --color-aswwu-warning: #{$color-aswwu-warning};
-    --color-aswwu-info: #{$color-aswwu-info};
-    --color-aswwu-light: #{$color-aswwu-light};
-    --color-aswwu-dark: #{$color-aswwu-dark};
-    /* Departmental Colors */
-    --color-outdoors: #{$color-outdoors};
-    --color-tread-shed: #{$color-tread-shed};
-    --color-atlas: #{$color-atlas};
-    --color-mountain-ash: #{$color-mountain-ash};
-    --color-photo: #{$color-photo};
-    --color-video: #{$color-video};
-    --color-collegian: #{$color-collegian};
-    --color-web: #{$color-web};
-    --color-marketing: #{$color-marketing};
-    --color-global-service: #{$color-global-service};
-    --color-spiritual: #{$color-spiritual};
-    --color-social: #{$color-social};
-    --color-senate: #{$color-senate};
-    --color-executive: #{$color-executive};
+  /* ASWWU Fonts */
+  --font-1: #{$font1}; /* Headers and big text */
+  --font-2: #{$font2}; /* Generic Text */
+  --font-test: "Brush Script MT", cursive; /* an eye-sore font to make sure it's working */
+  // ASWWU colors
+  --color-aswwu-primary: #{$color-aswwu-primary};
+  --color-aswwu-secondary: #{$color-aswwu-secondary};
+  --color-aswwu-success: #{$color-aswwu-success};
+  --color-aswwu-danger: #{$color-aswwu-danger};
+  --color-aswwu-warning: #{$color-aswwu-warning};
+  --color-aswwu-info: #{$color-aswwu-info};
+  --color-aswwu-light: #{$color-aswwu-light};
+  --color-aswwu-dark: #{$color-aswwu-dark};
+  /* Departmental Colors */
+  --color-outdoors: #{$color-outdoors};
+  --color-tread-shed: #{$color-tread-shed};
+  --color-atlas: #{$color-atlas};
+  --color-mountain-ash: #{$color-mountain-ash};
+  --color-photo: #{$color-photo};
+  --color-video: #{$color-video};
+  --color-collegian: #{$color-collegian};
+  --color-web: #{$color-web};
+  --color-marketing: #{$color-marketing};
+  --color-global-service: #{$color-global-service};
+  --color-spiritual: #{$color-spiritual};
+  --color-social: #{$color-social};
+  --color-senate: #{$color-senate};
+  --color-executive: #{$color-executive};
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-family: #{$font1};
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: #{$font1};
 }
 
 * {
-    font-family: #{$font2};
+  font-family: #{$font2};
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-weight: 300;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 300;
 }
 
 .filter-invert {
-    filter: invert(1);
+  filter: invert(1);
 }
-

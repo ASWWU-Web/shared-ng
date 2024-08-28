@@ -93,7 +93,7 @@ export class RequestService {
       }
     }
     // toString does not appear to encode semicolons correctly, so we manually do it with `replace`
-    return params.toString().replace(/\;/g, '%3B');
+    return params.toString().replace(/;/g, '%3B');
   }
 
   /**
