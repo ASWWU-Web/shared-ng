@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
 import { Profile, ProfileFull, Names, ProfilePOST } from '../interfaces/interfaces';
-import { filter } from 'rxjs/operators';
+import { ProfileModel } from 'src/app/modules/mask/profile.model';
 
 @Injectable({
   providedIn: 'root'
@@ -55,7 +55,7 @@ export class MaskRequestService extends RequestService {
    * @param filterParams limit = number of results to return, full_name is the search query
    * @return list of Names
    */
-  listName(filterParams: any): Observable<Names[]> {
+  listName(filterParams: string): Observable<Names[]> {
     const maskObservable = super.get(`search/names`, filterParams).pipe(
       map((results: { names: Names[] }) => results.names)
     );
@@ -82,7 +82,7 @@ export class MaskRequestService extends RequestService {
    * https://petstore.swagger.io/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/mask.yml#/profile/post_update__username_
    * @return user's updated full profile
    */
-  updateProfile(username: string, data: any): Observable<ProfilePOST> {
+  updateProfile(username: string, data: ProfileModel): Observable<ProfilePOST> {
     const profileObservable = super.post(`update/${username}`, data);
     return profileObservable;
   }
@@ -92,7 +92,7 @@ export class MaskRequestService extends RequestService {
    *
    * @return array of photo urls
    */
-  listPhotos(): Observable<string[]> {
+  listPhotos(): Observable<{ photos: string[] }> {
     const photoObservable = super.get(`/update/list_photos`);
     return photoObservable;
   }
@@ -106,7 +106,7 @@ export class MaskRequestService extends RequestService {
     const $pendingPhotos = super.get(`/update/list_pending_photos`);
     const $sub: Subject<{ photos: string[] }> = new Subject<{ photos: string[] }>();
     $pendingPhotos.subscribe({
-      complete: () => { },
+      complete: () => ({}),
       error: x => $sub.error(x),
       next: x => $sub.next(x)
     });
@@ -114,21 +114,21 @@ export class MaskRequestService extends RequestService {
   }
 
   /**
-   * "/pages/media/approve/(.*)"
+   * "/update/approve_photo/(.*)"
    *
    * @return array of remaining pending photo urls
    */
-  approvePhoto(url: string): Observable<string[]> {
-    return super.get(`/pages/media/approve/${url}`);
+  approvePhoto(url: string): Observable<{ photos: string[] }> {
+    return super.get(`/update/approve_photo/${url}`);
   }
 
   /**
-   * "/pages/media/dismay/(.*)"
+   * "/update/dismay_photo/(.*)"
    *
    * @return array of remaining pending photo urls
    */
-  dismayPhoto(url: string): Observable<string[]> {
-    return super.get(`/pages/media/dismay/${url}`);
+  dismayPhoto(url: string): Observable<{ photos: string[] }> {
+    return super.get(`/update/dismay_photo/${url}`);
   }
 
   fileToBase64(file: File): Promise<string> {
