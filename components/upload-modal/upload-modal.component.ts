@@ -1,6 +1,6 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { AuthService, MaskRequestService } from '../../../shared-ng/services/services'
 import { User } from '../../interfaces/interfaces';
@@ -17,7 +17,7 @@ import { ToastrService } from 'ngx-toastr';
 export class UploadModalComponent implements OnInit {
   closeResult = '';
   fileToUpload: File = null;
-  srcString: any = null;
+  srcString: string | ArrayBuffer | null = null;
   profile: User;
 
   constructor(
@@ -34,15 +34,26 @@ export class UploadModalComponent implements OnInit {
       });
   }
 
-  handleFileInput(event: any): void {
-    if (event.target.files && event.target.files[0]) {
-      const file = event.target.files[0];
+  handleFileInput(event: Event): void {
+    // unfortunate cast.
+    const target = event.target as HTMLInputElement;
+    if (target.files && target.files[0]) {
+      const file = target.files[0];
+
+      if (file.size > 5242880) {
+        this.toastrService.error("File size must be smaller than 5 MB");
+        // unfortunate cast.
+        (event.target as HTMLInputElement).value = '';
+        this.fileToUpload = null;
+        this.srcString = null;
+        return;
+      }
 
       const reader = new FileReader();
 
-      reader.onload = e => {
+      reader.onload = () => {
         this.srcString = reader.result;
-        this.fileToUpload = event.target.files.item(0);
+        this.fileToUpload = target.files.item(0);
       }
 
       reader.readAsDataURL(file);
@@ -54,7 +65,6 @@ export class UploadModalComponent implements OnInit {
       this.toastrService.error("Invalid Input");
       return;
     }
-    const d = new Date();
     const $uploadPhoto = await this.mrs.uploadPhoto(fileToUpload);
     $uploadPhoto.subscribe({
       next: () => {
@@ -64,9 +74,11 @@ export class UploadModalComponent implements OnInit {
       },
       error: (err) => {
         this.toastrService.error("Invalid Input");
-        console.log(err)
+        this.fileToUpload = null;
+        this.srcString = null;
+        console.log("[File Upload]", err)
       },
-      complete: () => console.log("SUCCESS")
+      complete: () => console.log("[File Upload]", "SUCCESS")
     });
   }
 
@@ -79,7 +91,7 @@ export class UploadModalComponent implements OnInit {
     });
   }
 
-  private getDismissReason(reason: any): string {
+  private getDismissReason(reason: number): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
