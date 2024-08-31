@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { RequestService } from './request.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { map } from 'rxjs/internal/operators/map';
-import {JobView, ApplicationView, ApplicationPOST, AnswerObject} from '../interfaces/interfaces';
+import {AnswerObject, ApplicationPOST, ApplicationView, JobView} from '../interfaces/interfaces';
 import {catchError, tap} from 'rxjs/operators';
 import {of} from 'rxjs';
 

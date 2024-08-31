@@ -6,7 +6,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService, UrlService } from '../../services/services';
-import { MEDIA_SM, DEFAULT_PHOTO, CURRENT_YEAR } from '../../config';
+import { CURRENT_YEAR, DEFAULT_PHOTO, MEDIA_SM } from '../../config';
 import { User } from '../../interfaces/interfaces';
 import { Subscription } from 'rxjs';
 

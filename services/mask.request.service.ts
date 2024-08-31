@@ -4,7 +4,7 @@ import { RequestService } from './request.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
-import { Profile, ProfileFull, Names, ProfilePOST } from '../interfaces/interfaces';
+import { Names, Profile, ProfileFull, ProfilePOST } from '../interfaces/interfaces';
 import { ProfileModel } from 'src/app/modules/mask/profile.model';
 
 @Injectable({

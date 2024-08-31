@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RequestService } from './request.service';
 import { Observable } from 'rxjs/internal/Observable';
-import { of, debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map, of, switchMap } from 'rxjs';
 
 @Injectable()
 export class TypeAheadRequestService {

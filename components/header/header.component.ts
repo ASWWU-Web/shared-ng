@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { HermesService } from '../../services/services';
 import { Subscription } from 'rxjs';
 import { HeaderButton } from '../../interfaces/interfaces';

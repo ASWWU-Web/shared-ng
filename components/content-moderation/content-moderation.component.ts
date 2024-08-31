@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 
 import { Subject } from 'rxjs';
 
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { AuthService, MaskRequestService } from '../../../shared-ng/services/services'
 
-import { User, Profile } from '../../interfaces/interfaces';
+import { Profile, User } from '../../interfaces/interfaces';
 
 import { CURRENT_YEAR, MEDIA_URI } from '../../config';
 
