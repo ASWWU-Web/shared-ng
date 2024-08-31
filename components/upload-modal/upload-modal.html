@@ -13,11 +13,22 @@
   <div class="modal-body">
     <form>
       <div class="form-group">
-        <input type="file" id="file" (change)="handleFileInput($event)" />
+        <input
+          type="file"
+          id="file"
+          (change)="handleFileInput($event)"
+          accept="image/jpeg, image/png, image/jpg"
+        />
       </div>
     </form>
   </div>
-  <img [src]="srcString" height="600" width="auto" *ngIf="srcString" />
+  <img
+    [src]="srcString"
+    height="600"
+    width="auto"
+    *ngIf="srcString"
+    alt="Uploaded Image"
+  />
   <div class="modal-footer space-between-content">
     <div class="image-restriction">
       Image file size must be smaller than 5 MB
@@ -32,12 +43,6 @@
   </div>
 </ng-template>
 
-<button
-  id="text"
-  *ngIf="profile"
-  class="btn upload-picture-button float-right"
-  (click)="open(content)"
->
-  <h1 id="h1">UP<span id="offset">L</span>OAD</h1>
+<button class="btn btn-default dropdown-item" (click)="open(content)">
+  Upload Photo
 </button>
-<hr />

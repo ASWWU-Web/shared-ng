@@ -10,8 +10,13 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <a href="/" class="mr-2">
-    <img id="navbarLogo" class="img-fluid logo" src="/assets/ASWWU_logo.png" />
+  <a href="/" class="mr-2 navbar-brand">
+    <img
+      id="navbarLogo"
+      class="img-fluid logo"
+      src="/assets/ASWWU_logo.png"
+      alt="ASWWU Logo"
+    />
   </a>
 
   <!-- Desktop Navbar -->
@@ -23,20 +28,20 @@
       <li
         *ngFor="let item of links"
         [ngClass]="{
-          'nav-item': item.link != null,
-          dropdown: item.link == null
+          'nav-item': item.link !== null,
+          dropdown: item.link === null
         }"
       >
         <!-- For Direct Links -->
         <a
-          *ngIf="item.link != null"
+          *ngIf="item.link !== null"
           class="smooth text-uppercase"
           href="{{ item.link }}"
         >
           {{ item.text }}
         </a>
         <!-- For Links with Dropdowns -->
-        <div *ngIf="item.link == null" ngbDropdown class="d-inline-block">
+        <div *ngIf="item.link === null" ngbDropdown class="d-inline-block">
           <button
             ngbDropdownToggle
             class="btn btn-outline-primary text-uppercase"
@@ -61,7 +66,6 @@
     </ul>
   </div>
   <content-moderation></content-moderation>
-  <upload-modal></upload-modal>
   <user-bubble></user-bubble>
 </nav>
 <div id="nav-spacer"></div>
@@ -92,13 +96,13 @@
       *ngFor="let item of subNavbarLinks"
       class="boop"
       [ngClass]="{
-        'nav-item': item.linkURI != null,
-        dropdown: item.linkURI == null
+        'nav-item': item.linkURI !== null,
+        dropdown: item.linkURI === null
       }"
     >
       <!-- For Direct Links -->
       <a
-        *ngIf="item.linkURI != null"
+        *ngIf="item.linkURI !== null"
         class="smooth text-uppercase d-block p-4"
         href="{{ item.linkURI }}"
       >
@@ -110,18 +114,21 @@
     <li
       *ngFor="let item of links"
       class=""
-      [ngClass]="{ 'nav-item': item.link != null, dropdown: item.link == null }"
+      [ngClass]="{
+        'nav-item': item.link !== null,
+        dropdown: item.link === null
+      }"
     >
       <!-- For Direct Links -->
       <a
-        *ngIf="item.link != null"
+        *ngIf="item.link !== null"
         class="smooth text-uppercase d-block p-4"
         href="{{ item.link }}"
       >
         {{ item.text }}
       </a>
       <!-- For Links with Dropdowns -->
-      <div *ngIf="item.link == null" ngbDropdown class="d-block">
+      <div *ngIf="item.link === null" ngbDropdown class="d-block">
         <button
           ngbDropdownToggle
           class="dropdown-button btn btn-outline-primary text-uppercase d-block p-4"
@@ -135,7 +142,7 @@
           [attr.aria-valuenow]="'dropdown' + item.text"
         >
           <a
-            *ngFor="let dropdownItem of item.dropdownLinks"
+            *ngFor="let dropdownItem; in: item"
             href="{{ dropdownItem.link }}"
             class="dropdown-item text-uppercase p-3"
             >{{ dropdownItem.text }}</a

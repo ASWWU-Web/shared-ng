@@ -1,10 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { NgbNavChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { SubNavbarLink } from '../../interfaces/interfaces';
 import { Subscription } from 'rxjs';
 import { HermesService } from '../../services/services';
 
 @Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'nav-bar',
   templateUrl: 'nav-bar.component.html',
   styleUrls: [
@@ -35,8 +36,8 @@ export class NavBarComponent {
     });
   }
 
-  links: any = [
-    { text: 'Mask', link: '/mask' },
+  links = [
+    { text: 'Mask', link: '/mask', dropdownLinks: [] },
   ];
 
   public isCollapsed = false;
