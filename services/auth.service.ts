@@ -7,12 +7,11 @@
  */
 
 import { Injectable } from '@angular/core';
-import { of, throwError } from 'rxjs';
+import { of } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Observable } from 'rxjs/internal/Observable';
 import { catchError, map, tap } from 'rxjs/operators';
 import { SAML_LOGIN_URL } from '../../shared-ng/config';
-import { environment } from '../environments/environment';
 import { User } from '../interfaces/interfaces';
 import { RequestService } from './request.service';
 
@@ -68,10 +67,10 @@ export class AuthService {
 
   /**
    * Send a request to the server to verify the current user.
-   * Sets user information and handles the aswwu cookie.
-   * if the loggedin cookie is not set no request is made
+   * Sets user information and handles the token.
+   * if the token cookie is not set no request is made
    * Returns an observable with user information, or a null
-   * observable if there's no loggedin cookie.
+   * observable if there's no token cookie.
    */
   public authenticateUser(): Observable<User> {
     return this.readVerify().pipe(
