@@ -4,7 +4,7 @@ import { RequestService } from './request.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
-import { Names, Profile, ProfileFull, ProfilePOST } from '../interfaces/interfaces';
+import { Names, PartialProfile, ProfileFull, ProfileUpdate } from '../interfaces/interfaces';
 import { ProfileModel } from 'src/app/modules/mask/profile.model';
 
 @Injectable({
@@ -32,16 +32,16 @@ export class MaskRequestService extends RequestService {
    * @param searchQuery username or full_name
    * @return array of user profiles
    */
-  listProfile(year: string, searchQuery: string): Observable<Profile[]>;
-  listProfile(): Observable<Profile[]>;
-  listProfile(year?: string, searchQuery?: string): Observable<Profile[]> {
+  listProfile(year: string, searchQuery: string): Observable<PartialProfile[]>;
+  listProfile(): Observable<PartialProfile[]>;
+  listProfile(year?: string, searchQuery?: string): Observable<PartialProfile[]> {
     let uri = `search/all`;
     if (year && searchQuery) {
       uri = `search/${year}/${searchQuery}`;
     }
 
     const profileObservable = super.get(uri).pipe(
-      map((data: { results: Profile[] }) => data.results)
+      map((data: { results: PartialProfile[] }) => data.results)
     );
 
     return profileObservable;
@@ -82,7 +82,7 @@ export class MaskRequestService extends RequestService {
    * https://petstore.swagger.io/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/mask.yml#/profile/post_update__username_
    * @return user's updated full profile
    */
-  updateProfile(username: string, data: ProfileModel): Observable<ProfilePOST> {
+  updateProfile(username: string, data: ProfileModel): Observable<ProfileUpdate> {
     const profileObservable = super.post(`update/${username}`, data);
     return profileObservable;
   }
