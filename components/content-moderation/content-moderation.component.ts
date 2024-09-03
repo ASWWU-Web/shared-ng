@@ -6,7 +6,7 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { AuthService, MaskRequestService } from '../../../shared-ng/services/services'
 
-import { Profile, User } from '../../interfaces/interfaces';
+import { PartialProfile, User } from '../../interfaces/interfaces';
 
 import { CURRENT_YEAR, MEDIA_URI } from '../../config';
 
@@ -57,7 +57,7 @@ export class ContentModerationComponent implements OnInit {
           this.urlToJudge = data.photos[0];
           this.srcString = `${MEDIA_URI}/${this.urlToJudge}`;
           const wwuId = this.urlToJudge.match(/(\d{7})/)[1];
-          this.mrs.listProfile(CURRENT_YEAR, `wwuid=${wwuId}`).subscribe((profile: Profile[]) => {
+          this.mrs.listProfile(CURRENT_YEAR, `wwuid=${wwuId}`).subscribe((profile: PartialProfile[]) => {
             if (profile && profile.length > 0) {
               this.fullName = profile[0].full_name;
             } else {

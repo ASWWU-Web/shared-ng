@@ -1,4 +1,4 @@
-<nav class="navbar navbar-dark bg-dark navbar-expand-md">
+<nav class="navbar navbar-dark bg-dark navbar-expand-md container-xxl">
   <button
     class="navbar navbar-toggler"
     type="button"
@@ -20,7 +20,7 @@
   </a>
 
   <!-- Desktop Navbar -->
-  <div class="collapse navbar-collapse">
+  <div class="collapse navbar-collapse" id="desktop-nav-links">
     <ul
       id="nav-links"
       class="navbar-nav text-xs-center mr-auto d-none d-md-block"
@@ -65,7 +65,7 @@
       </li>
     </ul>
   </div>
-  <content-moderation></content-moderation>
+  <content-moderation class="mt-auto"></content-moderation>
   <user-bubble></user-bubble>
 </nav>
 <div id="nav-spacer"></div>
@@ -76,8 +76,8 @@
   id="subnav-bar"
   class="navbar navbar-expand-sm hidden-sm-down sticky-top"
 >
-  <div id="subnav-links">
-    <ul class="nav navbar-nav text-xs-center mr-auto">
+  <div id="subnav-links" class="container-xxl">
+    <ul class="nav navbar-nav text-xs-left mr-auto">
       <li *ngFor="let link of subNavbarLinks" class="nav-item">
         <a class="smooth" [routerLink]="link.linkURI">{{ link.linkText }}</a>
       </li>
