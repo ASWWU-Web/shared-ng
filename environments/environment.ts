@@ -8,7 +8,6 @@ import type { Environment } from "./types";
 // You can run the server in production mode by running `ng serve -prod`.
 export const environment = {
   production: false,
-  API_URL: "https://localhost/server",
-  BASE_URL: "https://localhost",
-  COOKIE_DOMAIN: ".localhost",
+  API_URL: "https://192.168.1.132/server",
+  BASE_URL: "https://192.168.1.132",
 } satisfies Environment;

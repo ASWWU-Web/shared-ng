@@ -1,25 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
-import { Subject } from 'rxjs';
+import { Subject } from "rxjs";
 
-import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 
-import { AuthService, MaskRequestService } from '../../../shared-ng/services/services'
+import {
+  AuthService,
+  MaskRequestService,
+} from "../../../shared-ng/services/services";
 
-import { PartialProfile, User } from '../../interfaces/interfaces';
+import { PartialProfile, User } from "../../interfaces/interfaces";
 
-import { CURRENT_YEAR, MEDIA_URI } from '../../config';
+import { CURRENT_YEAR, MEDIA_URI } from "../../config";
 
 @Component({
-  selector: 'content-moderation',
-  templateUrl: './content-moderation.html',
-  styleUrls: [
-    'content-moderation.css'
-  ]
+  selector: "content-moderation",
+  templateUrl: "./content-moderation.html",
+  styleUrls: ["content-moderation.css"],
 })
-
 export class ContentModerationComponent implements OnInit {
-  closeResult = '';
+  closeResult = "";
   fileToUpload: File = null;
   srcString: string = null;
   urlToJudge: string;
@@ -30,8 +30,8 @@ export class ContentModerationComponent implements OnInit {
   constructor(
     private as: AuthService,
     private mrs: MaskRequestService,
-    private modalService: NgbModal
-  ) { }
+    private modalService: NgbModal,
+  ) {}
 
   ngOnInit() {
     this.as.getUserInfo().subscribe({
@@ -40,12 +40,15 @@ export class ContentModerationComponent implements OnInit {
           return;
         }
         const permissions = profile.roles.split(",");
-        if (permissions.includes("content-moderator") || permissions.includes("administrator")) {
+        if (
+          permissions.includes("content-moderator") ||
+          permissions.includes("administrator")
+        ) {
           this.hasModeratorPermissions = true;
         }
       },
       error: () => console.log("ERROR"),
-      complete: () => console.log("COMPLETE")
+      complete: () => console.log("COMPLETE"),
     });
   }
 
@@ -57,23 +60,30 @@ export class ContentModerationComponent implements OnInit {
           this.urlToJudge = data.photos[0];
           this.srcString = `${MEDIA_URI}/${this.urlToJudge}`;
           const wwuId = this.urlToJudge.match(/(\d{7})/)[1];
-          this.mrs.listProfile(CURRENT_YEAR, `wwuid=${wwuId}`).subscribe((profile: PartialProfile[]) => {
-            if (profile && profile.length > 0) {
-              this.fullName = profile[0].full_name;
-            } else {
-              console.log(`NO WWU PROFILE WITH ID: ${wwuId}`);
-            }
-          })
+          this.mrs
+            .listProfile(CURRENT_YEAR, `wwuid=${wwuId}`)
+            .subscribe((profile: PartialProfile[]) => {
+              if (profile && profile.length > 0) {
+                this.fullName = profile[0].full_name;
+              } else {
+                console.log(`NO WWU PROFILE WITH ID: ${wwuId}`);
+              }
+            });
         } else {
           this.srcString = null;
         }
-      }
+      },
     });
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+    this.modalService
+      .open(content, { ariaLabelledBy: "modal-basic-title" })
+      .result.then(
+        (result) => {
+          this.closeResult = `Closed with: ${result}`;
+        },
+        (reason) => {
+          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        },
+      );
   }
 
   approve() {
@@ -81,23 +91,22 @@ export class ContentModerationComponent implements OnInit {
     $approvedPhoto.subscribe({
       next: (data) => {
         this.$pendingPhotoList.next(data);
-      }
-    })
-
+      },
+    });
   }
 
   dismay() {
     const $dismayPhoto = this.mrs.dismayPhoto(this.urlToJudge);
     $dismayPhoto.subscribe((data) => {
       this.$pendingPhotoList.next(data);
-    })
+    });
   }
 
   private getDismissReason(reason: number): string {
     if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
+      return "by pressing ESC";
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
+      return "by clicking on a backdrop";
     } else {
       return `with: ${reason}`;
     }

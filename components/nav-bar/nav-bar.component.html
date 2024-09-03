@@ -1,72 +1,74 @@
-<nav class="navbar navbar-dark bg-dark navbar-expand-md container-xxl">
-  <button
-    class="navbar navbar-toggler"
-    type="button"
-    data-target="#mobile-nav-collapsible"
-    aria-controls="mobile-nav-collapsible"
-    (click)="isCollapsed = !isCollapsed"
-    [attr.aria-expanded]="!isCollapsed"
-  >
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <a href="/" class="mr-2 navbar-brand">
-    <img
-      id="navbarLogo"
-      class="img-fluid logo"
-      src="/assets/ASWWU_logo.png"
-      alt="ASWWU Logo"
-    />
-  </a>
-
-  <!-- Desktop Navbar -->
-  <div class="collapse navbar-collapse" id="desktop-nav-links">
-    <ul
-      id="nav-links"
-      class="navbar-nav text-xs-center mr-auto d-none d-md-block"
+<nav class="navbar bg-dark navbar-expand-md">
+  <div class="container-xxl">
+    <button
+      class="navbar navbar-toggler"
+      type="button"
+      data-target="#mobile-nav-collapsible"
+      aria-controls="mobile-nav-collapsible"
+      (click)="isCollapsed = !isCollapsed"
+      [attr.aria-expanded]="!isCollapsed"
     >
-      <li
-        *ngFor="let item of links"
-        [ngClass]="{
-          'nav-item': item.link !== null,
-          dropdown: item.link === null
-        }"
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <a href="/" class="mr-2 navbar-brand">
+      <img
+        id="navbarLogo"
+        class="img-fluid logo"
+        src="/assets/ASWWU_logo.png"
+        alt="ASWWU Logo"
+      />
+    </a>
+
+    <!-- Desktop Navbar -->
+    <div class="collapse navbar-collapse" id="desktop-nav-links">
+      <ul
+        id="nav-links"
+        class="navbar-nav text-xs-center mr-auto d-none d-md-block"
       >
-        <!-- For Direct Links -->
-        <a
-          *ngIf="item.link !== null"
-          class="smooth text-uppercase"
-          href="{{ item.link }}"
+        <li
+          *ngFor="let item of links"
+          [ngClass]="{
+            'nav-item': item.link !== null,
+            dropdown: item.link === null,
+          }"
         >
-          {{ item.text }}
-        </a>
-        <!-- For Links with Dropdowns -->
-        <div *ngIf="item.link === null" ngbDropdown class="d-inline-block">
-          <button
-            ngbDropdownToggle
-            class="btn btn-outline-primary text-uppercase"
-            id="{{ 'dropdown' + item.text }}"
+          <!-- For Direct Links -->
+          <a
+            *ngIf="item.link !== null"
+            class="smooth text-uppercase"
+            href="{{ item.link }}"
           >
             {{ item.text }}
-          </button>
-          <div
-            ngbDropdownMenu
-            class="dropdown-menu bg-dark"
-            [attr.aria-valuenow]="'dropdown' + item.text"
-          >
-            <a
-              *ngFor="let dropdownItem of item.dropdownLinks"
-              href="{{ dropdownItem.link }}"
-              class="dropdown-item text-uppercase"
-              >{{ dropdownItem.text }}</a
+          </a>
+          <!-- For Links with Dropdowns -->
+          <div *ngIf="item.link === null" ngbDropdown class="d-inline-block">
+            <button
+              ngbDropdownToggle
+              class="btn btn-outline-primary text-uppercase"
+              id="{{ 'dropdown' + item.text }}"
             >
+              {{ item.text }}
+            </button>
+            <div
+              ngbDropdownMenu
+              class="dropdown-menu bg-dark"
+              [attr.aria-valuenow]="'dropdown' + item.text"
+            >
+              <a
+                *ngFor="let dropdownItem of item.dropdownLinks"
+                href="{{ dropdownItem.link }}"
+                class="dropdown-item text-uppercase"
+                >{{ dropdownItem.text }}</a
+              >
+            </div>
           </div>
-        </div>
-      </li>
-    </ul>
+        </li>
+      </ul>
+    </div>
+    <content-moderation class="mt-sm-auto d-flex"></content-moderation>
+    <user-bubble></user-bubble>
   </div>
-  <content-moderation class="mt-auto"></content-moderation>
-  <user-bubble></user-bubble>
 </nav>
 <div id="nav-spacer"></div>
 
@@ -97,7 +99,7 @@
       class="boop"
       [ngClass]="{
         'nav-item': item.linkURI !== null,
-        dropdown: item.linkURI === null
+        dropdown: item.linkURI === null,
       }"
     >
       <!-- For Direct Links -->
@@ -116,7 +118,7 @@
       class=""
       [ngClass]="{
         'nav-item': item.link !== null,
-        dropdown: item.link === null
+        dropdown: item.link === null,
       }"
     >
       <!-- For Direct Links -->

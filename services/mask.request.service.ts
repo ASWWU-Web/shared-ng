@@ -1,17 +1,22 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { RequestService } from './request.service';
-import { Observable } from 'rxjs/internal/Observable';
-import { Subject } from 'rxjs';
-import { map } from 'rxjs/internal/operators/map';
-import { Names, PartialProfile, ProfileFull, ProfileUpdate } from '../interfaces/interfaces';
-import { ProfileModel } from 'src/app/modules/mask/profile.model';
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { RequestService } from "./request.service";
+import { Observable } from "rxjs/internal/Observable";
+import { Subject } from "rxjs";
+import { map } from "rxjs/internal/operators/map";
+import {
+  Names,
+  PartialProfile,
+  ProfileFull,
+  ProfileUpdate,
+} from "../interfaces/interfaces";
+import { ProfileModel } from "src/app/modules/mask/profile.model";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class MaskRequestService extends RequestService {
-  baseURL = 'mask';  // currently unused
+  baseURL = "mask"; // currently unused
 
   constructor(http: HttpClient) {
     super(http);
@@ -34,15 +39,18 @@ export class MaskRequestService extends RequestService {
    */
   listProfile(year: string, searchQuery: string): Observable<PartialProfile[]>;
   listProfile(): Observable<PartialProfile[]>;
-  listProfile(year?: string, searchQuery?: string): Observable<PartialProfile[]> {
+  listProfile(
+    year?: string,
+    searchQuery?: string,
+  ): Observable<PartialProfile[]> {
     let uri = `search/all`;
     if (year && searchQuery) {
       uri = `search/${year}/${searchQuery}`;
     }
 
-    const profileObservable = super.get(uri).pipe(
-      map((data: { results: PartialProfile[] }) => data.results)
-    );
+    const profileObservable = super
+      .get(uri)
+      .pipe(map((data: { results: PartialProfile[] }) => data.results));
 
     return profileObservable;
   }
@@ -56,9 +64,9 @@ export class MaskRequestService extends RequestService {
    * @return list of Names
    */
   listName(filterParams: string): Observable<Names[]> {
-    const maskObservable = super.get(`search/names`, filterParams).pipe(
-      map((results: { names: Names[] }) => results.names)
-    );
+    const maskObservable = super
+      .get(`search/names`, filterParams)
+      .pipe(map((results: { names: Names[] }) => results.names));
     return maskObservable;
   }
 
@@ -82,7 +90,10 @@ export class MaskRequestService extends RequestService {
    * https://petstore.swagger.io/?url=https://raw.githubusercontent.com/ASWWU-Web/python_server/develop/docs/mask.yml#/profile/post_update__username_
    * @return user's updated full profile
    */
-  updateProfile(username: string, data: ProfileModel): Observable<ProfileUpdate> {
+  updateProfile(
+    username: string,
+    data: ProfileModel,
+  ): Observable<ProfileUpdate> {
     const profileObservable = super.post(`update/${username}`, data);
     return profileObservable;
   }
@@ -104,11 +115,13 @@ export class MaskRequestService extends RequestService {
    */
   listPendingPhotos(): Subject<{ photos: string[] }> {
     const $pendingPhotos = super.get(`/update/list_pending_photos`);
-    const $sub: Subject<{ photos: string[] }> = new Subject<{ photos: string[] }>();
+    const $sub: Subject<{ photos: string[] }> = new Subject<{
+      photos: string[];
+    }>();
     $pendingPhotos.subscribe({
       complete: () => ({}),
-      error: x => $sub.error(x),
-      next: x => $sub.next(x)
+      error: (x) => $sub.error(x),
+      next: (x) => $sub.next(x),
     });
     return $sub;
   }
@@ -136,13 +149,13 @@ export class MaskRequestService extends RequestService {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
-        let encoded = reader.result.toString().replace(/^data:(.*,)?/, '');
-        if ((encoded.length % 4) > 0) {
-          encoded += '='.repeat(4 - (encoded.length % 4));
+        let encoded = reader.result.toString().replace(/^data:(.*,)?/, "");
+        if (encoded.length % 4 > 0) {
+          encoded += "=".repeat(4 - (encoded.length % 4));
         }
         resolve(encoded);
-      }
-      reader.onerror = error => reject(error);
+      };
+      reader.onerror = (error) => reject(error);
     });
   }
 

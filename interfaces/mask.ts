@@ -34,9 +34,14 @@ export interface ProfileFull {
   office_hours: string;
 }
 // For the name search endpoint
-export type Names = Pick<ProfileFull, 'username' | 'full_name'>;
+export type Names = Pick<ProfileFull, "username" | "full_name">;
 
 // Some of our endpoints only return a subset of the profile fields
-export type PartialProfile = Pick<ProfileFull, 'username' | 'full_name' | 'photo' | 'email'>;
+export type PartialProfile = Pick<
+  ProfileFull,
+  "username" | "full_name" | "photo" | "email"
+>;
 
-export type ProfileUpdate = Partial<Omit<ProfileFull, 'wwuid' | 'username' | 'views'>>;
+export type ProfileUpdate = Partial<
+  Omit<ProfileFull, "wwuid" | "username" | "views">
+>;
