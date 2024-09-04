@@ -1,12 +1,16 @@
 <nav class="navbar bg-dark navbar-expand-md">
   <div class="container-xxl">
+    <!-- we only want the toggler to be using it's dark theme -->
     <button
-      class="navbar navbar-toggler"
+      class="navbar-toggler"
       type="button"
       data-target="#mobile-nav-collapsible"
       aria-controls="mobile-nav-collapsible"
+      aria-controls="navbarNavAltMarkup"
+      aria-label="Toggle navigation"
       (click)="isCollapsed = !isCollapsed"
       [attr.aria-expanded]="!isCollapsed"
+      data-bs-theme="dark"
     >
       <span class="navbar-toggler-icon"></span>
     </button>

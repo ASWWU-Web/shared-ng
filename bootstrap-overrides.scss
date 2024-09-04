@@ -53,8 +53,9 @@ $theme-colors: (
   dark: $color-aswwu-dark,
 ) !default;
 
-// import bootstrap SCSS and apply overrides
-@import "node_modules/bootstrap-scss/bootstrap";
+$navbar-light-toggler-border-color: rgba(241, 228, 228, 0.664) !default;
+
+@import "bootstrap/scss/bootstrap";
 
 ///////////////////////
 // Special Overrides //
