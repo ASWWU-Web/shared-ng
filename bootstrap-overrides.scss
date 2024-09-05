@@ -76,7 +76,7 @@ $form-check-input-focus-box-shadow: $color-aswwu-secondary !default;
     $mainVal: 2.5rem;
   }
 
-  margin-bottom: $index / 2; /* JUST FOR STYLING PURPOSE */
+  margin-bottom: calc($index / 2); /* JUST FOR STYLING PURPOSE */
 
   .form-check-input {
     height: $mainVal;
