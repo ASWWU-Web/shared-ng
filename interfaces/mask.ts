@@ -1,3 +1,6 @@
+// An interface for the full profile returned by the backend
+// This is used to construct the ProfileModel class
+// This should be updated if the profile model in the backend changes.
 export interface ProfileFull {
   wwuid: string;
   username: string;
@@ -28,11 +31,16 @@ export interface ProfileFull {
   pet_peeves: string;
   personality: string;
   views: string;
-  privacy: string;
+  // while we do classify as a boolean, the backend returns a string "1" or "0"
+  // profile.model.ts will convert it to a boolean for us
+  privacy: boolean;
   department: string;
   office: string;
   office_hours: string;
 }
+
+// Type helpers based off of the profile model
+
 // For the name search endpoint
 export type Names = Pick<ProfileFull, "username" | "full_name">;
 
