@@ -1,72 +1,78 @@
-<nav class="navbar navbar-dark bg-dark navbar-expand-md">
-  <button
-    class="navbar navbar-toggler"
-    type="button"
-    data-target="#mobile-nav-collapsible"
-    aria-controls="mobile-nav-collapsible"
-    (click)="isCollapsed = !isCollapsed"
-    [attr.aria-expanded]="!isCollapsed"
-  >
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <a href="/" class="mr-2">
-    <img
-      id="navbarLogo"
-      class="img-fluid logo"
-      src="https://aswwumask.com/media/images/ASWWU_logo.png"
-    />
-  </a>
-
-  <!-- Desktop Navbar -->
-  <div class="collapse navbar-collapse">
-    <ul
-      id="nav-links"
-      class="navbar-nav text-xs-center mr-auto d-none d-md-block"
+<nav class="navbar bg-dark navbar-expand-md">
+  <div class="container-xxl">
+    <!-- we only want the toggler to be using it's dark theme -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-target="#mobile-nav-collapsible"
+      aria-controls="mobile-nav-collapsible"
+      aria-controls="navbarNavAltMarkup"
+      aria-label="Toggle navigation"
+      (click)="isCollapsed = !isCollapsed"
+      [attr.aria-expanded]="!isCollapsed"
+      data-bs-theme="dark"
     >
-      <li
-        *ngFor="let item of links"
-        [ngClass]="{
-          'nav-item': item.link != null,
-          dropdown: item.link == null
-        }"
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <a href="/" class="mr-2 navbar-brand">
+      <img
+        id="navbarLogo"
+        class="img-fluid logo"
+        src="/assets/ASWWU_logo.png"
+        alt="ASWWU Logo"
+      />
+    </a>
+
+    <!-- Desktop Navbar -->
+    <div class="collapse navbar-collapse" id="desktop-nav-links">
+      <ul
+        id="nav-links"
+        class="navbar-nav text-xs-center mr-auto d-none d-md-block"
       >
-        <!-- For Direct Links -->
-        <a
-          *ngIf="item.link != null"
-          class="smooth text-uppercase"
-          href="{{ item.link }}"
+        <li
+          *ngFor="let item of links"
+          [ngClass]="{
+            'nav-item': item.link !== null,
+            dropdown: item.link === null,
+          }"
         >
-          {{ item.text }}
-        </a>
-        <!-- For Links with Dropdowns -->
-        <div *ngIf="item.link == null" ngbDropdown class="d-inline-block">
-          <button
-            ngbDropdownToggle
-            class="btn btn-outline-primary text-uppercase"
-            id="{{ 'dropdown' + item.text }}"
+          <!-- For Direct Links -->
+          <a
+            *ngIf="item.link !== null"
+            class="smooth text-uppercase"
+            href="{{ item.link }}"
           >
             {{ item.text }}
-          </button>
-          <div
-            ngbDropdownMenu
-            class="dropdown-menu bg-dark"
-            [attr.aria-valuenow]="'dropdown' + item.text"
-          >
-            <a
-              *ngFor="let dropdownItem of item.dropdownLinks"
-              href="{{ dropdownItem.link }}"
-              class="dropdown-item text-uppercase"
-              >{{ dropdownItem.text }}</a
+          </a>
+          <!-- For Links with Dropdowns -->
+          <div *ngIf="item.link === null" ngbDropdown class="d-inline-block">
+            <button
+              ngbDropdownToggle
+              class="btn btn-outline-primary text-uppercase"
+              id="{{ 'dropdown' + item.text }}"
             >
+              {{ item.text }}
+            </button>
+            <div
+              ngbDropdownMenu
+              class="dropdown-menu bg-dark"
+              [attr.aria-valuenow]="'dropdown' + item.text"
+            >
+              <a
+                *ngFor="let dropdownItem of item.dropdownLinks"
+                href="{{ dropdownItem.link }}"
+                class="dropdown-item text-uppercase"
+                >{{ dropdownItem.text }}</a
+              >
+            </div>
           </div>
-        </div>
-      </li>
-    </ul>
+        </li>
+      </ul>
+    </div>
+    <content-moderation class="my-auto d-flex px-2"></content-moderation>
+    <user-bubble></user-bubble>
   </div>
-  <content-moderation></content-moderation>
-  <upload-modal></upload-modal>
-  <user-bubble></user-bubble>
 </nav>
 <div id="nav-spacer"></div>
 
@@ -76,8 +82,8 @@
   id="subnav-bar"
   class="navbar navbar-expand-sm hidden-sm-down sticky-top"
 >
-  <div id="subnav-links">
-    <ul class="nav navbar-nav text-xs-center mr-auto">
+  <div id="subnav-links" class="container-xxl">
+    <ul class="nav navbar-nav text-xs-left mr-auto">
       <li *ngFor="let link of subNavbarLinks" class="nav-item">
         <a class="smooth" [routerLink]="link.linkURI">{{ link.linkText }}</a>
       </li>
@@ -96,13 +102,13 @@
       *ngFor="let item of subNavbarLinks"
       class="boop"
       [ngClass]="{
-        'nav-item': item.linkURI != null,
-        dropdown: item.linkURI == null
+        'nav-item': item.linkURI !== null,
+        dropdown: item.linkURI === null,
       }"
     >
       <!-- For Direct Links -->
       <a
-        *ngIf="item.linkURI != null"
+        *ngIf="item.linkURI !== null"
         class="smooth text-uppercase d-block p-4"
         href="{{ item.linkURI }}"
       >
@@ -114,18 +120,21 @@
     <li
       *ngFor="let item of links"
       class=""
-      [ngClass]="{ 'nav-item': item.link != null, dropdown: item.link == null }"
+      [ngClass]="{
+        'nav-item': item.link !== null,
+        dropdown: item.link === null,
+      }"
     >
       <!-- For Direct Links -->
       <a
-        *ngIf="item.link != null"
+        *ngIf="item.link !== null"
         class="smooth text-uppercase d-block p-4"
         href="{{ item.link }}"
       >
         {{ item.text }}
       </a>
       <!-- For Links with Dropdowns -->
-      <div *ngIf="item.link == null" ngbDropdown class="d-block">
+      <div *ngIf="item.link === null" ngbDropdown class="d-block">
         <button
           ngbDropdownToggle
           class="dropdown-button btn btn-outline-primary text-uppercase d-block p-4"
@@ -139,7 +148,7 @@
           [attr.aria-valuenow]="'dropdown' + item.text"
         >
           <a
-            *ngFor="let dropdownItem of item.dropdownLinks"
+            *ngFor="let dropdownItem; in: item"
             href="{{ dropdownItem.link }}"
             class="dropdown-item text-uppercase p-3"
             >{{ dropdownItem.text }}</a

@@ -1,50 +1,61 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 
-import { AuthService, MaskRequestService } from '../../../shared-ng/services/services'
-import { User } from '../../interfaces/interfaces';
+import {
+  AuthService,
+  MaskRequestService,
+} from "../../../shared-ng/services/services";
+import { User } from "../../interfaces/interfaces";
 
-import { ToastrService } from 'ngx-toastr';
+import { ToastrService } from "ngx-toastr";
 
 @Component({
-  selector: 'upload-modal',
-  templateUrl: './upload-modal.html',
-  styleUrls: [
-    'upload-modal.css'
-  ]
+  selector: "upload-modal",
+  templateUrl: "./upload-modal.html",
+  styleUrl: "./upload-modal.css",
+  encapsulation: ViewEncapsulation.None,
 })
-
-export class UploadModalComponent {
-  closeResult = '';
+export class UploadModalComponent implements OnInit {
+  closeResult = "";
   fileToUpload: File = null;
-  srcString: any = null;
+  srcString: string | ArrayBuffer | null = null;
   profile: User;
 
   constructor(
-    private as: AuthService, 
-    private mrs: MaskRequestService, 
+    private as: AuthService,
+    private mrs: MaskRequestService,
     private modalService: NgbModal,
     private toastrService: ToastrService,
   ) {}
 
   ngOnInit() {
-    this.as.getUserInfo().subscribe(
-      (data: User) => {
-        this.profile = data;
-      });
+    this.as.getUserInfo().subscribe((data: User) => {
+      this.profile = data;
+    });
   }
 
-  handleFileInput(event: any): void {
-    if (event.target.files && event.target.files[0]) {
-      const file = event.target.files[0];
+  handleFileInput(event: Event): void {
+    // unfortunate cast.
+    const target = event.target as HTMLInputElement;
+    if (target.files && target.files[0]) {
+      const file = target.files[0];
+
+      if (file.size > 5242880) {
+        this.toastrService.error("File size must be smaller than 5 MB");
+        // unfortunate cast.
+        (event.target as HTMLInputElement).value = "";
+        this.fileToUpload = null;
+        this.srcString = null;
+        return;
+      }
 
       const reader = new FileReader();
 
-      reader.onload = e => {
+      reader.onload = () => {
         this.srcString = reader.result;
-        this.fileToUpload = event.target.files.item(0);
-      }
+        this.fileToUpload = target.files.item(0);
+      };
 
       reader.readAsDataURL(file);
     }
@@ -55,37 +66,44 @@ export class UploadModalComponent {
       this.toastrService.error("Invalid Input");
       return;
     }
-    var d = new Date();
-    var name = `${d.getMonth()}_${d.getDate()}_${d.getFullYear()}-${this.profile.wwuid}.jpeg`;
-    var $uploadPhoto = await this.mrs.uploadPhoto(fileToUpload, name);
+    const $uploadPhoto = await this.mrs.uploadPhoto(fileToUpload);
     $uploadPhoto.subscribe({
       next: () => {
-        this.toastrService.success("Success: Your photo is awaiting moderation");
+        this.toastrService.success(
+          "Success: Your photo is awaiting moderation",
+        );
         this.fileToUpload = null;
         this.srcString = null;
       },
       error: (err) => {
         this.toastrService.error("Invalid Input");
-        console.log(err)
+        this.fileToUpload = null;
+        this.srcString = null;
+        console.log("[File Upload]", err);
       },
-      complete: () => console.log("SUCCESS")
+      complete: () => console.log("[File Upload]", "SUCCESS"),
     });
   }
 
   open(content) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-      this.postFile(this.fileToUpload) // VALIDATE FILE
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+    this.modalService
+      .open(content, { ariaLabelledBy: "modal-basic-title" })
+      .result.then(
+        (result) => {
+          this.postFile(this.fileToUpload); // VALIDATE FILE
+          this.closeResult = `Closed with: ${result}`;
+        },
+        (reason) => {
+          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        },
+      );
   }
 
-  private getDismissReason(reason: any): string {
+  private getDismissReason(reason: number): string {
     if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
+      return "by pressing ESC";
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
+      return "by clicking on a backdrop";
     } else {
       return `with: ${reason}`;
     }

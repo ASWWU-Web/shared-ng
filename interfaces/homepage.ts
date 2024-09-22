@@ -1,4 +1,4 @@
 export interface Forum {
-    message_body: string;
-    recipient: string;
+  message_body: string;
+  recipient: string;
 }

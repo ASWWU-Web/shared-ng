@@ -5,13 +5,13 @@
  * Note: Based on http://jasonwatmore.com/post/2018/06/25/angular-6-communicating-between-components-with-observable-subject
  */
 
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/internal/Observable';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { HeaderButton, SubNavbarLink } from '../interfaces/interfaces';
+import { Injectable } from "@angular/core";
+import { Observable } from "rxjs/internal/Observable";
+import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
+import { HeaderButton, SubNavbarLink } from "../interfaces/interfaces";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class HermesService {
   private headerTitleSubject: BehaviorSubject<string>;

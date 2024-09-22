@@ -85,7 +85,7 @@ h6 {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: url(https://aswwumask.com/media/background.php);
+  background-image: url(/media/background.png);
   background-size: cover;
   height: 95vh;
   width: 100%;

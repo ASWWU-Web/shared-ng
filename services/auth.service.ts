@@ -6,18 +6,17 @@
  * and the old request service originally copied from the pages project and reworked from Ryan Rabello's implementation.
  */
 
-import { Injectable } from '@angular/core';
-import { of, throwError } from 'rxjs';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { Observable } from 'rxjs/internal/Observable';
-import { catchError, map, tap } from 'rxjs/operators';
-import { SAML_LOGIN_URL } from '../../shared-ng/config';
-import { environment } from '../environments/environment';
-import { User } from '../interfaces/interfaces';
-import { RequestService } from './request.service';
+import { Injectable } from "@angular/core";
+import { of } from "rxjs";
+import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
+import { Observable } from "rxjs/internal/Observable";
+import { catchError, map, tap } from "rxjs/operators";
+import { SAML_LOGIN_URL } from "../../shared-ng/config";
+import { User } from "../interfaces/interfaces";
+import { RequestService } from "./request.service";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class AuthService {
   // private userInfo: User;
@@ -52,7 +51,7 @@ export class AuthService {
    * other errors will be re-thrown.
    */
   private readVerify(): Observable<User> {
-    return this.rs.get('verify').pipe(
+    return this.rs.get("verify").pipe(
       map((data) => {
         return data.user;
       }),
@@ -62,22 +61,22 @@ export class AuthService {
         } else {
           throw err;
         }
-      })
+      }),
     );
   }
 
   /**
    * Send a request to the server to verify the current user.
-   * Sets user information and handles the aswwu cookie.
-   * if the loggedin cookie is not set no request is made
+   * Sets user information and handles the token.
+   * if the token cookie is not set no request is made
    * Returns an observable with user information, or a null
-   * observable if there's no loggedin cookie.
+   * observable if there's no token cookie.
    */
   public authenticateUser(): Observable<User> {
     return this.readVerify().pipe(
       tap((data: User | null) => {
         this.sendUserInfo(data);
-      })
+      }),
     );
   }
 
@@ -86,11 +85,14 @@ export class AuthService {
    * the auth service.
    */
   public logout(): void {
-    this.rs.get('logout').pipe(
-      catchError((err) => {
-        throw err;
-      })
-    ).subscribe();
+    this.rs
+      .get("logout")
+      .pipe(
+        catchError((err) => {
+          throw err;
+        }),
+      )
+      .subscribe();
     this.sendUserInfo(null);
   }
 

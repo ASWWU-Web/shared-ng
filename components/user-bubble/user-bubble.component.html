@@ -3,8 +3,8 @@
     <button id="bubbleicon" ngbDropdownToggle>
       <div
         *ngIf="
-          profile?.photo == 'images/mask_unknown.png' ||
-          profile?.photo == 'None' ||
+          profile?.photo === 'images/mask_unknown.png' ||
+          profile?.photo === 'None' ||
           !profile?.photo
         "
         class="btn btn-default btn-circle"
@@ -14,13 +14,14 @@
       <img
         *ngIf="
           !(
-            profile?.photo == 'images/mask_unknown.png' ||
-            profile?.photo == 'None' ||
+            profile?.photo === 'images/mask_unknown.png' ||
+            profile?.photo === 'None' ||
             !profile?.photo
           )
         "
         class="btn btn-default btn-circle"
         src="{{ getPhotoLink(profile.photo) }}"
+        alt="Your Profile Photo"
       />
     </button>
     <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="bubbleicon">
@@ -32,6 +33,8 @@
       <a class="btn btn-default dropdown-item" href="{{ base_url }}/mask/update"
         >Update Profile</a
       >
+      <div class="dropdown-divider"></div>
+      <upload-modal></upload-modal>
       <div class="dropdown-divider"></div>
       <button
         class="btn btn-default dropdown-item"

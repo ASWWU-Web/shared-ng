@@ -2,7 +2,7 @@
 // General Overrides //
 ///////////////////////
 
-@import "src/shared-ng/styles";
+@import "./styles.scss";
 
 // color overrides
 // $blue: blue !default;
@@ -53,11 +53,62 @@ $theme-colors: (
   dark: $color-aswwu-dark,
 ) !default;
 
-// remove rounded corners
-$enable-rounded: false;
+// Style Overrides
+$navbar-light-toggler-border-color: rgba(241, 228, 228, 0.664) !default;
 
-// import bootstrap SCSS and apply overrides
-@import "node_modules/bootstrap-scss/bootstrap";
+$form-check-input-checked-bg-color: $color-aswwu-primary !default;
+$form-check-input-checked-border-color: $color-aswwu-primary !default;
+$form-check-input-focus-border: $color-aswwu-primary !default;
+$form-check-input-focus-box-shadow: $color-aswwu-secondary !default;
+// https://codepen.io/nisharg/pen/gOPLOYY
+@mixin switch($res: "sm") {
+  $index: 1rem;
+  $mainVal: 1rem;
+
+  @if $res == "md" {
+    $index: 2rem;
+    $mainVal: 1.5rem;
+  } @else if $res == "lg" {
+    $index: 3rem;
+    $mainVal: 2rem;
+  } @else if $res == "xl" {
+    $index: 4rem;
+    $mainVal: 2.5rem;
+  }
+
+  margin-bottom: calc($index / 2); /* JUST FOR STYLING PURPOSE */
+
+  .form-check-input {
+    height: $mainVal;
+    width: calc(#{$index} + 0.75rem);
+    border-radius: $mainVal * 2;
+  }
+}
+
+.form-check-input {
+  clear: left;
+}
+
+// YOU CAN PUT ALL RESOLUTION HERE
+// sm - DEFAULT, md, lg, xl
+
+.form-switch.form-switch-sm {
+  @include switch();
+}
+
+.form-switch.form-switch-md {
+  @include switch("md");
+}
+
+.form-switch.form-switch-lg {
+  @include switch("lg");
+}
+
+.form-switch.form-switch-xl {
+  @include switch("xl");
+}
+
+@import "bootstrap/scss/bootstrap";
 
 ///////////////////////
 // Special Overrides //
@@ -77,8 +128,23 @@ $enable-rounded: false;
 .navbar-light {
   background-color: #{$color-aswwu-light};
 }
-.btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info,
-.btn-primary:hover, .btn-secondary:hover, .btn-success:hover, .btn-danger:hover, .btn-warning:hover, .btn-info:hover,
-.btn-primary:disabled, .btn-secondary:disabled, .btn-success:disabled, .btn-danger:disabled, .btn-warning:disabled, .btn-info:disabled {
+.btn-primary,
+.btn-secondary,
+.btn-success,
+.btn-danger,
+.btn-warning,
+.btn-info,
+.btn-primary:hover,
+.btn-secondary:hover,
+.btn-success:hover,
+.btn-danger:hover,
+.btn-warning:hover,
+.btn-info:hover,
+.btn-primary:disabled,
+.btn-secondary:disabled,
+.btn-success:disabled,
+.btn-danger:disabled,
+.btn-warning:disabled,
+.btn-info:disabled {
   color: white;
 }

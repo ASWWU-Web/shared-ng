@@ -3,23 +3,19 @@
 /**
  * Created by ethan on 3/7/17.
  */
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService, UrlService } from '../../services/services';
-import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
-import { MEDIA_SM, DEFAULT_PHOTO, CURRENT_YEAR } from '../../config';
-import { User } from '../../interfaces/interfaces';
-import { Subscription } from 'rxjs';
-import { LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { Component, OnDestroy } from "@angular/core";
+import { Router } from "@angular/router";
+import { AuthService, UrlService } from "../../services/services";
+import { CURRENT_YEAR, DEFAULT_PHOTO, MEDIA_SM } from "../../config";
+import { User } from "../../interfaces/interfaces";
+import { Subscription } from "rxjs";
 
 @Component({
-  // tslint:disable-next-line: component-selector
-  selector: 'user-bubble',
-  templateUrl: 'user-bubble.component.html',
-  styleUrls: ['user-bubble.component.css'],
+  selector: "user-bubble",
+  templateUrl: "user-bubble.component.html",
+  styleUrls: ["user-bubble.component.css"],
 })
-
-export class UserBubbleComponent implements OnInit, OnDestroy {
+export class UserBubbleComponent implements OnDestroy {
   base_url: string;
   current_year = CURRENT_YEAR;
   profile: User;
@@ -27,18 +23,23 @@ export class UserBubbleComponent implements OnInit, OnDestroy {
   UserInfoSubscription: Subscription;
   buildLoginLink: () => string;
 
-  constructor(private authService: AuthService, private _router: Router, private urlService: UrlService) {
+  constructor(
+    private authService: AuthService,
+    private _router: Router,
+    private urlService: UrlService,
+  ) {
     this.buildLoginLink = authService.buildLoginLink;
     this.router = _router;
-    this.UserInfoSubscription = authService.getUserInfo().subscribe(
-      (data: User) => {
+    this.UserInfoSubscription = authService.getUserInfo().subscribe({
+      next: (data: User) => {
+        console.log("got update");
         this.profile = data;
-      });
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
     this.base_url = urlService.getBaseUrl();
-
-  }
-
-  ngOnInit() {
   }
 
   ngOnDestroy() {
@@ -48,10 +49,11 @@ export class UserBubbleComponent implements OnInit, OnDestroy {
 
   // Photo url to link function returns proper url and BLANK photo if photo == "None"
   getPhotoLink(url: string) {
-    if (url && url !== 'None') {
-      return MEDIA_SM + '/' + url;
+    if (url && url !== "None") {
+      if (url === DEFAULT_PHOTO) return DEFAULT_PHOTO;
+      return MEDIA_SM + "/" + url;
     } else {
-      return MEDIA_SM + '/' + DEFAULT_PHOTO;
+      return DEFAULT_PHOTO;
     }
   }
 

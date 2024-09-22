@@ -1,9 +1,12 @@
 /* mobile nav menu items */
-#mobile-nav-links li a, #mobile-nav-links li div button  {
+#mobile-nav-links li a,
+#mobile-nav-links li div button {
   font-family: var(--font-1);
   font-size: 1.5rem;
   color: white;
-  transition: color .2s, background-color .2s;
+  transition:
+    color 0.2s,
+    background-color 0.2s;
   text-decoration: none;
   background-color: var(--color-aswwu-dark);
   border-bottom: 1px solid black;
@@ -11,9 +14,10 @@
   width: -webkit-fill-available;
   width: -moz-available;
 }
-#mobile-nav-links li a:active, #mobile-nav-links li button:active {
+#mobile-nav-links li a:active,
+#mobile-nav-links li button:active {
   filter: brightness(125%);
-  transition: .2s;
+  transition: 0.2s;
 }
 
 #mobile-nav-links .dropdown-menu {
@@ -25,7 +29,7 @@
   inline styles applied by angular and/or bootstrap.
   this makes the dropdown menus push down other menu buttons
   when they're open */
-  transform: translate(0px,0px) !important;
+  transform: translate(0px, 0px) !important;
   position: relative !important;
   line-height: 1;
 }
@@ -35,57 +39,62 @@
 }
 
 /* mobile-nav-menu */
-  .mobile-scrollable-menu {
-    z-index: 3;
-    height: calc(100vh - 66px);
-    overflow-y: auto;
-    position: fixed;
-  }
+.mobile-scrollable-menu {
+  z-index: 3;
+  height: calc(100vh - 66px);
+  overflow-y: auto;
+  position: fixed;
+}
 /* mobile nav menu animation */
-.collapse.mobile-scrollable-menu, .collapse.show {
-    display: block !important;
-    transition: all .4s cubic-bezier(0, 1.03, 0.28, 0.99);
-  }
+.collapse.mobile-scrollable-menu,
+.collapse.show {
+  display: block !important;
+  transition: all 0.4s cubic-bezier(0, 1.03, 0.28, 0.99);
+}
 
-  .collapse.mobile-scrollable-menu{
-   width: 0;
-  }
+.collapse.mobile-scrollable-menu {
+  width: 0;
+}
 
-  .collapse.show {
-    width: 100%;
-    /* if we add swiping to open and close the menu this doesn't need to be 100% */
-  }
+.collapse.show {
+  width: 100%;
+  /* if we add swiping to open and close the menu this doesn't need to be 100% */
+}
 
-  @media only screen and (max-width: 768px) {
-    #subnav-bar {
-      display: none;
-    }
+@media only screen and (max-width: 768px) {
+  #subnav-bar {
+    display: none;
   }
+}
 
-  @media only screen and (min-width:768px) {
-    /* for desktop */
-    .desktop-hide {
-      width:0 !important;
-    }
+@media only screen and (min-width: 768px) {
+  /* for desktop */
+  .desktop-hide {
+    width: 0 !important;
   }
+}
 
-  /* mobile sub-navbar */
-  #mobile-subnav-links li {
-    line-height: .3 !important;
-    background-color: #282828;
-  }
-  #mobile-subnav-links li a, #mobile-subnav-links li div button  {
-    font-family: var(--font-1);
-    font-size: 1rem;
-    color: white;
-    transition: color .2s, background-color .2s;
-    text-decoration: none;
-    border-bottom: 1px solid black;
-    width: stretch;
-    width: -webkit-fill-available;
-    width: -moz-available;
-  }
-  #mobile-subnav-links li a:active, #mobile-subnav-links li button:active {
-    filter: brightness(125%);
-    transition: .2s;
-  }
+/* mobile sub-navbar */
+#mobile-subnav-links li {
+  line-height: 0.3 !important;
+  background-color: #282828;
+}
+#mobile-subnav-links li a,
+#mobile-subnav-links li div button {
+  font-family: var(--font-1);
+  font-size: 1rem;
+  color: white;
+  transition:
+    color 0.2s,
+    background-color 0.2s;
+  text-decoration: none;
+  border-bottom: 1px solid black;
+  width: stretch;
+  width: -webkit-fill-available;
+  width: -moz-available;
+}
+#mobile-subnav-links li a:active,
+#mobile-subnav-links li button:active {
+  filter: brightness(125%);
+  transition: 0.2s;
+}

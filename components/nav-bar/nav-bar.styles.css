@@ -25,7 +25,9 @@
 #nav-links li a {
   font-family: var(--font-1);
   color: white;
-  transition: color .2s, background-color .2s;
+  transition:
+    color 0.2s,
+    background-color 0.2s;
 }
 #nav-links li a:hover {
   color: grey;
@@ -41,10 +43,12 @@
 }
 .dropdown div button {
   all: initial;
-  border:0px;
+  border: 0px;
   font-family: var(--font-1);
   color: white;
-  transition: color .2s, background-color .2s;
+  transition:
+    color 0.2s,
+    background-color 0.2s;
   background-color: inherit;
   cursor: pointer;
 }
@@ -53,13 +57,11 @@
   all: initial;
   color: grey;
   text-decoration: none;
-
 }
 
 nav {
   position: relative;
-  width:100%;
-  height: 66px; /* the max height with the user bubble visible*/
+  width: 100%;
   top: 0 !important;
   z-index: 3 !important;
 }
@@ -72,6 +74,8 @@ nav {
 @media only screen and (max-width: 768px) {
   nav {
     position: fixed;
+    /* drop shadow */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.49);
   }
   #nav-spacer {
     position: relative;
@@ -98,11 +102,12 @@ nav {
 #subnav-links li a {
   color: white;
   font-family: var(--font-2);
-  transition: color .2s, background-color .2s;
+  transition:
+    color 0.2s,
+    background-color 0.2s;
 }
 
 #subnav-links li a:hover {
   color: grey;
   text-decoration: none;
 }
-
