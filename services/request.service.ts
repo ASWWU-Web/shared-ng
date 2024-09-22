@@ -18,7 +18,7 @@ import { environment } from "../../shared-ng/environments/environment";
 export class RequestService {
   private URLENCODED = "application/x-www-form-urlencoded; charset=UTF-8";
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    * Takes a uri suffix or a full url. If it is not a full url append aswwumask.com and add forward slashes as needed.
