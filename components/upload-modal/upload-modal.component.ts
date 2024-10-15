@@ -68,6 +68,7 @@ export class UploadModalComponent implements OnInit {
           "Success: Your photo is awaiting moderation",
         );
         this.fileToUpload = null;
+        this.imageChangedEvent = null;
       },
       error: (err) => {
         this.toastrService.error("Invalid Input");
@@ -93,7 +94,6 @@ export class UploadModalComponent implements OnInit {
   }
   imageCropped(event: ImageCroppedEvent) {
     this.fileToUpload = event.blob;
-    console.log(this.fileToUpload)
   }
   loadImageFailed() {
     // show message
