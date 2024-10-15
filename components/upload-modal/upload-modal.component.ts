@@ -94,16 +94,11 @@ export class UploadModalComponent implements OnInit {
   imageCropped(event: ImageCroppedEvent) {
     this.fileToUpload = event.blob;
     console.log(this.fileToUpload)
-    // event.blob can be used to upload the cropped image
-  }
-  imageLoaded(image: LoadedImage) {
-    // show cropper
-  }
-  cropperReady() {
-    // cropper ready
   }
   loadImageFailed() {
     // show message
+    this.toastrService.error("Invalid Input");
+    this.fileToUpload = null;
   }
 
   private getDismissReason(reason: number): string {
