@@ -5,7 +5,7 @@ export interface ProfileFull {
   wwuid: string;
   username: string;
   full_name: string;
-  photo: string;
+  photo: string | null;
   gender: string;
   birthday: string;
   email: string;
