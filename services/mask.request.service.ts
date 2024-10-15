@@ -164,8 +164,10 @@ export class MaskRequestService extends RequestService {
    *
    * @return
    */
-  async uploadPhoto(fileToUpload: File) {
-    const imageBase64 = await this.fileToBase64(fileToUpload);
-    return super.post(`/update/upload_photo`, { image: imageBase64 });
+  async uploadPhoto(fileToUpload: Blob) {
+    const file = new File([fileToUpload], "image.jpg");
+    console.log(file.size);
+    const image = await this.fileToBase64(file);
+    return super.post(`/update/upload_photo`, { image: image });
   }
 }

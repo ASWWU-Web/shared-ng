@@ -12,6 +12,8 @@ import { Observable } from "rxjs";
 
 import { environment } from "../../shared-ng/environments/environment";
 
+type Encoding = "urlencoded" | "formData" | "json";
+
 @Injectable({
   providedIn: "root",
 })
@@ -45,6 +47,8 @@ export class RequestService {
     let body: string;
     if (encoding === "urlencoded") {
       body = this.objToHttpParams(data);
+    } else if (encoding === "formData") {
+      body = data;
     } else {
       body = JSON.stringify(data);
     }
@@ -100,14 +104,14 @@ export class RequestService {
    * @param uri string, the part of the URL following aswwumask.com and before parameters, or a full URL
    * @param urlParams javascript object, containing parameters to be placed in the request URL
    * @param data javascript object, data to be used in POST and PUT requests
-   * @param encoding string, use "urlencoded" if the server needs that format, defaults to json
+   * @param encoding Encoding, use "urlencoded" if the server needs that format, defaults to json
    */
   private request(
     requestType: string,
     uriSuffix: string,
     urlParams?: any,
     data?: any,
-    encoding?: string,
+    encoding?: Encoding,
   ): Observable<any> {
     const url = this.createUri(uriSuffix);
     const body = this.createBody(data, encoding);
@@ -142,7 +146,7 @@ export class RequestService {
     uri: string,
     data: any,
     urlParams?: any,
-    encoding?: any,
+    encoding?: Encoding,
   ): Observable<any> {
     return this.request("POST", uri, urlParams, data, encoding);
   }
@@ -151,7 +155,7 @@ export class RequestService {
     uri: string,
     data: any,
     urlParams?: any,
-    encoding?: any,
+    encoding?: Encoding,
   ): Observable<any> {
     return this.request("PUT", uri, urlParams, data, encoding);
   }
@@ -161,7 +165,7 @@ export class RequestService {
     uri: string,
     data: any,
     urlParams?: any,
-    encoding?: any,
+    encoding?: Encoding,
   ): Observable<any> {
     return this.request("PATCH", uri, urlParams, data, encoding);
   }
