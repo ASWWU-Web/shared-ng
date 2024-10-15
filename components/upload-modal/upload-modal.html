@@ -17,21 +17,25 @@
           type="file"
           id="file"
           (change)="handleFileInput($event)"
-          accept="image/jpeg, image/png, image/jpg"
+          accept="image/jpeg, image/png, image/jpg, image/heic"
         />
       </div>
     </form>
   </div>
-  <img
-    [src]="srcString"
-    height="600"
-    width="auto"
-    *ngIf="srcString"
-    alt="Uploaded Image"
-  />
+  <image-cropper
+    [imageChangedEvent]="imageChangedEvent"
+    [maintainAspectRatio]="true"
+    [aspectRatio]="2/3"
+    format="jpeg"
+    quality="0.8"
+    (imageCropped)="imageCropped($event)"
+    (imageLoaded)="imageLoaded($event)"
+    (cropperReady)="cropperReady()"
+    (loadImageFailed)="loadImageFailed()"
+  ></image-cropper>
   <div class="modal-footer space-between-content">
     <div class="image-restriction">
-      Image file size must be smaller than 5 MB
+      Image file size must be smaller than 10 MB
     </div>
     <button
       type="button"
