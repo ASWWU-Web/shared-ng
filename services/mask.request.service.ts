@@ -170,4 +170,17 @@ export class MaskRequestService extends RequestService {
     const image = await this.fileToBase64(file);
     return super.post(`/update/upload_photo`, { image: image });
   }
+
+  /**
+   * Gets a random profile
+   *
+   * @return
+   */
+  getRandomProfile(): Observable<ProfileFull[]> {
+    const profileObservable = super
+      .get(`/random`)
+      .pipe(map((data: { results: ProfileFull[] }) => data.results));
+
+    return profileObservable;
+  }
 }
