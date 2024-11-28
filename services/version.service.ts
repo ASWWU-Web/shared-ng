@@ -8,7 +8,7 @@ import { environment } from "src/shared-ng/environments/environment";
 export class VersionService {
   version = VERSION;
   constructor() {
-    console.log("VersionService", VERSION);
+    console.log("Running", this.getVersionString());
   }
 
   getVersion() {
