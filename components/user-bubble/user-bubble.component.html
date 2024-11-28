@@ -27,10 +27,11 @@
     <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="bubbleicon">
       <a
         class="btn btn-default dropdown-item"
-        href="{{ base_url }}/mask/profile/{{ profile?.username }}"
-        >View Profile</a
+        [routerLink]="'/mask/profile/' + profile.username"
       >
-      <a class="btn btn-default dropdown-item" href="{{ base_url }}/mask/update"
+        View Profile</a
+      >
+      <a class="btn btn-default dropdown-item" [routerLink]="'/mask/update'"
         >Update Profile</a
       >
       <div class="dropdown-divider"></div>

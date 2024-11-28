@@ -15,7 +15,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <a href="https://aswwu.com" class="mr-2 navbar-brand">
+    <a [routerLink]="'/'" class="mr-2 navbar-brand">
       <img
         id="navbarLogo"
         class="img-fluid logo"
@@ -30,6 +30,9 @@
         id="nav-links"
         class="navbar-nav text-xs-center mr-auto d-none d-md-block"
       >
+        <li class="nav-item">
+          <a href="https://aswwu.com"> HOME</a>
+        </li>
         <li
           *ngFor="let item of links"
           [ngClass]="{
@@ -41,7 +44,7 @@
           <a
             *ngIf="item.link !== null"
             class="smooth text-uppercase"
-            href="{{ item.link }}"
+            [routerLink]="item.link"
           >
             {{ item.text }}
           </a>
@@ -61,7 +64,7 @@
             >
               <a
                 *ngFor="let dropdownItem of item.dropdownLinks"
-                href="{{ dropdownItem.link }}"
+                [routerLink]="item.link"
                 class="dropdown-item text-uppercase"
                 >{{ dropdownItem.text }}</a
               >
