@@ -3,6 +3,7 @@ import { NgbNavChangeEvent } from "@ng-bootstrap/ng-bootstrap";
 import { SubNavbarLink } from "../../interfaces/interfaces";
 import { Subscription } from "rxjs";
 import { HermesService } from "../../services/services";
+import { Router } from "@angular/router";
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
@@ -21,7 +22,7 @@ export class NavBarComponent {
     showSubNavBarLinks: null as Subscription,
   };
 
-  constructor(private hermesService: HermesService) {
+  constructor(private hermesService: HermesService, private _router: Router) {
     // subscribe to generate sub-navbar links
     this.subscriptions.subNavbarLinks = this.hermesService
       .getSubNavbarLinks()

@@ -88,7 +88,12 @@
   <div id="subnav-links" class="container-xxl">
     <ul class="nav navbar-nav text-xs-left mr-auto">
       <li *ngFor="let link of subNavbarLinks" class="nav-item">
-        <a class="smooth" [routerLink]="link.linkURI">{{ link.linkText }}</a>
+        <a
+          class="smooth"
+          [routerLink]="link.linkURI"
+          [queryParams]="link.queryParams"
+          >{{ link.linkText }}</a
+        >
       </li>
     </ul>
   </div>

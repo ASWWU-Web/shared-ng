@@ -1,3 +1,5 @@
+import { Params } from "@angular/router";
+
 export interface HeaderButton {
   buttonText: string;
   buttonLink: string;
@@ -8,4 +10,5 @@ export interface HeaderButton {
 export interface SubNavbarLink {
   linkText: string;
   linkURI: string;
+  queryParams?: Params;
 }

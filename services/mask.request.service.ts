@@ -50,7 +50,7 @@ export class MaskRequestService extends RequestService {
 
     const profileObservable = super
       .get(uri)
-      .pipe(map((data: { results: PartialProfile[] }) => data.results));
+      .pipe(map((data: { results: PartialProfile[] }) => data.results))
 
     return profileObservable;
   }
