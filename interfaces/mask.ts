@@ -6,6 +6,7 @@ export interface ProfileFull {
   username: string;
   full_name: string;
   photo: string | null;
+  blurhash: string | null;
   gender: string;
   birthday: string;
   email: string;
@@ -33,7 +34,7 @@ export interface ProfileFull {
   views: string;
   // while we do classify as a boolean, the backend returns a string "1" or "0"
   // profile.model.ts will convert it to a boolean for us
-  privacy: boolean;
+  privacy: boolean | string;
   department: string;
   office: string;
   office_hours: string;
@@ -47,7 +48,7 @@ export type Names = Pick<ProfileFull, "username" | "full_name">;
 // Some of our endpoints only return a subset of the profile fields
 export type PartialProfile = Pick<
   ProfileFull,
-  "username" | "full_name" | "photo" | "email"
+  "username" | "full_name" | "photo" | "email" | "blurhash"
 >;
 
 export type ProfileUpdate = Partial<

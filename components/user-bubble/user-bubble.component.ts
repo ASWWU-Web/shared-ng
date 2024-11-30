@@ -32,7 +32,6 @@ export class UserBubbleComponent implements OnDestroy {
     this.router = _router;
     this.UserInfoSubscription = authService.getUserInfo().subscribe({
       next: (data: User) => {
-        console.log("got update");
         this.profile = data;
       },
       error: (err) => {

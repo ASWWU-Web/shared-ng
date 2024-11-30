@@ -76,7 +76,6 @@ export class AuthService {
    */
   public authenticateUser(forceReauth?: boolean): Observable<User> {
     const userCache = this.getLocalCache();
-    console.log(forceReauth);
     if (userCache && !forceReauth) return new BehaviorSubject(userCache).asObservable().pipe(
       tap((data: User) => {
         this.sendUserInfo(data);
@@ -127,7 +126,6 @@ export class AuthService {
       user: User,
       time: number
     } = JSON.parse(window.localStorage.getItem("current_user"));
-    console.log(userInfo);
     if (!userInfo) return null;
     // because the user cache is out of date, we want to fetch the new user
     if (!moment(userInfo.time).add(48, "hours").isAfter(moment.now())) {

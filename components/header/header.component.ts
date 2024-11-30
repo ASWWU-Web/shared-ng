@@ -65,14 +65,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.subscriptions.visible = this.hermesService
       .getShowHeader()
       .subscribe((message) => {
-        console.log("header visible", message);
         if (message !== null) {
           this.visible = message;
         }
       });
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   ngOnDestroy() {
     // unsubscribe from all subjects
