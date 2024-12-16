@@ -16,6 +16,6 @@ export class VersionService {
   }
 
   getVersionString() {
-    return `${environment.production ? "prod" : "development"}@${this.version.raw}`;
+    return `${environment.environment}@${this.version.raw}`;
   }
 }

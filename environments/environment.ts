@@ -7,7 +7,7 @@ import type { Environment } from "./types";
 
 // You can run the server in production mode by running `ng serve -prod`.
 export const environment = {
-  production: false,
+  environment: "development",
   API_URL: "https://localhost/server",
   BASE_URL: "https://localhost",
 } satisfies Environment;
